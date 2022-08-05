@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css"
 
-export default function Calc() {
+export const Calc = () => {
   const [resposta, setResposta] = useState()
-  let primeiroNum = Math.floor(Math.random() * 11)
-  let segundoNum = Math.floor(Math.random() * 11)
+  const [pergunta, setPergunta] = useState([])
+  const [operacao, setOperacao] = useState('')
+  const [showResultado, setShowResultado] = useState('')
+  const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)))
+  const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)))
+
   let trueResultado
 
   const updateResposta = e => {
@@ -14,31 +18,53 @@ export default function Calc() {
   const gerarConta = () => {
     let verificador = Math.floor(Math.random() * 3)
 
+    // reciclar números
+
     switch (verificador) {
       case 0:
-        trueResultado = primeiroNum + segundoNum
+        setPergunta(`quanto é ${n1} + ${n2}?`)
+        setOperacao('soma')
         break;
       case 1:
-        trueResultado = primeiroNum - segundoNum
+        setPergunta(`quanto é ${n1} - ${n2}?`)
+        setOperacao('subtracao')
         break;
-      case 2: 
-        trueResultado = primeiroNum * segundoNum
+      case 2:
+        setPergunta(`quanto é ${n1} * ${n2}?`)
+        setOperacao('multip')
         break;
     }
   }
 
+  useEffect(() => {
+    gerarConta()
+  }, [])
+
   const rCerta = () => {
-    
+    setShowResultado("certo")
   }
   const rErrada = () => {
-
+    setShowResultado("errado")
   }
 
   const compararResultado = () => {
-    if (resposta === trueResultado) {
-      return rCerta()
+    switch (operacao) {
+      case 'soma':
+        trueResultado = n1 + n2
+        break;
+      case 'subtracao':
+        trueResultado = n1 - n2
+        break;
+      case 'multip':
+        trueResultado = n1 * n2
+        break;
     }
-    rErrada()
+
+    if (resposta == trueResultado) return rCerta()
+    if (resposta != trueResultado) rErrada()
+    console.log(resposta);
+    console.log(trueResultado);
+    setOperacao('')
   }
 
   return (
@@ -48,17 +74,22 @@ export default function Calc() {
       </header>
 
       <div>
-        <h3 className={styles.perguntaCalc}>pergunta...</h3>
+        <h3 className={styles.perguntaCalc}>{pergunta}</h3>
       </div>
 
       <div>
         <input 
           placeholder="RESPOSTA..."
+          type={'number'}
           onChange={updateResposta}/>
         <button 
-          className={styles.buttonCalc}>ATACAR</button>
+          className={styles.buttonCalc}
+          onClick={() => compararResultado()}>ATACAR</button>
         <button className={styles.buttonCalc}>CURAR</button>
+      </div>
 
+      <div>
+        <h3>{showResultado}</h3>
       </div>
     </div>
   );
