@@ -18,8 +18,6 @@ export const Calc = () => {
   const gerarConta = () => {
     let verificador = Math.floor(Math.random() * 3)
 
-    // reciclar números
-
     switch (verificador) {
       case 0:
         setPergunta(`quanto é ${n1} + ${n2}?`)
@@ -60,10 +58,8 @@ export const Calc = () => {
         break;
     }
 
-    if (resposta == trueResultado) return rCerta()
+    if (resposta == trueResultado) rCerta()
     if (resposta != trueResultado) rErrada()
-    console.log(resposta);
-    console.log(trueResultado);
     setOperacao('')
   }
 
