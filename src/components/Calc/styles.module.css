@@ -1,9 +1,59 @@
+.containerCalc {
+    background-color: #414141;
+}
 .titleCalc {
     color: #f9f9f9;
 }
 .perguntaCalc {
-    color: #f9f9f9
+    color: #f9f9f9;
 }
-.buttonCalc {
-    background-color: #919191;
+.resultadoCalc {
+    color: #f9f9f9;
+}
+.inputCalc {
+    padding: 10px;
+    border: none;
+}
+.buttonCalcAtk {
+    background-color: #ff5f5f;
+    color: #212121;
+    font-weight: 700;
+    padding: 5px;
+    padding-inline: 6px;
+    margin-right: 8px;
+    border: none;
+    font-size: 16px;
+}
+.buttonCalcCurar {
+    background-color: #ff5f5f;
+    color: #212121;
+    font-weight: 700;
+    padding: 5px;
+    padding-inline: 9px;
+    margin-left: 8px;
+    border: none;
+    font-size: 16px;
+}
+.buttonCalcText {
+    background-color: rgba(0%, 0%, 0%, 0.0001);;
+}
+.buttonCalcAtk:hover {
+    background-color: #fe8181;
+    cursor: pointer;
+}
+.buttonCalcCurar:hover {
+    background-color: #fe8181;
+    cursor: pointer;
+}
+.atkIcon {
+    font-size: 50px;
+    margin-left: 5px;
+    background-color: rgba(0%, 0%, 0%, 0.0001);
+}
+.healIcon {
+    font-size: 50px;
+    background-color: rgba(0%, 0%, 0%, 0.0001);
+}
+.buttonDivCalc {
+    margin-top: 40px;
 }

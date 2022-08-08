@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css"
+import { GiRustySword } from "react-icons/gi"
+import { GiHealthPotion } from "react-icons/gi"
 
 export const Calc = () => {
   const [resposta, setResposta] = useState()
@@ -64,9 +66,9 @@ export const Calc = () => {
   }
 
   return (
-    <div>
+    <div className={styles.containerCalc}>
       <header>
-        <h1 className={styles.titleCalc}>CALCULARK</h1>
+        <h1 className={styles.titleCalc}>oi</h1>
       </header>
 
       <div>
@@ -75,18 +77,30 @@ export const Calc = () => {
 
       <div>
         <input 
+          className={styles.inputCalc}
           placeholder="RESPOSTA..."
           type={'number'}
           onChange={updateResposta}/>
+      </div>
+
+      <div className={styles.buttonDivCalc}>
         <button 
-          className={styles.buttonCalc}
-          onClick={() => compararResultado()}>ATACAR</button>
-        <button className={styles.buttonCalc}>CURAR</button>
+          className={styles.buttonCalcAtk}
+          onClick={() => compararResultado()}>
+            <p className={styles.buttonCalcText}>ATACAR</p>
+            <GiRustySword className={styles.atkIcon}/>
+        </button>
+        <button 
+          className={styles.buttonCalcCurar}>
+            <p className={styles.buttonCalcText}>CURAR</p>
+            <GiHealthPotion className={styles.healIcon}/>
+        </button>
       </div>
 
       <div>
-        <h3>{showResultado}</h3>
+        <h3 className={styles.resultadoCalc}>{showResultado}</h3>
       </div>
     </div>
+    
   );
 }
