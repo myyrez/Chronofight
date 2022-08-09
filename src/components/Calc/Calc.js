@@ -22,15 +22,15 @@ export const Calc = () => {
 
     switch (verificador) {
       case 0:
-        setPergunta(`quanto é ${n1} + ${n2}?`)
+        setPergunta(`${n1} + ${n2}`)
         setOperacao('soma')
         break;
       case 1:
-        setPergunta(`quanto é ${n1} - ${n2}?`)
+        setPergunta(`${n1} - ${n2}`)
         setOperacao('subtracao')
         break;
       case 2:
-        setPergunta(`quanto é ${n1} * ${n2}?`)
+        setPergunta(`${n1} x ${n2}`)
         setOperacao('multip')
         break;
     }
