@@ -67,7 +67,7 @@ export const Calc = () => {
 
   return (
     <div className={styles.containerCalc}>
-      <header>
+      <header className={styles.headerCalc}>
         <h1 className={styles.titleCalc}>oi</h1>
       </header>
 
@@ -83,6 +83,10 @@ export const Calc = () => {
           onChange={updateResposta}/>
       </div>
 
+      <div className={styles.resultadoDivCalc}>
+        <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+      </div>
+
       <div className={styles.buttonDivCalc}>
         <button 
           className={styles.buttonCalcAtk}
@@ -96,11 +100,6 @@ export const Calc = () => {
             <GiHealthPotion className={styles.healIcon}/>
         </button>
       </div>
-
-      <div>
-        <h3 className={styles.resultadoCalc}>{showResultado}</h3>
-      </div>
     </div>
-    
   );
 }
