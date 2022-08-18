@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'ThisSucksRegular';
+    src: local('ThisSucksRegular'),
+    url('../../assets/fonts/ThisSucksRegular-Y9yo.ttf') format('truetype');
+}
+* {
+    font-family: "ThisSucksRegular";
+}
 .containerCalc {
     background-color: #414141;
     height: 100vh;
@@ -19,7 +27,7 @@
     padding-top: 3rem;
     padding-bottom: 1.5rem;
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.3rem;
 }
 .resultadoCalc {
     color: #f9f9f9;
@@ -64,28 +72,32 @@
     border: none;
     color: #fdf9f3;
     font-weight: 700;
-    width: 5rem;
-    height: 7rem;
+    width: 8rem;
+    height: 9rem;
     padding: 5px;
     padding-inline: 9px;
-    margin-right: 1rem;
+    margin-right: 16px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     transition: ease-out 150ms;
+    margin-top: .25rem;
+    margin-bottom: .25rem;  
 }
 .buttonCalcCurar {
     background-color: #5f3abb;
     border: none;
     color: #fdf9f3;
     font-weight: 700;
-    width: 5rem;
-    height: 7rem;
+    width: 8rem;
+    height: 9rem;
     padding: 5px;
     padding-inline: 9px;
-    margin-left: 1rem;
+    margin-left: 16px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     transition: ease-out 150ms;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
 }
 .buttonCalcText {
     margin: 0;
@@ -96,16 +108,20 @@
 .buttonCalcAtk:hover {
     background-color: #a3333a;
     cursor: pointer;
-    width: 5.5rem;
-    height: 7.5rem;
-    font-size: 18px;
+    /* width: 8.5rem; */
+    height: 9.5rem;
+    font-size: 17px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .buttonCalcCurar:hover {
     background-color: #6433a3;
     cursor: pointer;
-    width: 5.5rem;
-    height: 7.5rem;
-    font-size: 18px;
+    /* width: 8.5rem; */
+    height: 9.5rem;
+    font-size: 17px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .atkIcon {
     font-size: 50px;
@@ -117,5 +133,13 @@
     background-color: rgba(0%, 0%, 0%, 0.0001);
 }
 .buttonDivCalc {
-    padding-top: 3.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    /* padding-top: 3.5rem; */
+    flex-direction: row;
+    text-align: center;
+}
+.buttonDivCalc2 {
+    display: inline-block;
+    vertical-align: middle;
 }

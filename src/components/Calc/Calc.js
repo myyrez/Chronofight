@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css"
-import { GiRustySword } from "react-icons/gi"
+import { GiShardSword } from "react-icons/gi"
 import { GiHealthPotion } from "react-icons/gi"
+import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf'
 
 export const Calc = () => {
   const [resposta, setResposta] = useState()
@@ -88,17 +89,21 @@ export const Calc = () => {
       </div>
 
       <div className={styles.buttonDivCalc}>
-        <button 
-          className={styles.buttonCalcAtk}
-          onClick={() => compararResultado()}>
-            <p className={styles.buttonCalcText}>ATACAR</p>
-            <GiRustySword className={styles.atkIcon}/>
-        </button>
-        <button 
-          className={styles.buttonCalcCurar}>
-            <p className={styles.buttonCalcText}>CURAR</p>
-            <GiHealthPotion className={styles.healIcon}/>
-        </button>
+        <div className={styles.buttonDivCalc2}>
+          <button 
+            className={styles.buttonCalcAtk}
+            onClick={() => compararResultado()}>
+              <p className={styles.buttonCalcText}>ATACAR</p>
+              <GiShardSword className={styles.atkIcon}/>
+          </button>
+        </div>
+        <div className={styles.buttonDivCalc2}>
+          <button 
+            className={styles.buttonCalcCurar}>
+              <p className={styles.buttonCalcText}>CURAR</p>
+              <GiHealthPotion className={styles.healIcon}/>
+          </button>
+        </div>
       </div>
     </div>
   );
