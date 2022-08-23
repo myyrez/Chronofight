@@ -83,7 +83,8 @@ export const Calc = () => {
           placeholder="RESPOSTA..."
           type={'number'}
           onChange={updateResposta}
-          value={resposta}/>
+          value={resposta}
+          disabled/>
       </div>
 
       <div className={styles.buttonGrid}>

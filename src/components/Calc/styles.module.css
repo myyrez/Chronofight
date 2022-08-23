@@ -49,14 +49,12 @@
     transition: ease-out 150ms;
     font-size: 1rem;
 }
-.inputCalc:focus {
+.inputCalc:hover {
+    background-color: #252525;
     border-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0px 1px rgba(0, 0, 0, 0.075) inset, 0 0 9px rgba(0, 0, 0, 0.6);
     background-color: #252525;
     outline: 0 none;
-}
-.inputCalc:hover {
-    background-color: #252525;
 }
 .inputCalc::placeholder {
     padding-left: 1px;
