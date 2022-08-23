@@ -5,17 +5,18 @@ import { GiHealthPotion } from "react-icons/gi"
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf'
 
 export const Calc = () => {
-  const [resposta, setResposta] = useState()
+  const [resposta, setResposta] = useState('')
   const [pergunta, setPergunta] = useState([])
   const [operacao, setOperacao] = useState('')
   const [showResultado, setShowResultado] = useState('')
-  const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)))
-  const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)))
+  const [n1] = useState(parseInt(Math.floor(Math.random() * 10)))
+  const [n2] = useState(parseInt(Math.floor(Math.random() * 10)))
 
   let trueResultado
 
   const updateResposta = e => {
-    setResposta(e.target.value)
+    if (resposta === '') return setResposta(e.target.value)
+    setResposta(resposta + e.target.value)
   }
 
   const gerarConta = () => {
@@ -77,11 +78,25 @@ export const Calc = () => {
       </div>
 
       <div>
-        <input 
+        <input
           className={styles.inputCalc}
           placeholder="RESPOSTA..."
           type={'number'}
-          onChange={updateResposta}/>
+          onChange={updateResposta}
+          value={resposta}/>
+      </div>
+
+      <div className={styles.buttonGrid}>
+        <button className={styles.buttonPad} onClick={updateResposta} value={1}>1</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={2}>2</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={3}>3</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={4}>4</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={5}>5</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={6}>6</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={7}>7</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={8}>8</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={9}>9</button>
+        <button className={styles.buttonPad} onClick={updateResposta} value={0}>0</button>
       </div>
 
       <div className={styles.resultadoDivCalc}>
