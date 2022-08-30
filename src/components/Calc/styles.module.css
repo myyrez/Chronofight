@@ -9,7 +9,6 @@
 .containerCalc {
     background-color: #414141;
     height: 100vh;
-    /* width: 25vw; */
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -39,7 +38,6 @@
 }
 .inputCalc {
     background-color: #333333;
-    caret-color: #fff;
     color: #fff;
     width: 20vw;
     padding: .8rem;
@@ -65,6 +63,20 @@
 .inputCalc::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
+.buttonObliterar {
+    letter-spacing: 2px;
+    font-size: 1rem;
+    padding: .5rem;
+    width: 15vw;
+    color: #fff;
+    margin-top: .5rem;
+    background-color: #313131;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+    line-height: 2px;
+}
 .buttonGrid {
     margin-top: 1.5rem;
     display: grid;
@@ -86,17 +98,23 @@
     transition: ease-out 100ms;
 }
 .buttonPad:hover {
-    background-color: #818181;
+    background-color: #717171;
     cursor: pointer;
-    font-size: 1.1rem;
+    /* font-size: 1.1rem; */
     margin-top: 0;
     margin-bottom: 0;
+}
+.buttonPad:active {
+    font-size: .9rem;
+    margin-top: 10px;
+    transition: ease-out 25ms;
+    background-color: #212121;
 }
 .buttonCalcAtk {
     background-color: #bb3a43;
     border: none;
     color: #fdf9f3;
-    font-weight: 700;
+    font-weight: 500;
     width: 8rem;
     height: 9rem;
     padding: 5px;
@@ -112,7 +130,7 @@
     background-color: #5f3abb;
     border: none;
     color: #fdf9f3;
-    font-weight: 700;
+    font-weight: 500;
     width: 8rem;
     height: 9rem;
     padding: 5px;
@@ -155,6 +173,11 @@
 }
 .healIcon {
     font-size: 50px;
+    background-color: rgba(0%, 0%, 0%, 0.0001);
+}
+.deleteIcon {
+    font-size: 25px;
+    padding-left: 1rem;
     background-color: rgba(0%, 0%, 0%, 0.0001);
 }
 .buttonDivCalc {

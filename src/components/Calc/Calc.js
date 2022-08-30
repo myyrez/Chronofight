@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css"
 import { GiShardSword } from "react-icons/gi"
 import { GiHealthPotion } from "react-icons/gi"
+import { RiDeleteBack2Line } from "react-icons/ri"
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf'
 
 export const Calc = () => {
@@ -17,6 +18,10 @@ export const Calc = () => {
   const updateResposta = e => {
     if (resposta === '') return setResposta(e.target.value)
     setResposta(resposta + e.target.value)
+  }
+
+  const apagarResposta = e => {
+    setResposta('')
   }
 
   const gerarConta = () => {
@@ -77,14 +82,21 @@ export const Calc = () => {
         <h3 className={styles.perguntaCalc}>{pergunta}</h3>
       </div>
 
-      <div>
+      <div className={styles.respostaDiv}>
         <input
           className={styles.inputCalc}
           placeholder="RESPOSTA..."
           type={'number'}
           onChange={updateResposta}
           value={resposta}
-          disabled/>
+          disabled>
+        </input>
+        <button 
+          className={styles.buttonObliterar}
+          onClick={apagarResposta}>
+            <p>OBLITERAR</p>
+            <RiDeleteBack2Line className={styles.deleteIcon}/>
+        </button>
       </div>
 
       <div className={styles.buttonGrid}>
