@@ -1,31 +1,55 @@
 import React, { useState, useEffect } from "react";
-import styles from "./styles.module.css"
-import { GiShardSword } from "react-icons/gi"
-import { GiHealthPotion } from "react-icons/gi"
-import { RiDeleteBack2Line } from "react-icons/ri"
-import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf'
+import styles from "./styles.module.css";
+import { BiMinus } from "react-icons/bi"
+import { GiShardSword } from "react-icons/gi";
+import { GiHealthPotion } from "react-icons/gi";
+import { RiDeleteBack2Line } from "react-icons/ri";
+import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
 export const Calc = () => {
-  const [resposta, setResposta] = useState('')
-  const [pergunta, setPergunta] = useState([])
-  const [operacao, setOperacao] = useState('')
-  const [showResultado, setShowResultado] = useState('')
-  const [n1] = useState(parseInt(Math.floor(Math.random() * 10)))
-  const [n2] = useState(parseInt(Math.floor(Math.random() * 10)))
+  const [resposta, setResposta] = useState('');
+  const [pergunta, setPergunta] = useState([]);
+  const [operacao, setOperacao] = useState('');
+  const [showResultado, setShowResultado] = useState('');
+  const [n1] = useState(parseInt(Math.floor(Math.random() * 10)));
+  const [n2] = useState(parseInt(Math.floor(Math.random() * 10)));
 
-  let trueResultado
+  let trueResultado;
 
-  const updateResposta = e => {
-    if (resposta === '') return setResposta(e.target.value)
-    setResposta(resposta + e.target.value)
+  const criarDigitos = () => {
+    const digitos = [];
+    const j = 0
+
+    for (let i = 1; i < 11; i++) {
+      if (i === 10) {
+        digitos.push(
+          <button className={styles.buttonPad} onClick={updateResposta} value={j}>{j}</button>
+        );
+      } else {
+        digitos.push(
+          <button className={styles.buttonPad} onClick={updateResposta} value={i}>{i}</button>
+        );
+      };
+    };
+    return digitos;
   }
 
-  const apagarResposta = e => {
-    setResposta('')
+  const updateResposta = e => {
+    if (resposta === '') return setResposta(e.target.value);
+    if (resposta == '-' && e.target.value == 0) return setResposta(0)
+    setResposta(resposta + e.target.value);
+  }
+
+  const apagarResposta = () => {
+    setResposta('');
+  }
+
+  const adicionarMenos = () => {
+    if (resposta === '') return setResposta('-');
   }
 
   const gerarConta = () => {
-    let verificador = Math.floor(Math.random() * 3)
+    let verificador = Math.floor(Math.random() * 3);
 
     switch (verificador) {
       case 0:
@@ -44,32 +68,32 @@ export const Calc = () => {
   }
 
   useEffect(() => {
-    gerarConta()
+    gerarConta();
   }, [])
 
   const rCerta = () => {
-    setShowResultado("certo")
+    setShowResultado("certo");
   }
   const rErrada = () => {
-    setShowResultado("errado")
+    setShowResultado("errado");
   }
 
   const compararResultado = () => {
     switch (operacao) {
       case 'soma':
-        trueResultado = n1 + n2
+        trueResultado = n1 + n2;
         break;
       case 'subtracao':
-        trueResultado = n1 - n2
+        trueResultado = n1 - n2;
         break;
       case 'multip':
-        trueResultado = n1 * n2
+        trueResultado = n1 * n2;
         break;
     }
 
-    if (resposta == trueResultado) rCerta()
-    if (resposta != trueResultado) rErrada()
-    setOperacao('')
+    if (resposta == trueResultado) rCerta();
+    if (resposta != trueResultado) rErrada();
+    setOperacao('');
   }
 
   return (
@@ -91,29 +115,20 @@ export const Calc = () => {
           value={resposta}
           disabled>
         </input>
-        <button 
-          className={styles.buttonObliterar}
-          onClick={apagarResposta}>
-            <p>OBLITERAR</p>
-            <RiDeleteBack2Line className={styles.deleteIcon}/>
-        </button>
       </div>
 
       <div className={styles.buttonGrid}>
-        <button className={styles.buttonPad} onClick={updateResposta} value={1}>1</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={2}>2</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={3}>3</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={4}>4</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={5}>5</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={6}>6</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={7}>7</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={8}>8</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={9}>9</button>
-        <button className={styles.buttonPad} onClick={updateResposta} value={0}>0</button>
-      </div>
-
-      <div className={styles.resultadoDivCalc}>
-        <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+        { criarDigitos() }
+        <button 
+          className={styles.buttonApagar}
+          onClick={apagarResposta}>
+            <RiDeleteBack2Line className={styles.deleteIcon}/>
+        </button>
+        <button 
+          className={styles.buttonMenos}
+          onClick={adicionarMenos}>
+            <BiMinus className={styles.deleteIcon}/>
+        </button>
       </div>
 
       <div className={styles.buttonDivCalc}>
@@ -133,6 +148,10 @@ export const Calc = () => {
           </button>
         </div>
       </div>
+
+      {/* <div className={styles.resultadoDivCalc}>
+        <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+      </div> */}
     </div>
   );
 }
