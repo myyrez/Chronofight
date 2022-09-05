@@ -1,6 +1,6 @@
 .barra {
     height: 1rem;
-    width: 20vw;
+    width: 15vw;
     background-color: #e9e9e9;
     padding: 3px;
     position: relative;
@@ -8,7 +8,12 @@
 .hit {
     background-color: red;
     margin: 0 auto;
-    width: 20vw;
+    width: 15vw;
     height: auto;
     position: relative;
+}
+.player {
+    background-image: url(../../assets/image/char1.png);
+    width: 5vw;
+    height: 5vh;
 }

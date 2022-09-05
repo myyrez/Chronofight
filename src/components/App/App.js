@@ -1,7 +1,7 @@
 import React from "react";
+import styles from "./styles.module.css"
 import { Calc } from "../"
 import { BarraVida } from "../"
-import styles from "./styles.module.css"
 
 export const App = () => {
   return (
