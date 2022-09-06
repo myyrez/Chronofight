@@ -1,3 +1,5 @@
 export * from './App'
 export * from './Calc'
 export * from './BarraVida'
+export * from './Personagens'
+export * from './Battle'

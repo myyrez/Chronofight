@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css"
 import { Calc } from "../"
 import { BarraVida } from "../"
+import { Personagens } from "../"
 
 export const App = () => {
   return (
@@ -10,7 +11,7 @@ export const App = () => {
         <Calc/>
       </div>
       <div className={styles.rpg}>
-        <BarraVida/>
+        <Personagens/>
       </div>
     </>
   );
