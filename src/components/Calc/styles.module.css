@@ -32,10 +32,6 @@
     color: #f9f9f9;
     margin: 0;
 }
-.resultadoDivCalc {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
 .inputCalc {
     background-color: #333333;
     color: #fff;
@@ -187,7 +183,7 @@
     margin: 0;
     padding-top: .5rem;
     padding-bottom: 1.2rem;
-    background-color: rgba(0%, 0%, 0%, 0.0001);;
+    background-color: rgba(0%, 0%, 0%, 0.0001);
 }
 .buttonCalcAtk:hover {
     background-color: #a3333a;

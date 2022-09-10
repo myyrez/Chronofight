@@ -1,3 +1,11 @@
+.healthBox {
+    background-color: rgba(0, 0, 0, 0.543);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem;
+}
 .barra {
     height: 1rem;
     width: 15vw;
@@ -12,8 +20,14 @@
     height: auto;
     position: relative;
 }
-.player {
+/* .player {
     background-image: url(../../assets/image/char1.png);
     width: 5vw;
     height: 5vh;
+} */
+.healthText {
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
 }

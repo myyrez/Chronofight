@@ -8,12 +8,11 @@ import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
 export const Calc = () => {
   const [resposta, setResposta] = useState('');
-  const [pergunta, setPergunta] = useState([]);
+  const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
   const [showResultado, setShowResultado] = useState('');
-  const [n1] = useState(parseInt(Math.floor(Math.random() * 10)));
-  const [n2] = useState(parseInt(Math.floor(Math.random() * 10)));
-
+  const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
+  const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
   let trueResultado;
 
   const criarDigitos = () => {
@@ -43,57 +42,70 @@ export const Calc = () => {
   const apagarResposta = () => {
     setResposta('');
   }
-
   const adicionarMenos = () => {
     if (resposta === '') return setResposta('-');
   }
 
-  const gerarConta = () => {
+  if (operacao === '') {
     let verificador = Math.floor(Math.random() * 3);
-
+  
     switch (verificador) {
       case 0:
-        setPergunta(`${n1} + ${n2}`)
         setOperacao('soma')
         break;
       case 1:
-        setPergunta(`${n1} - ${n2}`)
         setOperacao('subtracao')
         break;
       case 2:
-        setPergunta(`${n1} x ${n2}`)
         setOperacao('multip')
         break;
     }
   }
-
+  
   useEffect(() => {
-    gerarConta();
-  }, [])
+    if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
+    if (operacao === 'subtracao') setPergunta(`${n1} - ${n2}`)
+    if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
+  })
 
   const rCerta = () => {
     setShowResultado("certo");
+    setResposta('');
   }
   const rErrada = () => {
     setShowResultado("errado");
+    setResposta('');
   }
 
-  const compararResultado = () => {
+  const atacar = () => {
     switch (operacao) {
       case 'soma':
-        trueResultado = n1 + n2;
+        trueResultado = n1 + n2
         break;
       case 'subtracao':
-        trueResultado = n1 - n2;
+        trueResultado = n1 - n2
         break;
       case 'multip':
-        trueResultado = n1 * n2;
+        trueResultado = n1 * n2
         break;
     }
-
     if (resposta == trueResultado) rCerta();
     if (resposta != trueResultado) rErrada();
-    setOperacao('');
+
+    let verificador = Math.floor(Math.random() * 3);
+    switch (verificador) {
+      case 0:
+        setOperacao('soma')
+        break;
+      case 1:
+        setOperacao('subtracao')
+        break;
+      case 2:
+        setOperacao('multip')
+        break;
+    }
+    setN1(parseInt(Math.floor(Math.random() * 10)))
+    setN2(parseInt(Math.floor(Math.random() * 10)))
   }
 
   return (
@@ -135,7 +147,7 @@ export const Calc = () => {
         <div className={styles.buttonDivCalc2}>
           <button 
             className={styles.buttonCalcAtk}
-            onClick={() => compararResultado()}>
+            onClick={() => atacar()}>
               <p className={styles.buttonCalcText}>ATACAR</p>
               <GiShardSword className={styles.atkIcon}/>
           </button>
@@ -149,9 +161,9 @@ export const Calc = () => {
         </div>
       </div>
 
-      {/* <div className={styles.resultadoDivCalc}>
+      <div className={styles.resultadoDivCalc}>
         <h3 className={styles.resultadoCalc}>{showResultado}</h3>
-      </div> */}
+      </div>
     </div>
   );
 }
