@@ -1,20 +1,37 @@
-import React from "react";
-import { BarraVida } from "../";
+import React, { useEffect, useState } from "react";
 import char3 from "../../assets/image/char3.png";
 import enem2 from "../../assets/image/enem2.png";
+import { enemyStats, playerStats } from "../../shared/stats";
+import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = () => {
+export const Personagens = ({ dano, click }) => {
+  const [playerVidaAtual, setPlayerVidaAtual] = useState(playerStats.vidaTotal)
+  const [enemyVidaAtual, setEnemyVidaAtual] = useState(parseInt(enemyStats.vidaTotal))
+
+  useEffect(() => {
+    if (click) {
+      setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
+      
+    }
+  })
+
   return (
-    <>
-      <div className={styles.sumario}>
-        <BarraVida vidaTotal={50}/>
+    <div className={styles.divPersonagens}>
+      <div className={styles.player}>
+        <BarraVida 
+          vidaAtual={playerVidaAtual}
+          vidaTotal={playerStats.vidaTotal}
+        />
         <img src={char3} width='350' height='300'/>
       </div>
       <div className={styles.enem}>
-        <BarraVida vidaTotal={200}/>
-        <img src={enem2} width='250' height='300'/>
+        <BarraVida
+          vidaAtual={enemyVidaAtual}
+          vidaTotal={enemyStats.vidaTotal}
+        />
+        <img src={enem2} width='220' height='250'/>
       </div>
-    </>
+    </div>
   );
 };

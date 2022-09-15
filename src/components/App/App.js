@@ -10,9 +10,9 @@ export const App = () => {
       <div className={styles.calc}>
         <Calc/>
       </div>
-      <div className={styles.rpg}>
+      {/* <div className={styles.rpg}>
         <Personagens/>
-      </div>
+      </div> */}
     </>
   );
 }
