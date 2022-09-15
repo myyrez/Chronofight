@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import { BiMinus } from "react-icons/bi";
+import { Personagens } from "../Personagens";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
-import { Personagens } from "../Personagens";
 
 export const Calc = () => {
   const [resposta, setResposta] = useState('');
@@ -151,6 +151,12 @@ export const Calc = () => {
 
         <div className={styles.resultadoDivCalc}>
           <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+        </div>
+
+        <div className={styles.divButtonConfirmar}>
+          <button className={styles.buttonConfirmar}>
+            CONFIRMAR 
+          </button>
         </div>
       </div>
 
