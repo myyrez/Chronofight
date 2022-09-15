@@ -22,6 +22,8 @@ export const Personagens = ({ dano, click }) => {
         <BarraVida 
           vidaAtual={playerVidaAtual}
           vidaTotal={playerStats.vidaTotal}
+          dano={dano}
+          click={click}
         />
         <img src={char3} width='350' height='300'/>
       </div>
@@ -29,6 +31,8 @@ export const Personagens = ({ dano, click }) => {
         <BarraVida
           vidaAtual={enemyVidaAtual}
           vidaTotal={enemyStats.vidaTotal}
+          dano={dano}
+          click={click}
         />
         <img src={enem2} width='220' height='250'/>
       </div>

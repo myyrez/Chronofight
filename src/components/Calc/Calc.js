@@ -111,8 +111,6 @@ export const Calc = () => {
     }
     setN1(parseInt(Math.floor(Math.random() * 10)))
     setN2(parseInt(Math.floor(Math.random() * 10)))
-
-
   }
 
   return (

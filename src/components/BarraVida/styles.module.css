@@ -14,17 +14,23 @@
     position: relative;
 }
 .hit {
+    float: left;
     background-color: red;
     margin: 0 auto;
     width: 15vw;
     height: auto;
     position: relative;
+    transition: width .5s linear;
 }
-/* .player {
-    background-image: url(../../assets/image/char1.png);
-    width: 5vw;
-    height: 5vh;
-} */
+.bar {
+    background-color: rgb(255, 213, 0);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0px;
+    transition: width 2s;
+    transition-delay: .75s;
+}
 .healthText {
     color: #fff;
     display: flex;
