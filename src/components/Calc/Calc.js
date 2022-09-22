@@ -5,6 +5,7 @@ import { Personagens } from "../Personagens";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
+import { BarraProgresso } from "../BarraProgresso";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
 export const Calc = () => {
@@ -16,6 +17,7 @@ export const Calc = () => {
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [dano, setDano] = useState(20)
   const [click, setClick] = useState(false)
+  const [acertou, setAcertou] = useState(false)
   let trueResultado;
 
   const criarDigitos = () => {
@@ -72,8 +74,15 @@ export const Calc = () => {
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
   })
 
+  useEffect(() => {
+    if (click) {
+      if (acertou) clearTimeout(timer)
+      let timer = setTimeout(rErrada, 5000);
+    }
+  })
+
   const rCerta = () => {
-    setClick(true)
+    // setClick(true)
     setShowResultado("certo");
     setResposta('');
   }
@@ -83,6 +92,30 @@ export const Calc = () => {
   }
 
   const atacar = () => {
+
+
+    setClick(true)
+
+    
+    let verificador = Math.floor(Math.random() * 3);
+    switch (verificador) {
+      case 0:
+        setOperacao('soma')
+        break;
+        case 1:
+          setOperacao('subtracao')
+        break;
+        case 2:
+          setOperacao('multip')
+          break;
+        }
+        setN1(parseInt(Math.floor(Math.random() * 10)))
+        setN2(parseInt(Math.floor(Math.random() * 10)))
+        
+
+  }
+
+  const acerto = () => {
     switch (operacao) {
       case 'soma':
         trueResultado = n1 + n2
@@ -94,23 +127,15 @@ export const Calc = () => {
         trueResultado = n1 * n2
         break;
     }
-    if (resposta == trueResultado) rCerta();
+
+    if (resposta == trueResultado) {
+      setAcertou(true);
+      rCerta();
+      return;
+    }
     if (resposta != trueResultado) rErrada();
 
-    let verificador = Math.floor(Math.random() * 3);
-    switch (verificador) {
-      case 0:
-        setOperacao('soma')
-        break;
-      case 1:
-        setOperacao('subtracao')
-        break;
-      case 2:
-        setOperacao('multip')
-        break;
-    }
-    setN1(parseInt(Math.floor(Math.random() * 10)))
-    setN2(parseInt(Math.floor(Math.random() * 10)))
+
   }
 
   return (
@@ -149,23 +174,27 @@ export const Calc = () => {
           </button>
         </div>
 
-        <div className={styles.resultadoDivCalc}>
-          <h3 className={styles.resultadoCalc}>{showResultado}</h3>
-        </div>
-
         <div className={styles.divButtonConfirmar}>
-          <button className={styles.buttonConfirmar}>
+          <button 
+            className={styles.buttonConfirmar}
+            onClick={() => acerto()}>
             CONFIRMAR 
           </button>
         </div>
+
+        <div className={styles.resultadoDivCalc}>
+          <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+        </div>
       </div>
+
+      <BarraProgresso
+        click={click}/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
             dano={dano}
-            click={click}
-          />
+            click={click}/>
         </div>
 
         <div className={styles.buttonSpace}>
