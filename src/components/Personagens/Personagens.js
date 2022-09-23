@@ -5,12 +5,12 @@ import { enemyStats, playerStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = ({ dano, click }) => {
+export const Personagens = ({ dano, acertou }) => {
   const [playerVidaAtual, setPlayerVidaAtual] = useState(playerStats.vidaTotal)
   const [enemyVidaAtual, setEnemyVidaAtual] = useState(parseInt(enemyStats.vidaTotal))
 
   useEffect(() => {
-    if (click) {
+    if (acertou) {
       setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
       
     }
@@ -23,7 +23,7 @@ export const Personagens = ({ dano, click }) => {
           vidaAtual={playerVidaAtual}
           vidaTotal={playerStats.vidaTotal}
           dano={dano}
-          click={click}
+          acertou={acertou}
         />
         <img src={char3} width='350' height='300'/>
       </div>
@@ -32,7 +32,7 @@ export const Personagens = ({ dano, click }) => {
           vidaAtual={enemyVidaAtual}
           vidaTotal={enemyStats.vidaTotal}
           dano={dano}
-          click={click}
+          acertou={acertou}
         />
         <img src={enem2} width='220' height='250'/>
       </div>

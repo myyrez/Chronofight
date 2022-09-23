@@ -17,7 +17,9 @@ export const Calc = () => {
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [dano, setDano] = useState(20)
   const [click, setClick] = useState(false)
+  const [cooldown, setCooldown] = useState('')
   const [acertou, setAcertou] = useState(false)
+  const [hitWindow, setHitWindow] = useState(false) //
   let trueResultado;
 
   const criarDigitos = () => {
@@ -69,6 +71,7 @@ export const Calc = () => {
   
   useEffect(() => {
     setClick(false)
+    setAcertou(false)
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} - ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
@@ -76,46 +79,46 @@ export const Calc = () => {
 
   useEffect(() => {
     if (click) {
-      if (acertou) clearTimeout(timer)
-      let timer = setTimeout(rErrada, 5000);
+      setShowResultado('')
+      setTimeout(() => {
+        if (hitWindow) {
+          setShowResultado('errado')
+        }
+      }, 5000);
     }
   })
 
-  const rCerta = () => {
-    // setClick(true)
-    setShowResultado("certo");
-    setResposta('');
-  }
-  const rErrada = () => {
-    setShowResultado("errado");
-    setResposta('');
-  }
-
   const atacar = () => {
-
-
     setClick(true)
+    setCooldown('disabled')
 
-    
     let verificador = Math.floor(Math.random() * 3);
     switch (verificador) {
       case 0:
         setOperacao('soma')
         break;
-        case 1:
-          setOperacao('subtracao')
+      case 1:
+        setOperacao('subtracao')
         break;
-        case 2:
-          setOperacao('multip')
-          break;
-        }
-        setN1(parseInt(Math.floor(Math.random() * 10)))
-        setN2(parseInt(Math.floor(Math.random() * 10)))
-        
+      case 2:
+        setOperacao('multip')
+        break;
+    }
+    setN1(parseInt(Math.floor(Math.random() * 10)))
+    setN2(parseInt(Math.floor(Math.random() * 10)))
 
+    setTimeout(() => {
+      setCooldown('')
+      // if (!hitWindow) setShowResultado('errado')
+    }, 5100);
+    // setTimeout(() => {
+    //   setHitWindow(false)
+    // }, 6300);
   }
 
   const acerto = () => {
+    setShowResultado('')
+
     switch (operacao) {
       case 'soma':
         trueResultado = n1 + n2
@@ -127,16 +130,18 @@ export const Calc = () => {
         trueResultado = n1 * n2
         break;
     }
-
-    if (resposta == trueResultado) {
-      setAcertou(true);
-      rCerta();
-      return;
+    
+    if (resposta == trueResultado) { 
+      setShowResultado('certo')
+      setAcertou(true)
+      setHitWindow(true)
+      setResposta('')
+    } else {
+      setShowResultado('errado');
+      setResposta('')
     }
-    if (resposta != trueResultado) rErrada();
-
-
-  }
+    console.log(hitWindow)
+  };
 
   return (
     <>
@@ -194,7 +199,7 @@ export const Calc = () => {
         <div className={styles.characterSpace}>
           <Personagens
             dano={dano}
-            click={click}/>
+            acertou={acertou}/>
         </div>
 
         <div className={styles.buttonSpace}>
@@ -202,6 +207,7 @@ export const Calc = () => {
             <div className={styles.buttonDivCalc2}>
               <button 
                 className={styles.buttonCalcAtk}
+                disabled={cooldown}
                 onClick={() => atacar()}>
                   <p className={styles.buttonCalcText}>ATACAR</p>
                   <GiShardSword className={styles.atkIcon}/>

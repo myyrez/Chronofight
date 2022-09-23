@@ -9,7 +9,7 @@
 .barra {
     height: 1rem;
     width: 15vw;
-    background-color: #e9e9e9;
+    background-color: #aeaeae;
     padding: 3px;
     position: relative;
 }
@@ -23,7 +23,7 @@
     transition: width .5s linear;
 }
 .bar {
-    background-color: rgb(255, 213, 0);
+    background-color: rgb(255, 196, 0);
     top: 0;
     right: 0;
     bottom: 0;
