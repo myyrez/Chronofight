@@ -16,8 +16,10 @@ export const BarraVida = ({ vidaTotal, vidaAtual, widthBar, widthHit, dano, clic
         <span>{vidaAtual} / {vidaTotal}</span>
       </div>
       <div className={styles.barra}>
-        <div className={styles.hit} style={{'width': `${bar}%`}}>‎</div>
-        <div className={styles.bar} style={{'width': `${hit}%`}}>‎</div>
+        <div className={styles.total} style={{'width': `${(vidaTotal / vidaTotal) * 100}%`}}>
+          <div className={styles.hit} style={{'width': `${bar}%`}}>‎</div>
+          <div className={styles.bar} style={{'width': `${hit}%`}}>‎</div>
+        </div>
       </div>
     </div>
   );

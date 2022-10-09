@@ -9,7 +9,7 @@
 .barra {
     height: 1rem;
     width: 15vw;
-    background-color: #aeaeae;
+    background-color: #b0b0b0;
     padding: 3px;
     position: relative;
 }
@@ -30,6 +30,12 @@
     width: 0px;
     transition: width 2s;
     transition-delay: .75s;
+}
+.total {
+    height: 1rem;
+    width: 15vw;
+    background-color: #212121;
+    position: relative;
 }
 .healthText {
     color: #fff;

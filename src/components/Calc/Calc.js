@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import { BiMinus } from "react-icons/bi";
 import { Personagens } from "../Personagens";
@@ -18,8 +18,10 @@ export const Calc = () => {
   const [dano, setDano] = useState(20)
   const [click, setClick] = useState(false)
   const [cooldown, setCooldown] = useState('')
+  const [travarConfirmar, setTravarConfirmar] = useState('disabled')
   const [acertou, setAcertou] = useState(false)
-  const [hitWindow, setHitWindow] = useState(false) //
+  const refResultado = useRef(showResultado)
+  refResultado.current = showResultado
   let trueResultado;
 
   const criarDigitos = () => {
@@ -29,11 +31,19 @@ export const Calc = () => {
     for (let i = 1; i < 11; i++) {
       if (i === 10) {
         digitos.push(
-          <button className={styles.buttonPad} onClick={updateResposta} value={j}>{j}</button>
+          <button 
+            className={styles.buttonPad}
+            disabled={travarConfirmar}
+            onClick={updateResposta}
+            value={j}>{j}</button>
         );
       } else {
         digitos.push(
-          <button className={styles.buttonPad} onClick={updateResposta} value={i}>{i}</button>
+          <button 
+            className={styles.buttonPad}
+            disabled={travarConfirmar}
+            onClick={updateResposta}
+            value={i}>{i}</button>
         );
       };
     };
@@ -52,45 +62,35 @@ export const Calc = () => {
   const adicionarMenos = () => {
     if (resposta === '') return setResposta('-');
   }
-
-  if (operacao === '') {
-    let verificador = Math.floor(Math.random() * 3);
-  
-    switch (verificador) {
-      case 0:
-        setOperacao('soma')
-        break;
-      case 1:
-        setOperacao('subtracao')
-        break;
-      case 2:
-        setOperacao('multip')
-        break;
-    }
-  }
   
   useEffect(() => {
     setClick(false)
     setAcertou(false)
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
-    if (operacao === 'subtracao') setPergunta(`${n1} - ${n2}`)
+    if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
-  })
+  });
 
   useEffect(() => {
     if (click) {
-      setShowResultado('')
+      getComputedStyle(document.documentElement).getPropertyValue('--abrir-pergunta');
+      getComputedStyle(document.documentElement).getPropertyValue('--diminuir-square');
+      
       setTimeout(() => {
-        if (hitWindow) {
-          setShowResultado('errado')
+        if (refResultado.current != 'certo' && refResultado.current != 'errado') {
+          setShowResultado('errou')
         }
       }, 5000);
     }
-  })
+  });
 
   const atacar = () => {
     setClick(true)
+    setTravarConfirmar('')
+    setShowResultado('')
     setCooldown('disabled')
+    document.documentElement.style.setProperty('--abrir-pergunta', '0.6rem')
+    document.documentElement.style.setProperty('--diminuir-square', '0rem')
 
     let verificador = Math.floor(Math.random() * 3);
     switch (verificador) {
@@ -108,16 +108,16 @@ export const Calc = () => {
     setN2(parseInt(Math.floor(Math.random() * 10)))
 
     setTimeout(() => {
+      setTravarConfirmar('disabled')
       setCooldown('')
-      // if (!hitWindow) setShowResultado('errado')
-    }, 5100);
-    // setTimeout(() => {
-    //   setHitWindow(false)
-    // }, 6300);
+      setResposta('')
+      document.documentElement.style.setProperty('--abrir-pergunta', '-4rem')
+      document.documentElement.style.setProperty('--diminuir-square', '4.5rem')
+    }, 5000);
   }
 
   const acerto = () => {
-    setShowResultado('')
+    setTravarConfirmar('disabled')
 
     switch (operacao) {
       case 'soma':
@@ -134,13 +134,11 @@ export const Calc = () => {
     if (resposta == trueResultado) { 
       setShowResultado('certo')
       setAcertou(true)
-      setHitWindow(true)
       setResposta('')
     } else {
       setShowResultado('errado');
       setResposta('')
     }
-    console.log(hitWindow)
   };
 
   return (
@@ -150,8 +148,12 @@ export const Calc = () => {
           <h1 className={styles.titleCalc}>oi</h1>
         </header>
 
-        <div>
+        <div className={styles.perguntaDiv}>
+          <div className={styles.square}/>
+
           <h3 className={styles.perguntaCalc}>{pergunta}</h3>
+
+          <div className={styles.square}/>
         </div>
 
         <div className={styles.respostaDiv}>
@@ -169,11 +171,13 @@ export const Calc = () => {
           { criarDigitos() }
           <button 
             className={styles.buttonApagar}
+            disabled={travarConfirmar}
             onClick={apagarResposta}>
               <RiDeleteBack2Line className={styles.deleteIcon}/>
           </button>
           <button 
             className={styles.buttonMenos}
+            disabled={travarConfirmar}
             onClick={adicionarMenos}>
               <BiMinus className={styles.deleteIcon}/>
           </button>
@@ -182,18 +186,18 @@ export const Calc = () => {
         <div className={styles.divButtonConfirmar}>
           <button 
             className={styles.buttonConfirmar}
+            disabled={travarConfirmar}
             onClick={() => acerto()}>
             CONFIRMAR 
           </button>
         </div>
 
         <div className={styles.resultadoDivCalc}>
-          <h3 className={styles.resultadoCalc}>{showResultado}</h3>
+          <h3 className={styles.resultadoCalc}>{refResultado.current}</h3>
         </div>
       </div>
 
-      <BarraProgresso
-        click={click}/>
+      <BarraProgresso click={click}/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
@@ -215,7 +219,8 @@ export const Calc = () => {
             </div>
             <div className={styles.buttonDivCalc2}>
               <button 
-                className={styles.buttonCalcCurar}>
+                className={styles.buttonCalcCurar}
+                disabled={cooldown}>
                   <p className={styles.buttonCalcText}>CURAR</p>
                   <GiHealthPotion className={styles.healIcon}/>
               </button>
