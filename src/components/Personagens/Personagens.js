@@ -5,7 +5,7 @@ import { enemyStats, playerStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = ({ dano, acertou }) => {
+export const Personagens = ({ dano, cura, curou, acertou, errou }) => {
   const [playerVidaAtual, setPlayerVidaAtual] = useState(playerStats.vidaTotal)
   const [enemyVidaAtual, setEnemyVidaAtual] = useState(parseInt(enemyStats.vidaTotal))
   const [isActive, setIsActive] = useState(false)
@@ -14,6 +14,13 @@ export const Personagens = ({ dano, acertou }) => {
     if (acertou) {
       setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
     }
+    if (errou) {
+      setPlayerVidaAtual(parseInt(playerVidaAtual) - parseInt(dano))
+    }
+    if (curou) {
+      setPlayerVidaAtual(parseInt(playerVidaAtual) + parseInt(cura))
+    }
+    if (playerVidaAtual > 50) setPlayerVidaAtual(parseInt(50))
   })
 
   return (
@@ -23,8 +30,10 @@ export const Personagens = ({ dano, acertou }) => {
         <BarraVida 
           vidaAtual={playerVidaAtual}
           vidaTotal={playerStats.vidaTotal}
-          dano={dano}
-          acertou={acertou}
+          // dano={dano}
+          cura={cura}
+          // acertou={acertou}
+          errou={errou}
         />
         <img
           src={char3} 

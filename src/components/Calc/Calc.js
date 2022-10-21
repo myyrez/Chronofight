@@ -8,7 +8,7 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { BarraProgresso } from "../BarraProgresso";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
-export const Calc = () => {
+export const Calc = (props) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
@@ -16,13 +16,18 @@ export const Calc = () => {
   const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [dano, setDano] = useState(20)
+  const [cura, setCura] = useState(15)
   const [click, setClick] = useState(false)
   const [cooldown, setCooldown] = useState('')
+  const [curaCooldown, setCuraCooldown] = useState('')
   const [travarConfirmar, setTravarConfirmar] = useState('disabled')
   const [acertou, setAcertou] = useState(false)
+  const [errou, setErrou] = useState(false)
+  const [curou, setCurou] = useState(false)
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
   let trueResultado;
+  const [curaCounter, setCuraCounter] = useState(0)
 
   const criarDigitos = () => {
     const digitos = [];
@@ -66,6 +71,8 @@ export const Calc = () => {
   useEffect(() => {
     setClick(false)
     setAcertou(false)
+    setErrou(false)
+    setCurou(false)
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
@@ -73,21 +80,34 @@ export const Calc = () => {
 
   useEffect(() => {
     if (click) {
+      setCuraCounter(curaCounter - 1)
+
       getComputedStyle(document.documentElement).getPropertyValue('--abrir-pergunta');
       getComputedStyle(document.documentElement).getPropertyValue('--diminuir-square');
       
       setTimeout(() => {
         if (refResultado.current != 'certo' && refResultado.current != 'errado') {
           setShowResultado('errou')
+          setErrou(true)
+        }
+        if (curaCounter <= 0) {
+          setCuraCooldown('')
         }
       }, 5000);
     }
   });
 
+  const curar = () => {
+    setCuraCounter(3)
+    setCurou(true)
+    setCuraCooldown('disabled')
+  }
+
   const atacar = () => {
     setClick(true)
     setTravarConfirmar('')
     setShowResultado('')
+    setCuraCooldown('disabled')
     setCooldown('disabled')
     document.documentElement.style.setProperty('--abrir-pergunta', '0.6rem')
     document.documentElement.style.setProperty('--diminuir-square', '0rem')
@@ -108,6 +128,7 @@ export const Calc = () => {
     setN2(parseInt(Math.floor(Math.random() * 10)))
 
     setTimeout(() => {
+      if (curaCounter <= 0) setCuraCooldown('') 
       setTravarConfirmar('disabled')
       setCooldown('')
       setResposta('')
@@ -133,13 +154,14 @@ export const Calc = () => {
     
     if (resposta == trueResultado) { 
       setShowResultado('certo')
-      setAcertou(true)
-      setResposta('')
+      setAcertou(true);
+      setResposta('');
     } else {
       setShowResultado('errado');
-      setResposta('')
+      setErrou(true);
+      setResposta('');
     }
-  };
+  }
 
   return (
     <>
@@ -203,7 +225,10 @@ export const Calc = () => {
         <div className={styles.characterSpace}>
           <Personagens
             dano={dano}
-            acertou={acertou}/>
+            cura={cura}
+            curou={curou}
+            acertou={acertou}
+            errou={errou}/>
         </div>
 
         <div className={styles.buttonSpace}>
@@ -220,7 +245,8 @@ export const Calc = () => {
             <div className={styles.buttonDivCalc2}>
               <button 
                 className={styles.buttonCalcCurar}
-                disabled={cooldown}>
+                disabled={curaCooldown}
+                onClick={() => curar()}>
                   <p className={styles.buttonCalcText}>CURAR</p>
                   <GiHealthPotion className={styles.healIcon}/>
               </button>
