@@ -20,6 +20,8 @@ export const Calc = (props) => {
   const [click, setClick] = useState(false)
   const [cooldown, setCooldown] = useState('')
   const [curaCooldown, setCuraCooldown] = useState('')
+  const [curaCounter, setCuraCounter] = useState(0)
+  const [showCuraCounter, setShowCuraCounter] = useState('‎')
   const [travarConfirmar, setTravarConfirmar] = useState('disabled')
   const [acertou, setAcertou] = useState(false)
   const [errou, setErrou] = useState(false)
@@ -27,7 +29,6 @@ export const Calc = (props) => {
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
   let trueResultado;
-  const [curaCounter, setCuraCounter] = useState(0)
 
   const criarDigitos = () => {
     const digitos = [];
@@ -56,7 +57,6 @@ export const Calc = (props) => {
   }
 
   const updateResposta = e => {
-    if (resposta === '') return setResposta(e.target.value);
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
     setResposta(resposta + e.target.value);
   }
@@ -66,6 +66,16 @@ export const Calc = (props) => {
   }
   const adicionarMenos = () => {
     if (resposta === '') return setResposta('-');
+  }
+
+  onkeydown = e => {
+    if (travarConfirmar === 'disabled') return;
+    if (e.key === '-' && resposta === '') return setResposta('-');
+    if (e.key === 'Backspace') return setResposta('');
+    if (e.key === 'Enter') return acerto();
+
+    if (isNaN(e.key)) return;
+    setResposta(resposta + e.key);
   }
   
   useEffect(() => {
@@ -80,8 +90,10 @@ export const Calc = (props) => {
 
   useEffect(() => {
     if (click) {
-      setCuraCounter(curaCounter - 1)
-
+      if (curaCounter > 1) setCuraCounter(curaCounter - 1)
+      if (showCuraCounter > 1) setShowCuraCounter(showCuraCounter - 1)
+      if (showCuraCounter == 1) setShowCuraCounter('‎')
+      
       getComputedStyle(document.documentElement).getPropertyValue('--abrir-pergunta');
       getComputedStyle(document.documentElement).getPropertyValue('--diminuir-square');
       
@@ -98,7 +110,8 @@ export const Calc = (props) => {
   });
 
   const curar = () => {
-    setCuraCounter(3)
+    setCuraCounter(4)
+    setShowCuraCounter(4)
     setCurou(true)
     setCuraCooldown('disabled')
   }
@@ -128,7 +141,7 @@ export const Calc = (props) => {
     setN2(parseInt(Math.floor(Math.random() * 10)))
 
     setTimeout(() => {
-      if (curaCounter <= 0) setCuraCooldown('') 
+      if (curaCounter == 1) setCuraCooldown('')
       setTravarConfirmar('disabled')
       setCooldown('')
       setResposta('')
@@ -182,7 +195,7 @@ export const Calc = (props) => {
           <input
             className={styles.inputCalc}
             placeholder="RESPOSTA..."
-            type={'number'}
+            // type={'number'}
             onChange={updateResposta}
             value={resposta}
             disabled>
@@ -240,6 +253,7 @@ export const Calc = (props) => {
                 onClick={() => atacar()}>
                   <p className={styles.buttonCalcText}>ATACAR</p>
                   <GiShardSword className={styles.atkIcon}/>
+                  <p></p>
               </button>
             </div>
             <div className={styles.buttonDivCalc2}>
@@ -249,6 +263,7 @@ export const Calc = (props) => {
                 onClick={() => curar()}>
                   <p className={styles.buttonCalcText}>CURAR</p>
                   <GiHealthPotion className={styles.healIcon}/>
+                  <p className={styles.showCuraCounter}>{showCuraCounter}</p>
               </button>
             </div>
           </div>

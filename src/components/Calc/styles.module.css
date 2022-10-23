@@ -342,3 +342,8 @@ button:hover, button:focus {
 .characterSpace {
     height: 70%;
 }
+.showCuraCounter {
+    position: relative;
+    margin: 0;
+    margin-left: 80%;
+}

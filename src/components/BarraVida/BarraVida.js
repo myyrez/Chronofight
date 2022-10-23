@@ -1,13 +1,18 @@
 import { React, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
-export const BarraVida = ({ vidaTotal, vidaAtual, widthBar, widthHit, dano, click }) => {
+export const BarraVida = ({ vidaTotal, vidaAtual, setVidaAtual}) => {
   const [bar, setBar] = useState((vidaAtual / vidaTotal) * 100)
   const [hit, setHit] = useState((vidaAtual / vidaTotal) * 100)
 
   useEffect(() => {
     setBar((vidaAtual / vidaTotal) * 100)
     setHit((vidaAtual / vidaTotal) * 100)
+    if (vidaAtual < 0) {
+      setBar(0)
+      setHit(0)
+      setVidaAtual(0)
+    }
   })
 
   return (

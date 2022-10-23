@@ -29,6 +29,7 @@ export const Personagens = ({ dano, cura, curou, acertou, errou }) => {
       <div className={styles.player}>
         <BarraVida 
           vidaAtual={playerVidaAtual}
+          setVidaAtual={setPlayerVidaAtual}
           vidaTotal={playerStats.vidaTotal}
           // dano={dano}
           cura={cura}
@@ -46,6 +47,7 @@ export const Personagens = ({ dano, cura, curou, acertou, errou }) => {
       <div className={styles.enem}>
         <BarraVida
           vidaAtual={enemyVidaAtual}
+          setVidaAtual={setEnemyVidaAtual}
           vidaTotal={enemyStats.vidaTotal}
           dano={dano}
           acertou={acertou}
