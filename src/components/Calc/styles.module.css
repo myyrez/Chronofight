@@ -9,7 +9,7 @@
 .containerCalc {
     background-color: #201f29;
     height: 100vh;
-    width: 25vw;
+    width: 25%;
     float: left;
     align-items: center;
     justify-content: center;
@@ -17,7 +17,7 @@
 }
 .containerRpg {
     height: 100vh;
-    width: 75vw;
+    width: 75%;
     float: right;
     background-image: url(../../assets/image/fundo1.gif);
     background-repeat: no-repeat;
@@ -335,6 +335,7 @@ button:hover, button:focus {
     display: flex;
     flex-direction: row;
     height: 30%;
+    width: 100%;
     align-items: center;
     justify-content: center;
     background-color: hsla(0, 0%, 13%, 0.557);

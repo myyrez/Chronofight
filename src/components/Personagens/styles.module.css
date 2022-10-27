@@ -7,24 +7,62 @@
 }
 
 .divPersonagens {
-    height: 70vh;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 .player {
+    z-index: 2;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;
-    margin-top: 3rem;
-    margin-left: 8rem;
+    width: 5rem;
+    margin-top: 7%;
+    margin-left: 19%;
     float: left;
 }
 .enem {
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;
-    margin-top: 1rem;
-    margin-right: 12rem;
+    width: 5rem;
+    margin-top: 7%;
+    margin-right: 19%;
     float: right;
     animation: flying 3s linear infinite;
+}
+.healStyle {
+    z-index: 1;
+    position: relative;
+    top: 25%;
+    right: 14.5%;
+    transition: ease-in-out;
+}
+.showDanoRight {
+    color: #fff;
+    position: absolute;
+    top: 2rem;
+    left: 10rem;
+}
+.showDanoLeft {
+    color: #fff;
+    position: absolute;
+    top: 3rem;
+    right: 10rem; 
+}
+.showCritLeft {
+    color: rgb(255, 57, 57);
+    position: absolute;
+    top: 6.5rem;
+    right: 8.3rem;
+    font-size: 20px;
+}
+.showCritRight {
+    color: rgb(255, 57, 57);
+    position: absolute;
+    top: 5.5rem;
+    left: 9.2rem;
+    font-size: 20px;
 }

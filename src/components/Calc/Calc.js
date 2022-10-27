@@ -15,7 +15,7 @@ export const Calc = (props) => {
   const [showResultado, setShowResultado] = useState('');
   const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
-  const [dano, setDano] = useState(20)
+  const [dano, setDano] = useState(0)
   const [cura, setCura] = useState(15)
   const [click, setClick] = useState(false)
   const [cooldown, setCooldown] = useState('')
@@ -69,6 +69,9 @@ export const Calc = (props) => {
   }
 
   onkeydown = e => {
+    if (e.key === 'a') return atacar();
+    if (e.key === 'c') return curar();
+
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
     if (e.key === 'Backspace') return setResposta('');
@@ -109,7 +112,10 @@ export const Calc = (props) => {
     }
   });
 
+  var curaRandomizer = Math.random(Math.random() * 15)
+
   const curar = () => {
+    setCura(curaRandomizer)
     setCuraCounter(4)
     setShowCuraCounter(4)
     setCurou(true)
@@ -150,6 +156,17 @@ export const Calc = (props) => {
     }, 5000);
   }
 
+  var critDecider = Math.floor(Math.random() * 2);
+  var critDmg = 1.5;
+  if (critDecider === 0) critDmg = 2;
+
+  var chanceMais10 = false;
+  var chanceMais20 = false;
+  var chanceBase = 0.1
+  if (chanceMais10) chanceBase += 0.1
+  if (chanceMais20) chanceBase += 0.2
+  var willCrit = Math.random() < chanceBase;
+  
   const acerto = () => {
     setTravarConfirmar('disabled')
 
@@ -164,7 +181,14 @@ export const Calc = (props) => {
         trueResultado = n1 * n2
         break;
     }
+
+    if (trueResultado <= 10) setDano(10)
+    if (trueResultado > 10 && trueResultado < 20) setDano(trueResultado + 1)
+    if (trueResultado >= 20 && trueResultado < 30) setDano(trueResultado + 2)
+    if (trueResultado >= 30) setDano(trueResultado + 3) 
     
+    if (willCrit) setDano(dano * critDmg)
+
     if (resposta == trueResultado) { 
       setShowResultado('certo')
       setAcertou(true);
@@ -219,7 +243,7 @@ export const Calc = (props) => {
         </div>
 
         <div className={styles.divButtonConfirmar}>
-          <button 
+          <button
             className={styles.buttonConfirmar}
             disabled={travarConfirmar}
             onClick={() => acerto()}>
