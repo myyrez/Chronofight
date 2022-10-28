@@ -1,0 +1,76 @@
+.invtrContainer {
+    /* background-color: rgba(0, 0, 0, 0.357); */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 1rem;
+    left: 27%;
+    
+}
+.invtrButton {
+    border-radius: 50%;
+    padding: .75rem;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: .5rem;
+    color: #fff;
+    border: none;
+    background-color: var(--corFundo,rgba(0, 0, 0, 0.543));
+    transition: 350ms;
+
+}
+.invtrButton:hover {
+    box-shadow: none;
+    background-color: rgba(90, 90, 90, 0.343);
+    cursor: pointer;
+}
+.invtrButton:focus {
+    box-shadow: none;
+}
+.invtrBody {
+    visibility: var(--visibilidade, hidden);
+    background-color: rgba(0, 0, 0, 0.543);
+    color: #fff;
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    grid-template-columns: repeat(3, 3.5rem);
+    grid-template-rows: repeat(2, 3.5rem);
+}
+.invtrArmas {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: .5rem;
+    margin-inline: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--corFundoArma, #313131);
+    color: var(--corArma, #ff6173);
+}
+.invtrEmblemas {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: .5rem;
+    margin-inline: 5px;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--corFundoEmblema, #313131);
+    color: var(--corEmblema, #9065ff);
+}
+.invtrArmas:hover, 
+.invtrEmblemas:hover {
+    box-shadow: none;
+    color: #f4f4f4;
+    background-color: #515151;
+    cursor: pointer;
+}
+.invtrArmas:focus, 
+.invtrEmblemas:focus {
+    box-shadow: none;
+}

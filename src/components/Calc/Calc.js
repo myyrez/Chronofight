@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
+import { Inventario } from '../'
+import { Personagens } from "../";
+import { BarraProgresso } from "../";
 import { BiMinus } from "react-icons/bi";
-import { Personagens } from "../Personagens";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
-import { BarraProgresso } from "../BarraProgresso";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
 export const Calc = (props) => {
@@ -40,7 +41,8 @@ export const Calc = (props) => {
     for (let i = 1; i < 11; i++) {
       if (i === 10) {
         digitos.push(
-          <button 
+          <button
+            id='calcButton' 
             className={styles.buttonPad}
             disabled={travarConfirmar}
             onClick={updateResposta}
@@ -49,6 +51,7 @@ export const Calc = (props) => {
       } else {
         digitos.push(
           <button 
+            id='calcButton'
             className={styles.buttonPad}
             disabled={travarConfirmar}
             onClick={updateResposta}
@@ -152,16 +155,16 @@ export const Calc = (props) => {
         setOperacao('multip')
         break;
     }
-    setN1(parseInt(Math.floor(Math.random() * 10)))
-    setN2(parseInt(Math.floor(Math.random() * 10)))
+    setN1(parseInt(Math.floor(Math.random() * 10)) + 4)
+    setN2(parseInt(Math.floor(Math.random() * 10)) + 4)
 
     setTimeout(() => {
       if (curaCounter == 1) setCuraCooldown('')
       setTravarConfirmar('disabled')
       setCooldown('')
       setResposta('')
-      document.documentElement.style.setProperty('--abrir-pergunta', '-4rem')
-      document.documentElement.style.setProperty('--diminuir-square', '4.5rem')
+      document.documentElement.style.setProperty('--abrir-pergunta', '-5.5rem')
+      document.documentElement.style.setProperty('--diminuir-square', '5.5rem')
     }, 5000);
   }
 
@@ -255,13 +258,15 @@ export const Calc = (props) => {
 
         <div className={styles.buttonGrid}>
           { criarDigitos() }
-          <button 
+          <button
+            id='calcButton'
             className={styles.buttonApagar}
             disabled={travarConfirmar}
             onClick={apagarResposta}>
               <RiDeleteBack2Line className={styles.deleteIcon}/>
           </button>
-          <button 
+          <button
+            id='calcButton'
             className={styles.buttonMenos}
             disabled={travarConfirmar}
             onClick={adicionarMenos}>
@@ -299,6 +304,7 @@ export const Calc = (props) => {
         </div>
 
         <div className={styles.buttonSpace}>
+
           <div className={styles.buttonDivCalc}>
             <div className={styles.buttonDivCalc2}>
               <button 
@@ -310,6 +316,7 @@ export const Calc = (props) => {
                   <p></p>
               </button>
             </div>
+
             <div className={styles.buttonDivCalc2}>
               <button 
                 className={styles.buttonCalcCurar}
@@ -321,6 +328,7 @@ export const Calc = (props) => {
               </button>
             </div>
           </div>
+          <Inventario/>
         </div>
       </div>
     </>

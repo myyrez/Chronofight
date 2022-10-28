@@ -43,7 +43,7 @@
     color: #f9f9f9;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    width: 8rem;
+    width: 10.5rem;
     height: 1rem;
     margin: 0;
     font-size: 1.4rem;
@@ -86,8 +86,8 @@
 }
 .square {
     height: 3rem;
-    width: var(--diminuir-square, 4.5rem);
-    margin-inline: var(--abrir-pergunta, -4rem);
+    width: var(--diminuir-square, 5.5rem);
+    margin-inline: var(--abrir-pergunta, -5.5rem);
     background-color: #f9f9f9;
     transition: .5s ease-in-out;
     z-index: 9999;
