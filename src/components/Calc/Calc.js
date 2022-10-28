@@ -16,7 +16,10 @@ export const Calc = (props) => {
   const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [dano, setDano] = useState(0)
-  const [cura, setCura] = useState(15)
+  const [enemyDano, setEnemyDano] = useState(0)
+  const [enemyCrit, setEnemyCrit] = useState(0)
+  const [cura, setCura] = useState(0)
+  const [crit, setCrit] = useState(false)
   const [click, setClick] = useState(false)
   const [cooldown, setCooldown] = useState('')
   const [curaCooldown, setCuraCooldown] = useState('')
@@ -28,7 +31,7 @@ export const Calc = (props) => {
   const [curou, setCurou] = useState(false)
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
-  let trueResultado;
+  var trueResultado;
 
   const criarDigitos = () => {
     const digitos = [];
@@ -86,6 +89,7 @@ export const Calc = (props) => {
     setAcertou(false)
     setErrou(false)
     setCurou(false)
+    setCrit(false)
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
@@ -112,7 +116,7 @@ export const Calc = (props) => {
     }
   });
 
-  var curaRandomizer = Math.random(Math.random() * 15)
+  var curaRandomizer = Math.floor(Math.random() * 6) + 10
 
   const curar = () => {
     setCura(curaRandomizer)
@@ -160,12 +164,19 @@ export const Calc = (props) => {
   var critDmg = 1.5;
   if (critDecider === 0) critDmg = 2;
 
-  var chanceMais10 = false;
-  var chanceMais20 = false;
+  var chanceMais10 = true;
+  var chanceMais20 = true;
   var chanceBase = 0.1
   if (chanceMais10) chanceBase += 0.1
   if (chanceMais20) chanceBase += 0.2
   var willCrit = Math.random() < chanceBase;
+
+  var enemyCritDmg = 2
+  var enemyChanceMais10 = false;
+  var enemyChanceMais20 = false;
+  var enemyChanceBase = 0.1
+  var enemyWillCrit = Math.random() < enemyChanceBase
+
   
   const acerto = () => {
     setTravarConfirmar('disabled')
@@ -182,24 +193,35 @@ export const Calc = (props) => {
         break;
     }
 
-    if (trueResultado <= 10) setDano(10)
-    if (trueResultado > 10 && trueResultado < 20) setDano(trueResultado + 1)
-    if (trueResultado >= 20 && trueResultado < 30) setDano(trueResultado + 2)
-    if (trueResultado >= 30) setDano(trueResultado + 3) 
-    
-    if (willCrit) setDano(dano * critDmg)
+    setEnemyDano(Math.floor(Math.random() * (20 - 10 + 1)) + 10)
+    if (enemyWillCrit) {
+      setEnemyDano(Math.floor((Math.random() * (20 - 10 + 1)) + 10) * enemyCritDmg)
+      setEnemyCrit(true)
+    }
 
+    if (trueResultado <= 10) setDano(10)
+    if (trueResultado > 10) setDano(Math.abs(trueResultado))
+
+    if (willCrit) {
+      if (trueResultado <= 10) setDano(10 * critDmg)
+      if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * critDmg))
+      setCrit(true)
+    }
+    
     if (resposta == trueResultado) { 
+
       setShowResultado('certo')
       setAcertou(true);
       setResposta('');
+      trueResultado = 0
     } else {
       setShowResultado('errado');
       setErrou(true);
       setResposta('');
+      trueResultado = 0
     }
   }
-
+  console.log(dano)
   return (
     <>
       <div className={styles.containerCalc}>
@@ -262,7 +284,10 @@ export const Calc = (props) => {
         <div className={styles.characterSpace}>
           <Personagens
             dano={dano}
+            enemyDano={enemyDano}
+            enemyCrit={enemyCrit}
             cura={cura}
+            crit={crit}
             curou={curou}
             acertou={acertou}
             errou={errou}/>
