@@ -108,6 +108,11 @@ export const Calc = (props) => {
         if (refResultado.current != 'certo' && refResultado.current != 'errado') {
           setShowResultado('errou')
           setErrou(true)
+          setEnemyDano(Math.floor(Math.random() * 11) + 10)
+          if (enemyWillCrit) {
+            setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
+            setEnemyCrit(true)
+          }
         }
         if (curaCounter <= 0) {
           setCuraCooldown('')
@@ -193,9 +198,9 @@ export const Calc = (props) => {
         break;
     }
 
-    setEnemyDano(Math.floor(Math.random() * (20 - 10 + 1)) + 10)
+    setEnemyDano(Math.floor(Math.random() * 11) + 10)
     if (enemyWillCrit) {
-      setEnemyDano(Math.floor((Math.random() * (20 - 10 + 1)) + 10) * enemyCritDmg)
+      setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
       setEnemyCrit(true)
     }
 
