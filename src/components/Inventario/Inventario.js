@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.css';
 import { 
     GiBleedingWound,
@@ -9,12 +9,18 @@ import {
     GiSteelwingEmblem,
     GiBatwingEmblem ,
 } from 'react-icons/gi';
-import { HiEyeOff } from 'react-icons/hi';
 
 
 export const Inventario = () => {
     var show = false
-    var armaAtiva = false
+    const [ArmaAtiva, setArmaAtiva] = useState(0)
+    const corFundo = 'transparent'
+    const cor = '#f4f4f4'
+    const corFundoInativo = '#313131'
+    const corInativo = '#ff6173'
+    var armaAtiva1 = false
+    var armaAtiva2 = false
+    var armaAtiva3 = false
     var emblemaAtivo = false
 
     const showInventario = () => {
@@ -32,17 +38,73 @@ export const Inventario = () => {
         }
     }
 
-    const ativarArma = (e) => {
-        getComputedStyle(document.documentElement).getPropertyValue('--corFundoArma')
-        getComputedStyle(document.documentElement).getPropertyValue('--corArma')
-        
-        if (e.target.value == '1') document.getElementById('arma1').style.background = 'red'
-        document.documentElement.style.setProperty('--corFundoArma', 'background-color: #515151')
-        document.documentElement.style.setProperty('--corArma', 'color: #f4f4f4')  
+    getComputedStyle(document.documentElement).getPropertyValue('--corFundoArma')
+    getComputedStyle(document.documentElement).getPropertyValue('--corArma')
+
+    const ativarArma1 = () => {
+        if (ArmaAtiva !== 0) {
+            document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma1').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma2').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma3').style.setProperty('--corArma', '#ff6173')
+        }
+        if (ArmaAtiva !== 1) {
+            document.getElementById('arma1').style.setProperty('--corFundoArma', 'transparent')
+            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
+            setArmaAtiva(1)
+        } else {
+            document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma1').style.setProperty('--corArma', '#ff6173')
+            setArmaAtiva(0)
+        }
+
     }
+    const ativarArma2 = () => {
+        if (ArmaAtiva !== 0) {
+            document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma1').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma2').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma3').style.setProperty('--corArma', '#ff6173')
+        }
+        if (ArmaAtiva !== 2) {
+            document.getElementById('arma2').style.setProperty('--corFundoArma', 'transparent')
+            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
+            setArmaAtiva(2)
+        } else {
+            document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma2').style.setProperty('--corArma', '#ff6173')
+            setArmaAtiva(0)
+        }
+
+    }
+    const ativarArma3 = () => {
+        if (ArmaAtiva !== 0) {
+            document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma1').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma2').style.setProperty('--corArma', '#ff6173')
+            document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma3').style.setProperty('--corArma', '#ff6173')
+        }
+        if (ArmaAtiva !== 3) {
+            document.getElementById('arma3').style.setProperty('--corFundoArma', 'transparent')
+            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
+            setArmaAtiva(3)
+        } else {
+            document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
+            document.getElementById('arma3').style.setProperty('--corArma', '#ff6173')
+            setArmaAtiva(0)
+        }
+    }
+
+    getComputedStyle(document.documentElement).getPropertyValue('--corFundoEmblema')
+    getComputedStyle(document.documentElement).getPropertyValue('--corEmblema')
+
     const ativarEmblema = () => {
-        getComputedStyle(document.documentElement).getPropertyValue('--corFundoEmblema')
-        getComputedStyle(document.documentElement).getPropertyValue('--corEmblema')
     }
 
     return (
@@ -55,17 +117,17 @@ export const Inventario = () => {
                     id='arma1'
                     value='1' 
                     className={styles.invtrArmas}
-                    onClick={ativarArma}><GiBleedingWound value='1' style={{fontSize: '25px'}}/></button>
+                    onClick={ativarArma1}><GiBleedingWound className={styles.classArma1}/></button>
                 <button
                     id='arma2'
                     value='2' 
                     className={styles.invtrArmas}
-                    onClick={ativarArma}><GiBleedingEye value='2' style={{fontSize: '25px'}}/></button>
+                    onClick={ativarArma2}><GiBleedingEye value='2' style={{fontSize: '25px'}}/></button>
                 <button 
                     id='arma3'
                     value='3' 
                     className={styles.invtrArmas}
-                    onClick={ativarArma}><GiReaperScythe style={{fontSize: '25px'}}/></button>
+                    onClick={ativarArma3}><GiReaperScythe style={{fontSize: '25px'}}/></button>
                 <button 
                     id='emblema1'
                     value='1' 

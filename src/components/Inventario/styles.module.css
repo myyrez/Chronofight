@@ -74,3 +74,8 @@
 .invtrEmblemas:focus {
     box-shadow: none;
 }
+
+.classArma1 {
+    font-size: 25px;
+    background-color: transparent;
+}
