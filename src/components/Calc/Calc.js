@@ -3,13 +3,13 @@ import styles from "./styles.module.css";
 import { Inventario } from '../'
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
-import { BiMinus } from "react-icons/bi";
+import { BiMinus, BiRestaurant } from "react-icons/bi";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
-export const Calc = (props) => {
+export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
@@ -30,8 +30,12 @@ export const Calc = (props) => {
   const [acertou, setAcertou] = useState(false)
   const [errou, setErrou] = useState(false)
   const [curou, setCurou] = useState(false)
+  const [QTE, setQTE] = useState('disabled')
+  const [hitTiming, setHitTiming] = useState(false) 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
+  const refTiming = useRef(hitTiming)
+  refTiming.current = hitTiming
   var trueResultado;
 
   const criarDigitos = () => {
@@ -77,6 +81,7 @@ export const Calc = (props) => {
   onkeydown = e => {
     if (e.key === 'a') return atacar();
     if (e.key === 'c') return curar();
+    if (e.key === 'd' && QTE !== 'disabled') return hitQTE()
 
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
@@ -93,6 +98,10 @@ export const Calc = (props) => {
     setErrou(false)
     setCurou(false)
     setCrit(false)
+    if (turnoEnemy) {
+      setTurnoEnemy(false)
+      startEnemyAttack()
+    }
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
@@ -125,6 +134,24 @@ export const Calc = (props) => {
   });
 
   var curaRandomizer = Math.floor(Math.random() * 6) + 10
+
+  const startEnemyAttack = () => {
+    setTimeout(() => {
+      setQTE('')
+    }, 1000);
+    setTimeout(() => {
+      setQTE('disabled')
+    }, 1400);
+
+    setTimeout(() => {
+      if (refTiming.current) setEnemyDano(0)
+      setErrou(true)
+    }, 2000);
+  }
+
+  const hitQTE = () => {
+    setHitTiming(true)
+  }
 
   const curar = () => {
     setCura(curaRandomizer)
@@ -165,6 +192,8 @@ export const Calc = (props) => {
       setResposta('')
       document.documentElement.style.setProperty('--abrir-pergunta', '-5.5rem')
       document.documentElement.style.setProperty('--diminuir-square', '5.5rem')
+
+      setTurnoEnemy(true)
     }, 5000);
   }
 
@@ -316,7 +345,7 @@ export const Calc = (props) => {
                   <p></p>
               </button>
             </div>
-
+            <button disabled={QTE} onClick={hitQTE}>oi</button>
             <div className={styles.buttonDivCalc2}>
               <button 
                 className={styles.buttonCalcCurar}
