@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import { Inventario } from '../'
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
+import { SideInventario } from "../"
 import { BiMinus, BiRestaurant } from "react-icons/bi";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
@@ -31,11 +32,14 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   const [errou, setErrou] = useState(false)
   const [curou, setCurou] = useState(false)
   const [QTE, setQTE] = useState('disabled')
+  const [acertouQTE, setAcertouQTE] = useState(false)
   const [hitTiming, setHitTiming] = useState(false) 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
   const refTiming = useRef(hitTiming)
   refTiming.current = hitTiming
+  const refAcertou = useRef(acertouQTE)
+  refAcertou.current = acertouQTE
   var trueResultado;
 
   const criarDigitos = () => {
@@ -81,7 +85,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   onkeydown = e => {
     if (e.key === 'a') return atacar();
     if (e.key === 'c') return curar();
-    if (e.key === 'd' && QTE !== 'disabled') return hitQTE()
+    if (e.key === 'd' && QTE !== 'disabled') return setHitTiming(true)
 
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
@@ -136,21 +140,33 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   var curaRandomizer = Math.floor(Math.random() * 6) + 10
 
   const startEnemyAttack = () => {
+    setQTE('')
+    setEnemyDano(10)
+
     setTimeout(() => {
-      setQTE('')
+      document.getElementById('qteButton').style.color = 'red'
+      if (refTiming.current) {
+        setErrou(true)
+        setHitTiming(false)
+        setAcertouQTE(true)
+      }
     }, 1000);
+
     setTimeout(() => {
+      document.getElementById('qteButton').style.color = 'white'
+      if (refTiming.current) {
+        setEnemyDano(0)
+        setErrou(true)
+        setHitTiming(false)
+        setAcertouQTE(true)
+      }
+    }, 1500);
+
+    setTimeout(() => {
+      if (refAcertou.current === false) setErrou(true)
+      setAcertouQTE(false)
       setQTE('disabled')
-    }, 1400);
-
-    setTimeout(() => {
-      if (refTiming.current) setEnemyDano(0)
-      setErrou(true)
     }, 2000);
-  }
-
-  const hitQTE = () => {
-    setHitTiming(true)
   }
 
   const curar = () => {
@@ -159,6 +175,8 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setShowCuraCounter(4)
     setCurou(true)
     setCuraCooldown('disabled')
+
+    setTurnoEnemy(true)
   }
 
   const atacar = () => {
@@ -190,10 +208,8 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       setTravarConfirmar('disabled')
       setCooldown('')
       setResposta('')
-      document.documentElement.style.setProperty('--abrir-pergunta', '-5.5rem')
-      document.documentElement.style.setProperty('--diminuir-square', '5.5rem')
-
-      setTurnoEnemy(true)
+      document.documentElement.style.setProperty('--abrir-pergunta', '-8rem')
+      document.documentElement.style.setProperty('--diminuir-square', '8rem')
     }, 5000);
   }
 
@@ -260,7 +276,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   }
   console.log(dano)
   return (
-    <>
+    <div className={styles.mainContainer}>
       <div className={styles.containerCalc}>
         <header className={styles.headerCalc}>
           <h1 className={styles.titleCalc}>oi</h1>
@@ -345,7 +361,9 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
                   <p></p>
               </button>
             </div>
-            <button disabled={QTE} onClick={hitQTE}>oi</button>
+
+            <button id='qteButton' disabled={QTE} >oi</button>
+
             <div className={styles.buttonDivCalc2}>
               <button 
                 className={styles.buttonCalcCurar}
@@ -357,9 +375,12 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
               </button>
             </div>
           </div>
-          <Inventario/>
         </div>
       </div>
-    </>
+
+      <div className={styles.side}>
+        <SideInventario/>
+      </div>
+    </div>
   );
 }

@@ -9,6 +9,8 @@
 .divPersonagens {
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: space-around;
     overflow: hidden;
 }
 .player {
@@ -19,7 +21,7 @@
     align-items: center;
     width: 5rem;
     margin-top: 6%;
-    margin-left: 19%;
+    margin-left: 5%;
     float: left;
 }
 .enem {
@@ -29,16 +31,16 @@
     flex-direction: column;
     align-items: center;
     width: 5rem;
-    margin-top: 7%;
-    margin-right: 19%;
+    margin-top: 5%;
+    margin-right: 5%;
     float: right;
     animation: flying 3s linear infinite;
 }
 .healStyle {
     z-index: 1;
-    position: relative;
-    top: 3rem;
-    right: 11.5rem;
+    position: absolute;
+    top: 6rem;
+    right: 49%;
     transition: ease-in-out;
 }
 .showDanoRight {

@@ -4,6 +4,7 @@
     height: 100vh;
 } */
 .rpg {
+    overflow: hidden;
     width: 75vw;
     float: right;
     height: 100vh;

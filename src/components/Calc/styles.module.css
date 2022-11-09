@@ -6,26 +6,45 @@
 * {
     font-family: "ThisSucksRegular";
 }
+.mainContainer {
+    overflow: hidden;
+    display: flex;
+}
 .containerCalc {
     background-color: #201f29;
     height: 100vh;
-    width: 25%;
+    width: 20%;
     float: left;
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex: none;
+    overflow: hidden;
 }
 .containerRpg {
     height: 100vh;
-    width: 75%;
+    width: 80%;
     float: right;
     background-image: url(../../assets/image/fundo1.gif);
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
+    flex: none;
 }
 .barraEspaco {
     height: 100vh;
     width: 1vw;
+}
+.side {
+    z-index: 3;
+    flex: none;
+    position: fixed;
+    left: 21%;
+    top: 100%;
+    height: 30%;
+    width: 79%;
+    transition: ease-in-out .5s;
+    /* transform: translateY(-100%); */
 }
 .headerCalc {
     background-color: #201f29;
@@ -43,7 +62,7 @@
     color: #f9f9f9;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    width: 10.5rem;
+    width: 12.5rem;
     height: 1rem;
     margin: 0;
     font-size: 1.4rem;
@@ -58,7 +77,7 @@
 .inputCalc {
     background-color: #333333;
     color: #fff;
-    width: 20vw;
+    width: 17vw;
     padding: .8rem;
     border: none;
     border-radius: 4px;
@@ -86,8 +105,8 @@
 }
 .square {
     height: 3rem;
-    width: var(--diminuir-square, 5.5rem);
-    margin-inline: var(--abrir-pergunta, -5.5rem);
+    width: var(--diminuir-square, 8rem);
+    margin-inline: var(--abrir-pergunta, -8rem);
     background-color: #f9f9f9;
     transition: .5s ease-in-out;
     z-index: 9999;
@@ -254,15 +273,15 @@
 .atkIcon {
     font-size: 50px;
     margin-left: 5px;
-    background-color: rgba(0%, 0%, 0%, 0.0001);
+    background-color: transparent;
 }
 .healIcon {
     font-size: 50px;
-    background-color: rgba(0%, 0%, 0%, 0.0001);
+    background-color: transparent;
 }
 .deleteIcon {
     font-size: 25px;
-    background-color: rgba(0%, 0%, 0%, 0.0001);
+    background-color: transparent;
 }
 .buttonDivCalc {
     flex-direction: row;
@@ -337,7 +356,8 @@ button:hover, button:focus {
     width: 100%;
     align-items: center;
     justify-content: center;
-    background-color: hsla(0, 0%, 13%, 0.557);
+    background-color: hsla(0, 0%, 13%, 0.657);
+    /* visibility: hidden; */
 }
 .characterSpace {
     height: 70%;

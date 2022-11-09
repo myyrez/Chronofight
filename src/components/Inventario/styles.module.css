@@ -1,11 +1,11 @@
 .invtrContainer {
-    /* background-color: rgba(0, 0, 0, 0.357); */
-    position: absolute;
+    float: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     bottom: 1rem;
+    height: 100%;
     left: 27%;
     
 }
@@ -30,26 +30,36 @@
     box-shadow: none;
 }
 .invtrBody {
-    visibility: var(--visibilidade, hidden);
+    visibility: var(--visibilidade, visible);
     background-color: rgba(0, 0, 0, 0.543);
     color: #fff;
-    display: inline-grid;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     border-radius: 6px;
-    grid-template-columns: repeat(3, 3.5rem);
-    grid-template-rows: repeat(2, 3.5rem);
+    height: 100%;
 }
+.armaGroup {
+    display: flex;
+}
+.emblemaGroup {
+    display: flex;
+}
+
+
 .invtrArmas {
     display: flex;
     justify-content: center;
     align-content: center;
-    padding: .5rem;
-    margin-inline: 5px;
-    border: none;
+    padding: 0.5rem;
+    margin-inline: 1.5rem;
+    height: 4rem;
+    width: 4rem;
+    border: 1px solid #ff2e46;
     border-radius: 3px;
     background-color: var(--corFundoArma, #313131);
-    color: var(--corArma, #ff6173);
+    color: var(--corArma, #ff2e46);
 }
 .invtrEmblemas {
     display: flex;
@@ -57,16 +67,18 @@
     align-content: center;
     text-align: center;
     padding: .5rem;
-    margin-inline: 5px;
-    border: none;
-    border-radius: 3px;
+    margin-inline: 1rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    border: 1px solid #9065ff;
     background-color: var(--corFundoEmblema, #313131);
     color: var(--corEmblema, #9065ff);
 }
 .invtrArmas:hover, 
 .invtrEmblemas:hover {
     box-shadow: none;
-    color: #f4f4f4;
+    /* color: #f4f4f4; */
     background-color: #515151;
     cursor: pointer;
 }
@@ -75,7 +87,13 @@
     box-shadow: none;
 }
 
-.classArma1 {
-    font-size: 25px;
+.svgArma {
+    font-size: 2rem;
+    margin: auto;
+    background-color: transparent;
+}
+.svgEmblema {
+    font-size: 2rem;
+    margin: auto;
     background-color: transparent;
 }

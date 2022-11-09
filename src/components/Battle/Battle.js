@@ -10,8 +10,11 @@ export const Battle = () => {
     }
 
     return (
-        <Calc
-            turnoEnemy={turnoEnemy}
-            setTurnoEnemy={setTurnoEnemy}/>
+        <div className={styles.mainContainer}>
+            <Calc
+                turnoEnemy={turnoEnemy}
+                setTurnoEnemy={setTurnoEnemy}
+                />
+        </div>
     )
 }

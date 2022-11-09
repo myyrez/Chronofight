@@ -144,8 +144,8 @@ export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, ace
         <img
           id="player"
           src={char} 
-          width='300px' 
-          height='300px'
+          width={playerStats.spriteWidth}
+          height={playerStats.spriteHeight}
         />
       </div>
       
@@ -154,8 +154,8 @@ export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, ace
         className={styles.healStyle}
         id="healId"
         src={healSmoke}
-        width='300px'
-        height='300px'
+        width='220px'
+        height='220px'
       />
 
       <div className={styles.enem}>
@@ -171,8 +171,8 @@ export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, ace
         <img
           id="enem"
           src={enem} 
-          width='220px' 
-          height='250px'
+          width={enemyStats.spriteWidth}
+          height={enemyStats.spriteHeight}
         />
       </div>
       
