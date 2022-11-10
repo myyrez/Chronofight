@@ -10,6 +10,7 @@
     height: 100%;
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-around;
     overflow: hidden;
 }
@@ -25,7 +26,7 @@
     float: left;
 }
 .enem {
-    z-index: 2;
+    z-index: 7;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -48,12 +49,14 @@
     position: absolute;
     top: 2rem;
     left: 10rem;
+    z-index: 7;
 }
 .showDanoLeft {
     color: #fff;
     position: absolute;
     top: 3rem;
     right: 10rem; 
+    z-index: 7;
 }
 .showCritLeft {
     color: rgb(255, 57, 57);
@@ -61,6 +64,7 @@
     top: 6.5rem;
     right: 8.3rem;
     font-size: 20px;
+    z-index: 7;
 }
 .showCritRight {
     color: rgb(255, 57, 57);
@@ -68,6 +72,7 @@
     top: 5.5rem;
     left: 9.2rem;
     font-size: 20px;
+    z-index: 7;
 }
 .showCura {
     color: rgb(64, 255, 191);
@@ -75,4 +80,5 @@
     top: 6.5rem;
     left: 9.2rem;
     font-size: 30px;
+    z-index: 7;
 }

@@ -1,0 +1,26 @@
+.skillcheckContainer {
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    z-index: 6;
+    background-color: rgba(0, 0, 0, 0.625);
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.skillcheck {
+    display: flex;
+    width: 80%;
+    height: 30%;
+    float: right;
+    align-items: center;
+    justify-content: center;
+}
+
+.skillcheckBarra {
+    z-index: 8;
+    width: 40%;
+    height: 30%;
+    background-color: red;
+}

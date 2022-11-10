@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-import { Inventario } from '../'
+import { Skillcheck } from "../";
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
 import { SideInventario } from "../"
@@ -334,6 +334,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       </div>
 
       <BarraProgresso click={click}/>
+      <Skillcheck/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
