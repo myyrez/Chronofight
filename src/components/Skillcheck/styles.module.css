@@ -1,26 +1,115 @@
+@keyframes runSkillcheck {
+    from { left: 0px; }
+    to { left: 100%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+
 .skillcheckContainer {
+    animation: fadeIn .5s;
+    animation-play-state: paused;
+    opacity: var(--fadeOut, 1);
     position: fixed;
     display: flex;
     height: 100%;
-    width: 100%;
+    width: 80%;
+    left: 20%;
     z-index: 6;
     background-color: rgba(0, 0, 0, 0.625);
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
+    flex-direction: column;
 }
 
 .skillcheck {
     display: flex;
-    width: 80%;
-    height: 30%;
+    position: fixed;
+    width: 371.4px;
+    height: 20%;
+    bottom: 13%;
     float: right;
     align-items: center;
     justify-content: center;
 }
 
 .skillcheckBarra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 8;
-    width: 40%;
-    height: 30%;
-    background-color: red;
+    width: 371.4px;
+    height: 50px;
+    background-color: #414141;
+    border: 2px solid #9a4800;
+}
+.hitArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+    width: 37.1px;
+    height: 50px;
+    background-color: #4f1e2d;
+    border: 2px solid #9a4800;
+}
+
+.pointer {
+    z-index: 9;
+    animation: runSkillcheck 1.5s linear;
+    animation-play-state: paused;
+    background-color: #fff;
+    height: 80px;
+    width: .3rem;
+    position: relative;
+    /* transition: 2s linear; */
+}
+
+.dodgeButton {
+    overflow: hidden;
+    background-color: #fff;
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    background-image: linear-gradient(250deg, #4c091d, #8764e1 );
+    animation: TransitioningBackground 2s ease-in-out infinite;
+    transition: 0.6s;
+    background-size: 200% 400%;
+    color: #fff;
+    border-radius: 4px;
+    transition: 150ms;
+    position: relative;
+    bottom: 5%;
+}
+.dodgeButton::before {
+    background: linear-gradient(transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+    content:'';
+    height: 200%;
+    position: absolute;
+    right: calc(100% + 20px);
+    top: -55%;
+    transform: rotate(-70deg);
+    transition: .6s ease-in-out right;
+    width: 80px;
+    z-index: 0;
+}
+.dodgeButton:hover {
+    padding: 1.1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-image: (linear-gradient(to right, #4f1e2d, #4800ff));
+    cursor: pointer;
+}
+.dodgeButton:hover:before {
+    right: -100%;
+}
+.dodgeButton:active {
+    font-size: .9rem;
 }

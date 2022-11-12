@@ -150,7 +150,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
         setHitTiming(false)
         setAcertouQTE(true)
       }
-    }, 1000);
+    }, 750);
 
     setTimeout(() => {
       document.getElementById('qteButton').style.color = 'white'
@@ -160,13 +160,13 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
         setHitTiming(false)
         setAcertouQTE(true)
       }
-    }, 1500);
+    }, 900);
 
     setTimeout(() => {
       if (refAcertou.current === false) setErrou(true)
       setAcertouQTE(false)
       setQTE('disabled')
-    }, 2000);
+    }, 1500);
   }
 
   const curar = () => {
@@ -349,7 +349,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
             errou={errou}/>
         </div>
 
-        <div className={styles.buttonSpace}>
+        <div style={{display: ''}} className={styles.buttonSpace}>
 
           <div className={styles.buttonDivCalc}>
             <div className={styles.buttonDivCalc2}>
