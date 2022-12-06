@@ -14,6 +14,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
+  const [callSkillcheck, setCallSkillcheck] = useState(false)
   const [showResultado, setShowResultado] = useState('');
   const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
@@ -104,6 +105,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setCrit(false)
     if (turnoEnemy) {
       setTurnoEnemy(false)
+      setCallSkillcheck(true)
       startEnemyAttack()
     }
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
@@ -150,7 +152,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
         setHitTiming(false)
         setAcertouQTE(true)
       }
-    }, 750);
+    }, 1700);
 
     setTimeout(() => {
       document.getElementById('qteButton').style.color = 'white'
@@ -160,13 +162,13 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
         setHitTiming(false)
         setAcertouQTE(true)
       }
-    }, 900);
+    }, 1850);
 
     setTimeout(() => {
       if (refAcertou.current === false) setErrou(true)
       setAcertouQTE(false)
       setQTE('disabled')
-    }, 1500);
+    }, 2500);
   }
 
   const curar = () => {
@@ -274,7 +276,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       trueResultado = 0
     }
   }
-  console.log(dano)
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.containerCalc}>
@@ -334,7 +336,11 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       </div>
 
       <BarraProgresso click={click}/>
-      <Skillcheck/>
+      <Skillcheck 
+        setCallSkillcheck={setCallSkillcheck}
+        callSkillcheck={callSkillcheck}
+        hitTiming={hitTiming}
+        setHitTiming={setHitTiming}/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>

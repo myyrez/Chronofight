@@ -18,7 +18,7 @@
     animation-play-state: paused;
     opacity: var(--fadeOut, 1);
     position: fixed;
-    display: flex;
+    display: var(--skillcheckTela, none);
     height: 100%;
     width: 80%;
     left: 20%;
