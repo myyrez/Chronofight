@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css"
-import { Calc } from "../"
+import { Intro } from "../"
+import { Ending } from "../"
 import { Battle } from "../"
-import { BarraVida } from "../"
-import { Personagens } from "../"
 
 export const App = () => {
+  const [modo, setModo] = useState('Intro')
+
   return (
-    <>
-      <div className={styles.calc}>
-        <Battle/>
-      </div>
-    </>
+    <div>
+      {modo === 'Intro' && <Intro setModo={setModo} />}
+
+      {modo === 'Battle' && <Battle setModo={setModo} />}
+
+      {modo === 'Ending' && <Ending setModo={setModo} />}
+    </div>
   );
 }
