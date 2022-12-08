@@ -146,7 +146,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setEnemyDano(10)
 
     setTimeout(() => {
-      document.getElementById('qteButton').style.color = 'red'
+      // document.getElementById('qteButton').style.color = 'red'
       if (refTiming.current) {
         setErrou(true)
         setHitTiming(false)
@@ -155,7 +155,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     }, 1700);
 
     setTimeout(() => {
-      document.getElementById('qteButton').style.color = 'white'
+      // document.getElementById('qteButton').style.color = 'white'
       if (refTiming.current) {
         setEnemyDano(0)
         setErrou(true)
@@ -345,6 +345,8 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            callSkillcheck={callSkillcheck}
+            setCallSkillcheck={setCallSkillcheck}
             dano={dano}
             enemyDano={enemyDano}
             enemyCrit={enemyCrit}
@@ -369,7 +371,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
               </button>
             </div>
 
-            <button id='qteButton' disabled={QTE} >oi</button>
+            {/* <button id='qteButton' display='none' disabled={QTE} >oi</button> */}
 
             <div className={styles.buttonDivCalc2}>
               <button 
