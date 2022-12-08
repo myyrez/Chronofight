@@ -193,8 +193,6 @@ export const Personagens = ({ indicador, callSkillcheck, dano, enemyDano, cura, 
             vidaAtual={playerVidaAtual}
             setVidaAtual={setPlayerVidaAtual}
             vidaTotal={playerStats.vidaTotal}
-            cura={cura}
-            errou={errou}
           />
         </div>
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
@@ -225,8 +223,6 @@ export const Personagens = ({ indicador, callSkillcheck, dano, enemyDano, cura, 
             vidaAtual={enemyVidaAtual}
             setVidaAtual={setEnemyVidaAtual}
             vidaTotal={enemyStats.vidaTotal}
-            dano={dano}
-            acertou={acertou}
           />
         </div>
         <img
