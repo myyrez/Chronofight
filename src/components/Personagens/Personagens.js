@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import char from "../../assets/image/char3.png";
 import enem from "../../assets/image/enem2.png";
 import healSmoke from "../../assets/image/curaImg.png";
+import dangerSign from "../../assets/image/dangerImg.png"
 import { enemyStats, playerStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, acertou, errou }) => {
+export const Personagens = ({ callSkillcheck, setCallSkillcheck, dano, enemyDano, cura, crit, enemyCrit, curou, acertou, errou }) => {
   const [playerVidaAtual, setPlayerVidaAtual] = useState(playerStats.vidaTotal)
   const [enemyVidaAtual, setEnemyVidaAtual] = useState(enemyStats.vidaTotal)
   const hit = [
@@ -23,9 +24,26 @@ export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, ace
     { transform: 'translate(5px, -5px) rotate(2deg)' },
     { transform: 'translate(0px, 0px) rotate(0deg)' },
   ]
+  const prepare = [
+    { transform: 'translate(-5px)' },
+    { transform: 'translate(5px)' },
+    { transform: 'translate(-5px)' },
+    { transform: 'translate(5px)' },
+    { transform: 'translate(-5px)' },
+    { transform: 'translate(5px)' },
+    { transform: 'translate(0px)' },
+  ]
   var healImg = document.getElementById("healId");
 
   useEffect(() => {
+    if (callSkillcheck) {
+      document.getElementById('dangerImg').animate(prepare, { duration: 750 })
+      document.getElementById('enem').animate(prepare, { duration: 750 })
+      document.getElementById('dangerImg').style.display = 'flex'
+    } else {
+      document.getElementById('dangerImg').style.display = 'none'
+    }
+
     if (acertou) {
       setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
       document.getElementById('enemyDmg').hidden = false
@@ -166,6 +184,12 @@ export const Personagens = ({ dano, enemyDano, cura, crit, enemyCrit, curou, ace
           dano={dano}
           acertou={acertou}
         />
+        <img
+          id="dangerImg" 
+          src={dangerSign} 
+          className={styles.showDanger}
+          height='100px'
+          width='100px'/>
         <h1 id="enemyDmg" hidden className={styles.showDanoLeft}>{dano}</h1>
         <h1 id="enemyCrit" hidden className={styles.showCritLeft}>crit!</h1>
         <img
