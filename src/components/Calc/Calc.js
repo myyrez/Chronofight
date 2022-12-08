@@ -3,14 +3,24 @@ import styles from "./styles.module.css";
 import { Skillcheck } from "../";
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
-import { SideInventario } from "../"
-import { BiMinus, BiRestaurant } from "react-icons/bi";
+import { SideInventario } from "../";
+import { BiMinus } from "react-icons/bi";
 import { GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
-export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicador }) => {
+export const Calc = ({
+  setModo,
+  curaCooldown,
+  setCuraCooldown,
+  curaCounter,
+  setCuraCounter,
+  cooldown,
+  setCooldown,
+  turnoEnemy,
+  setTurnoEnemy,
+  indicador }) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
@@ -24,9 +34,6 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
   const [cura, setCura] = useState(0)
   const [crit, setCrit] = useState(false)
   const [click, setClick] = useState(false)
-  // const [cooldown, setCooldown] = useState('')
-  const [curaCooldown, setCuraCooldown] = useState('')
-  const [curaCounter, setCuraCounter] = useState(0)
   const [showCuraCounter, setShowCuraCounter] = useState('‎')
   const [travarConfirmar, setTravarConfirmar] = useState('disabled')
   const [acertou, setAcertou] = useState(false)
@@ -135,7 +142,7 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
 
           setTimeout(() => {
             setTurnoEnemy(true)
-          }, 1000);
+          }, 2000);
         }
         if (curaCounter <= 0) {
           setCuraCooldown('')
@@ -156,7 +163,7 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
         setHitTiming(false)
         setAcertouQTE(true)
       }
-    }, 1700);
+    }, 1650);
 
     setTimeout(() => {
       if (refTiming.current) {
@@ -179,6 +186,7 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
     setCuraCounter(4)
     setShowCuraCounter(4)
     setCurou(true)
+    setCooldown('disabled')
     setCuraCooldown('disabled')
 
     setTimeout(() => {
@@ -213,7 +221,6 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
     setTimeout(() => {
       if (curaCounter == 1) setCuraCooldown('')
       setTravarConfirmar('disabled')
-      // setCooldown('')
       setResposta('')
       document.documentElement.style.setProperty('--abrir-pergunta', '-8rem')
       document.documentElement.style.setProperty('--diminuir-square', '8rem')
@@ -269,21 +276,24 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
     }
     
     if (resposta == trueResultado) { 
-
       setShowResultado('certo')
       setAcertou(true);
       setResposta('');
       trueResultado = 0
+
+      setTimeout(() => {
+        setTurnoEnemy(true)
+      }, 1000);
     } else {
       setShowResultado('errado');
       setErrou(true);
       setResposta('');
       trueResultado = 0
-    }
 
-    setTimeout(() => {
-      setTurnoEnemy(true)
-    }, 1000);
+      setTimeout(() => {
+        setTurnoEnemy(true)
+      }, 2000);
+    }
   }
 
   return (
@@ -354,6 +364,7 @@ export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicad
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            setModo={setModo}
             callSkillcheck={callSkillcheck}
             setCallSkillcheck={setCallSkillcheck}
             dano={dano}
