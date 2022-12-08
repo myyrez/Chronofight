@@ -6,6 +6,12 @@
     100% { transform: translate(0, 0px); }
 }
 
+@keyframes indicadorBackground {
+    0% { transform: translate(0px, 0px) }
+    50% { transform: translate(0px, 20px) }
+    100% { transform: translate(0px, 0px) }
+}
+
 .divPersonagens {
     height: 100%;
     width: 100%;
@@ -15,7 +21,7 @@
     overflow: hidden;
 }
 .player {
-    z-index: 2;
+    z-index: 7;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -37,6 +43,19 @@
     float: right;
     animation: flying 3s linear infinite;
 }
+
+.indicador {
+    width: 2rem;
+    height: 1rem;
+    position: absolute;
+    top: -40px;
+    background: linear-gradient(250deg, #ff447c, #a481fd );
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    transform: rotate(180deg);
+
+    animation: indicadorBackground 2s ease-in-out infinite;
+}
+
 .healStyle {
     z-index: 1;
     position: absolute;

@@ -35,16 +35,6 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, setHi
         }
     })
 
-    const stopSkillcheck = () => {
-        document.getElementById('skillcheckPointer').style.animationPlayState = 'paused'
-        setTimeout(() => {
-            document.getElementById('container').style.animationPlayState = 'paused'
-            document.documentElement.style.setProperty('--fadeOut', 0)
-            setCallSkillcheck(false)
-            document.documentElement.style.setProperty('--skillcheckTela', 'none')
-        }, 1000);
-    }
-
     return (
         <div id='container' className={styles.skillcheckContainer}>
             <div className={styles.skillcheck}>
@@ -54,7 +44,7 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, setHi
                     </div>
                 </div>
             </div>
-            <button onClick={stopSkillcheck} className={styles.dodgeButton}>Desviar</button>
+            <h1 className={styles.dodgeText}>aperte "d" para desviar</h1>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
-export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
+export const Calc = ({ cooldown, setCooldown, turnoEnemy, setTurnoEnemy, indicador }) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
@@ -24,7 +24,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
   const [cura, setCura] = useState(0)
   const [crit, setCrit] = useState(false)
   const [click, setClick] = useState(false)
-  const [cooldown, setCooldown] = useState('')
+  // const [cooldown, setCooldown] = useState('')
   const [curaCooldown, setCuraCooldown] = useState('')
   const [curaCounter, setCuraCounter] = useState(0)
   const [showCuraCounter, setShowCuraCounter] = useState('‎')
@@ -103,6 +103,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setErrou(false)
     setCurou(false)
     setCrit(false)
+    setCallSkillcheck(false)
     if (turnoEnemy) {
       setTurnoEnemy(false)
       setCallSkillcheck(true)
@@ -131,6 +132,10 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
             setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
             setEnemyCrit(true)
           }
+
+          setTimeout(() => {
+            setTurnoEnemy(true)
+          }, 1000);
         }
         if (curaCounter <= 0) {
           setCuraCooldown('')
@@ -146,7 +151,6 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setEnemyDano(10)
 
     setTimeout(() => {
-      // document.getElementById('qteButton').style.color = 'red'
       if (refTiming.current) {
         setErrou(true)
         setHitTiming(false)
@@ -155,7 +159,6 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     }, 1700);
 
     setTimeout(() => {
-      // document.getElementById('qteButton').style.color = 'white'
       if (refTiming.current) {
         setEnemyDano(0)
         setErrou(true)
@@ -178,7 +181,9 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setCurou(true)
     setCuraCooldown('disabled')
 
-    setTurnoEnemy(true)
+    setTimeout(() => {
+      setTurnoEnemy(true)
+    }, 1000);
   }
 
   const atacar = () => {
@@ -208,7 +213,7 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
     setTimeout(() => {
       if (curaCounter == 1) setCuraCooldown('')
       setTravarConfirmar('disabled')
-      setCooldown('')
+      // setCooldown('')
       setResposta('')
       document.documentElement.style.setProperty('--abrir-pergunta', '-8rem')
       document.documentElement.style.setProperty('--diminuir-square', '8rem')
@@ -275,6 +280,10 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
       setResposta('');
       trueResultado = 0
     }
+
+    setTimeout(() => {
+      setTurnoEnemy(true)
+    }, 1000);
   }
 
   return (
@@ -354,7 +363,8 @@ export const Calc = ({ turnoEnemy, setTurnoEnemy }) => {
             crit={crit}
             curou={curou}
             acertou={acertou}
-            errou={errou}/>
+            errou={errou}
+            indicador={indicador}/>
         </div>
 
         <div style={{display: ''}} className={styles.buttonSpace}>
