@@ -1,14 +1,4 @@
-/* .calc {
-    width: 25vw;
-    float: left;
+.appContainer {
     height: 100vh;
-} */
-.rpg {
-    overflow: hidden;
-    width: 75vw;
-    float: right;
-    height: 100vh;
-    background-image: url(../../assets/image/fundo1.gif);
-    background-repeat: no-repeat;
-    background-size: cover;
+    width: 100vw;
 }

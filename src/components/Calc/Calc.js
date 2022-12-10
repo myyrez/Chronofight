@@ -20,7 +20,13 @@ export const Calc = ({
   setCooldown,
   turnoEnemy,
   setTurnoEnemy,
-  indicador }) => {
+  indicador,
+  setEnemyVidaAtual,
+  enemyVidaAtual,
+  setPlayerVidaAtual,
+  playerVidaAtual,
+  setCharEnemyMorto,
+  charEnemyMorto }) => {
   const [resposta, setResposta] = useState('');
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
@@ -123,7 +129,7 @@ export const Calc = ({
 
   useEffect(() => {
     if (click) {
-      if (curaCounter > 1) setCuraCounter(curaCounter - 1)
+      if (curaCounter > 0) setCuraCounter(curaCounter - 1)
       if (showCuraCounter > 1) setShowCuraCounter(showCuraCounter - 1)
       if (showCuraCounter == 1) setShowCuraCounter('‎')
       
@@ -143,9 +149,6 @@ export const Calc = ({
           setTimeout(() => {
             setTurnoEnemy(true)
           }, 2000);
-        }
-        if (curaCounter <= 0) {
-          setCuraCooldown('')
         }
       }, 5000);
     }
@@ -219,7 +222,6 @@ export const Calc = ({
     setN2(parseInt(Math.floor(Math.random() * 10)) + 4)
 
     setTimeout(() => {
-      if (curaCounter == 1) setCuraCooldown('')
       setTravarConfirmar('disabled')
       setResposta('')
       document.documentElement.style.setProperty('--abrir-pergunta', '-8rem')
@@ -364,6 +366,12 @@ export const Calc = ({
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            setCharEnemyMorto={setCharEnemyMorto}
+            charEnemyMorto={charEnemyMorto}
+            setEnemyVidaAtual={setEnemyVidaAtual}
+            enemyVidaAtual={enemyVidaAtual}
+            setPlayerVidaAtual={setPlayerVidaAtual}
+            playerVidaAtual={playerVidaAtual}
             setModo={setModo}
             callSkillcheck={callSkillcheck}
             setCallSkillcheck={setCallSkillcheck}

@@ -7,9 +7,25 @@ import { enemyStats, playerStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = ({ indicador, callSkillcheck, dano, enemyDano, cura, crit, enemyCrit, curou, acertou, errou }) => {
-  const [playerVidaAtual, setPlayerVidaAtual] = useState(playerStats.vidaTotal)
-  const [enemyVidaAtual, setEnemyVidaAtual] = useState(enemyStats.vidaTotal)
+export const Personagens = ({ 
+  setModo,
+  indicador,
+  callSkillcheck,
+  dano,
+  enemyDano,
+  cura,
+  crit,
+  enemyCrit,
+  curou,
+  acertou,
+  errou,
+  playerVidaAtual,
+  setPlayerVidaAtual,
+  enemyVidaAtual,
+  setEnemyVidaAtual,
+  setCharEnemyMorto,
+  charEnemyMorto, }) => {
+  
   const hit = [
     { transform: 'translate(0px, 0px) rotate(0deg)' },
     { transform: 'translate(5px, 6px) rotate(1deg)' },
@@ -152,6 +168,18 @@ export const Personagens = ({ indicador, callSkillcheck, dano, enemyDano, cura, 
     }
 
     if (playerVidaAtual > 50) setPlayerVidaAtual(parseInt(50))
+    if (playerVidaAtual <= 0) {
+      setTimeout(() => {
+        setModo('Ending')
+        setCharEnemyMorto('char')
+      }, 2000);
+    }
+    if (enemyVidaAtual <= 0) {
+      setTimeout(() => {
+        setModo('Ending')
+        setCharEnemyMorto('enemy')
+      }, 2000);
+    }
   })
 
   const indicadorEnem = () => {

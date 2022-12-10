@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
-export const Ending = ({ setModo }) => {
+export const Ending = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
+    const [status, setStatus] = useState('')
+
     const initialMenu = () => {
-        setModo('Inicial')
+        setModo('Intro')
     }
 
     const tryAgain = () => {
         setModo('Battle')
     }
 
+    useEffect(() => {
+        if (charEnemyMorto === 'char') {
+            setStatus('Voce morreu')
+        }
+        if (charEnemyMorto === 'enemy') {
+            setStatus('Voce conseguiu oba')
+        }
+    })
+
     return (
         <div className={styles.mainContainerEnding}>
-            <div>
-                <button onClick={initialMenu}>Menu Inicial</button>
-                <button onClick={tryAgain}>Tentar Novamente</button>
+            <div className={styles.centerContainer}>
+                <label>{status}</label>
+                <button 
+                    className={styles.buttonEnding}
+                    onClick={initialMenu}>Menu Inicial
+                    </button>
+                <button
+                    className={styles.buttonEnding} 
+                    onClick={tryAgain}>Tentar Novamente
+                    </button>
             </div>
         </div>
     )
