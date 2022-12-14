@@ -50,6 +50,14 @@
     background-color: #414141;
     border: 2px solid #9a4800;
 }
+.skillcheckTextArea {
+    width: auto;
+    height: auto;
+    padding: .5rem;
+    margin-bottom: 2rem;
+    background-color: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(4px);
+}
 .hitArea {
     display: flex;
     justify-content: center;
@@ -75,5 +83,4 @@
 .dodgeText {
     color: #fff;
     font-size: 20px;
-    margin-bottom: 4rem
 }

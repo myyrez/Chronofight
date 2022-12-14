@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from './styles.module.css'
+import { chronosStats } from "../../shared/stats";
 
-export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, setHitTiming }) => {
+export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, chronosAtivo}) => {
     
     getComputedStyle(document.documentElement).getPropertyValue('--fadeOut')
     getComputedStyle(document.documentElement).getPropertyValue('--skillcheckTela')
@@ -44,7 +45,9 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, setHi
                     </div>
                 </div>
             </div>
-            <h1 className={styles.dodgeText}>aperte "d" para desviar</h1>
+            <div className={styles.skillcheckTextArea}>
+                <h1 className={styles.dodgeText}>aperte espaco para desviar</h1>
+            </div>
         </div>
     )
 }

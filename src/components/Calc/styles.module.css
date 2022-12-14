@@ -15,6 +15,8 @@
     height: 100vh;
     width: 20%;
     float: left;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -212,27 +214,44 @@
     border: none;
     color: #fdf9f3;
     font-weight: 500;
-    width: 8rem;
+    width: 9.5rem;
     height: 9rem;
     padding: 5px;
     padding-inline: 9px;
-    margin-right: 16px;
+    /* margin-right: 16px; */
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: ease-out 150ms;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
+}
+
+.buttonCalcUlt {
+    background-color: #33a592;
+    border: none;
+    color: #fdf9f3;
+    font-weight: 500;
+    width: 9.5rem;
+    height: 9rem;
+    padding: 5px;
+    padding-inline: 9px;
     border-radius: 4px;
     font-size: 1rem;
     transition: ease-out 150ms;
     margin-top: .25rem;
     margin-bottom: .25rem;  
 }
+
 .buttonCalcCurar {
     background-color: #5f3abb;
     border: none;
     color: #fdf9f3;
     font-weight: 500;
-    width: 8rem;
+    width: 9.5rem;
     height: 9rem;
     padding: 5px;
     padding-inline: 9px;
-    margin-left: 16px;
+    /* margin-left: 16px; */
     border-radius: 4px;
     font-size: 1rem;
     transition: ease-out 150ms;
@@ -253,6 +272,14 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+.buttonCalcUlt:hover {
+    background-color: #267e6f;
+    cursor: pointer;
+    height: 9.5rem;
+    font-size: 1.05rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .buttonCalcCurar:hover {
     background-color: #6433a3;
     cursor: pointer;
@@ -263,6 +290,7 @@
 }
 .buttonCalcCurar:disabled,
 .buttonCalcAtk:disabled,
+.buttonCalcUlt:disabled,
 .buttonConfirmar:disabled {
     background-color: #313131;
     background-image: linear-gradient(270deg, #313131, #313131);
@@ -275,6 +303,11 @@
     margin-left: 5px;
     background-color: transparent;
 }
+.chronoIcon {
+    font-size: 50px;
+    /* margin-left: 5px; */
+    background-color: transparent;
+}
 .healIcon {
     font-size: 50px;
     background-color: transparent;
@@ -284,12 +317,15 @@
     background-color: transparent;
 }
 .buttonDivCalc {
+    display: flex;
     flex-direction: row;
     text-align: center;
 }
 .buttonDivCalc2 {
-    display: inline-block;
+    display: flex;
     vertical-align: middle;
+    justify-content: center;
+    margin-inline: .75rem;
 }
 
 @keyframes TransitioningBackground {
@@ -335,7 +371,7 @@
     z-index: 0;
 }
 .buttonConfirmar:hover {
-    padding: 1.1rem;
+    /* padding: 1.1rem; */
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     background-image: (linear-gradient(to right, #4f1e2d, #4800ff));

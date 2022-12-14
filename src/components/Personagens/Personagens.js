@@ -3,14 +3,21 @@ import char from "../../assets/image/char3.png";
 import enem from "../../assets/image/enem2.png";
 import healSmoke from "../../assets/image/curaImg.png";
 import dangerSign from "../../assets/image/dangerImg.png"
-import { enemyStats, playerStats } from "../../shared/stats";
+import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
 export const Personagens = ({ 
+  turnoEnemy,
   setModo,
   indicador,
   callSkillcheck,
+  chronosAtivo,
+  setChronosAtivo,
+  chronosCounter,
+  setChronosCounter,
+  chronosCooldown,
+  setChronosCooldown,
   dano,
   enemyDano,
   cura,
@@ -23,8 +30,7 @@ export const Personagens = ({
   setPlayerVidaAtual,
   enemyVidaAtual,
   setEnemyVidaAtual,
-  setCharEnemyMorto,
-  charEnemyMorto, }) => {
+  setCharEnemyMorto, }) => {
   
   const hit = [
     { transform: 'translate(0px, 0px) rotate(0deg)' },
@@ -63,8 +69,8 @@ export const Personagens = ({
   var healImg = document.getElementById("healId");
 
   useEffect(() => {
-
     if (acertou) {
+      document.getElementById('enemyDmg').style.color = '#fff'
       setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
       document.getElementById('enemyDmg').hidden = false
 
@@ -154,6 +160,7 @@ export const Personagens = ({
       }, 1500);
     }
 
+
     if (errou && enemyCrit) {
       document.getElementById('playerCrit').hidden = false
 
@@ -166,6 +173,7 @@ export const Personagens = ({
         document.getElementById('playerCrit').hidden = true
       }, 1500);
     }
+
 
     if (playerVidaAtual > 50) setPlayerVidaAtual(parseInt(50))
     if (playerVidaAtual <= 0) {
@@ -186,21 +194,32 @@ export const Personagens = ({
     if (indicador === 'enem') return {display: 'flex'}
     else return {display: 'none'}
   }
-
   const indicadorChar = () => {
     if (indicador === 'char') return {display: 'flex'}
     else return {display: 'none'}
   }
 
-  
-
   if (callSkillcheck) {
-    document.getElementById('dangerImg').animate(prepare, { duration: 750 })
     document.getElementById('enem').animate(prepare, { duration: 750 })
-    document.getElementById('dangerImg').style.display = 'flex'
+
     setTimeout(() => {
-      document.getElementById('dangerImg').style.display = 'none'
-    }, 2500);
+      if (chronosAtivo && chronosCounter > 1) {
+        setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(chronosStats.areiaDano))
+        document.getElementById('chronosDmg').hidden = false
+
+        document.getElementById('chronosDmg').animate([
+          { transform: 'translate(0px, 0px)'},
+          { transform: 'translate(0px, 20px)'},
+        ], { duration: 3000 })
+        document.getElementById('enem').animate(hit, { duration: 750 })
+
+        setTimeout(() => {
+          document.getElementById('chronosDmg').hidden = true
+        }, 1500);
+
+      }
+      if (chronosCounter > 0) setChronosCounter(chronosCounter - 1)
+    }, 3500);
   }
 
   const indicadorBordaChar = () => {
@@ -224,8 +243,8 @@ export const Personagens = ({
           />
         </div>
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
-        <h1 id="playerDmg" hidden className={styles.showDanoRight}>{(enemyDano === 0 ? 'desvio' : Math.floor(enemyDano))}</h1>
-        <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
+        <h1 id="playerDmg" hidden className={styles.showDanoRight}>{enemyDano === 0 ? 'desvio' : Math.floor(enemyDano)}</h1>
+        <h1 id="playerCrit" hidden className={styles.showCritRight}>{enemyDano === 0 ? '' : 'crit!'}</h1>
         <img
           id="player"
           src={char} 
@@ -260,6 +279,7 @@ export const Personagens = ({
           height='100px'
           width='100px'/>
         <h1 id="enemyDmg" hidden className={styles.showDanoLeft}>{dano}</h1>
+        <h1 id="chronosDmg" hidden className={styles.showAreiaDanoLeft}>{chronosStats.areiaDano}</h1>
         <h1 id="enemyCrit" hidden className={styles.showCritLeft}>crit!</h1>
         <img
           id="enem"

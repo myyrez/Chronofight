@@ -5,12 +5,20 @@ import { Personagens } from "../";
 import { BarraProgresso } from "../";
 import { SideInventario } from "../";
 import { BiMinus } from "react-icons/bi";
-import { GiShardSword } from "react-icons/gi";
+import { GiExtraTime, GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 
 export const Calc = ({
+  chronos,
+  setChronos,
+  chronosAtivo,
+  setChronosAtivo,
+  chronosCounter,
+  setChronosCounter,
+  chronosCooldown,
+  setChronosCooldown,
   setModo,
   curaCooldown,
   setCuraCooldown,
@@ -31,6 +39,7 @@ export const Calc = ({
   const [pergunta, setPergunta] = useState('');
   const [operacao, setOperacao] = useState('');
   const [callSkillcheck, setCallSkillcheck] = useState(false)
+  const [skillcheckDone, setSkillcheckDone] = useState(true)
   const [showResultado, setShowResultado] = useState('');
   const [n1, setN1] = useState(parseInt(Math.floor(Math.random() * 10)));
   const [n2, setN2] = useState(parseInt(Math.floor(Math.random() * 10)));
@@ -99,7 +108,7 @@ export const Calc = ({
   onkeydown = e => {
     if (e.key === 'a') return atacar();
     if (e.key === 'c') return curar();
-    if (e.key === 'd' && QTE !== 'disabled') return setHitTiming(true)
+    if (e.key === ' ' && QTE !== 'disabled') return setHitTiming(true)
 
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
@@ -122,6 +131,7 @@ export const Calc = ({
       setCallSkillcheck(true)
       startEnemyAttack()
     }
+    if (chronosCounter !== 0) setChronosCooldown('disabled')
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
     if (operacao === 'multip') setPergunta(`${n1} x ${n2}`)
@@ -191,18 +201,28 @@ export const Calc = ({
     setCurou(true)
     setCooldown('disabled')
     setCuraCooldown('disabled')
+    setChronosCooldown('disabled')
 
     setTimeout(() => {
       setTurnoEnemy(true)
     }, 1000);
   }
 
+  const atacarChronos = () => {
+    if (chronos === 'areia') {
+      setChronosAtivo(true)
+      setChronosCounter(4)
+      setChronosCooldown('disabled')
+    }
+  }
+
   const atacar = () => {
     setClick(true)
     setTravarConfirmar('')
     setShowResultado('')
-    setCuraCooldown('disabled')
     setCooldown('disabled')
+    setCuraCooldown('disabled')
+    setChronosCooldown('disabled')
     document.documentElement.style.setProperty('--abrir-pergunta', '0.6rem')
     document.documentElement.style.setProperty('--diminuir-square', '0rem')
 
@@ -301,58 +321,56 @@ export const Calc = ({
   return (
     <div className={styles.mainContainer}>
       <div className={styles.containerCalc}>
-        <header className={styles.headerCalc}>
-          <h1 className={styles.titleCalc}>oi</h1>
-        </header>
+        <div className={styles.subContainerCalc}>
+          <div className={styles.perguntaDiv}>
+            <div className={styles.square}/>
 
-        <div className={styles.perguntaDiv}>
-          <div className={styles.square}/>
+            <h3 className={styles.perguntaCalc}>{pergunta}</h3>
 
-          <h3 className={styles.perguntaCalc}>{pergunta}</h3>
+            <div className={styles.square}/>
+          </div>
 
-          <div className={styles.square}/>
-        </div>
+          <div className={styles.respostaDiv}>
+            <input
+              className={styles.inputCalc}
+              placeholder="RESPOSTA..."
+              // type={'number'}
+              onChange={updateResposta}
+              value={resposta}
+              disabled>
+            </input>
+          </div>
 
-        <div className={styles.respostaDiv}>
-          <input
-            className={styles.inputCalc}
-            placeholder="RESPOSTA..."
-            // type={'number'}
-            onChange={updateResposta}
-            value={resposta}
-            disabled>
-          </input>
-        </div>
+          <div className={styles.buttonGrid}>
+            { criarDigitos() }
+            <button
+              id='calcButton'
+              className={styles.buttonApagar}
+              disabled={travarConfirmar}
+              onClick={apagarResposta}>
+                <RiDeleteBack2Line className={styles.deleteIcon}/>
+            </button>
+            <button
+              id='calcButton'
+              className={styles.buttonMenos}
+              disabled={travarConfirmar}
+              onClick={adicionarMenos}>
+                <BiMinus className={styles.deleteIcon}/>
+            </button>
+          </div>
 
-        <div className={styles.buttonGrid}>
-          { criarDigitos() }
-          <button
-            id='calcButton'
-            className={styles.buttonApagar}
-            disabled={travarConfirmar}
-            onClick={apagarResposta}>
-              <RiDeleteBack2Line className={styles.deleteIcon}/>
-          </button>
-          <button
-            id='calcButton'
-            className={styles.buttonMenos}
-            disabled={travarConfirmar}
-            onClick={adicionarMenos}>
-              <BiMinus className={styles.deleteIcon}/>
-          </button>
-        </div>
+          <div className={styles.divButtonConfirmar}>
+            <button
+              className={styles.buttonConfirmar}
+              disabled={travarConfirmar}
+              onClick={() => acerto()}>
+              CONFIRMAR 
+            </button>
+          </div>
 
-        <div className={styles.divButtonConfirmar}>
-          <button
-            className={styles.buttonConfirmar}
-            disabled={travarConfirmar}
-            onClick={() => acerto()}>
-            CONFIRMAR 
-          </button>
-        </div>
-
-        <div className={styles.resultadoDivCalc}>
-          <h3 className={styles.resultadoCalc}>{refResultado.current}</h3>
+          <div className={styles.resultadoDivCalc}>
+            <h3 className={styles.resultadoCalc}>{refResultado.current}</h3>
+          </div>
         </div>
       </div>
 
@@ -360,12 +378,14 @@ export const Calc = ({
       <Skillcheck 
         setCallSkillcheck={setCallSkillcheck}
         callSkillcheck={callSkillcheck}
+        chronosAtivo={chronosAtivo}
         hitTiming={hitTiming}
         setHitTiming={setHitTiming}/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            turnoEnemy={turnoEnemy}
             setCharEnemyMorto={setCharEnemyMorto}
             charEnemyMorto={charEnemyMorto}
             setEnemyVidaAtual={setEnemyVidaAtual}
@@ -375,6 +395,12 @@ export const Calc = ({
             setModo={setModo}
             callSkillcheck={callSkillcheck}
             setCallSkillcheck={setCallSkillcheck}
+            chronosAtivo={chronosAtivo}
+            setChronosAtivo={setChronosAtivo}
+            chronosCounter={chronosCounter}
+            setChronosCounter={setChronosCounter}
+            chronosCooldown={chronosCooldown}
+            setChronosCooldown={setChronosCooldown}
             dano={dano}
             enemyDano={enemyDano}
             enemyCrit={enemyCrit}
@@ -393,14 +419,23 @@ export const Calc = ({
               <button 
                 className={styles.buttonCalcAtk}
                 disabled={cooldown}
-                onClick={() => atacar()}>
+                onClick={atacar}>
                   <p className={styles.buttonCalcText}>ATACAR</p>
                   <GiShardSword className={styles.atkIcon}/>
                   <p></p>
               </button>
             </div>
 
-            {/* <button id='qteButton' display='none' disabled={QTE} >oi</button> */}
+            <div className={styles.buttonDivCalc2}>
+              <button 
+                className={styles.buttonCalcUlt}
+                disabled={chronosCooldown}
+                onClick={atacarChronos}>
+                  <p className={styles.buttonCalcText}>chronos</p>
+                  <GiExtraTime className={styles.atkIcon}/>
+                  <p></p>
+              </button>
+            </div>
 
             <div className={styles.buttonDivCalc2}>
               <button 

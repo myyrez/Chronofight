@@ -66,6 +66,7 @@
 .showDanoRight {
     color: #fff;
     position: absolute;
+    font-size: 25px;
     top: 2rem;
     left: 10rem;
     z-index: 7;
@@ -73,6 +74,15 @@
 .showDanoLeft {
     color: #fff;
     position: absolute;
+    font-size: 25px;
+    top: 3rem;
+    right: 10rem; 
+    z-index: 7;
+}
+.showAreiaDanoLeft {
+    color: #bb3a43;
+    position: absolute;
+    font-size: 25px;
     top: 3rem;
     right: 10rem; 
     z-index: 7;
@@ -108,5 +118,5 @@
     left: 100%;
     bottom: 40%;
     background-color: #fff;
-    border-radius: 1rem
+    border-radius: .25rem
 }
