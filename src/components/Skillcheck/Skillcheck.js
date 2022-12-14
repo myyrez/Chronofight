@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from './styles.module.css'
 import { chronosStats } from "../../shared/stats";
 
-export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, chronosAtivo}) => {
+export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, enemyVidaAtual, }) => {
     
     getComputedStyle(document.documentElement).getPropertyValue('--fadeOut')
     getComputedStyle(document.documentElement).getPropertyValue('--skillcheckTela')
@@ -13,14 +13,14 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, chron
             setTimeout(() => {
                 document.getElementById('container').style.animationPlayState = 'paused'
                 document.documentElement.style.setProperty('--fadeOut', 0)
-                setCallSkillcheck(false)
+                // setCallSkillcheck(false)
                 document.documentElement.style.setProperty('--skillcheckTela', 'none')
         }, 1000);
         }
     })
 
     useEffect(() => {
-        if (callSkillcheck) {
+        if (callSkillcheck && enemyVidaAtual !== 0) {
             document.documentElement.style.setProperty('--skillcheckTela', 'flex')
             document.documentElement.style.setProperty('--fadeOut', 1)
             document.getElementById('container').style.animationPlayState = 'running'
@@ -29,8 +29,9 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, chron
             }, 1000);
             setTimeout(() => {
                 document.getElementById('container').style.animationPlayState = 'paused'
+                document.getElementById('skillcheckPointer').style.animationPlayState = 'paused'
                 document.documentElement.style.setProperty('--fadeOut', 0)
-                setCallSkillcheck(false)
+                // setCallSkillcheck(false)
                 document.documentElement.style.setProperty('--skillcheckTela', 'none')
             }, 3500);
         }

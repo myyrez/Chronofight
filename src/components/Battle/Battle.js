@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Calc } from "../Calc";
-import { enemyStats, playerStats } from "../../shared/stats";
+import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 
 export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     const [turnoEnemy, setTurnoEnemy] = useState(false)
@@ -14,7 +14,7 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     const [chronosAtivo, setChronosAtivo] = useState(false)
     const [chronosCooldown, setChronosCooldown] = useState('')
     const [chronosCounter, setChronosCounter] = useState(3)
-    const [chronosBar, setChronosBar] = useState()
+    const [chronosTotal, setChronosTotal] = useState(chronosStats.areiaChronosInicial)
 
     const [chronos, setChronos] = useState('areia')
     // areia: ataque com a forma física volátil do próprio tempo. finos feixes de areia que
@@ -42,6 +42,8 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
             <Calc
                 chronos={chronos}
                 setChronos={setChronos}
+                chronosTotal={chronosTotal}
+                setChronosTotal={setChronosTotal}
                 chronosAtivo={chronosAtivo}
                 setChronosAtivo={setChronosAtivo}
                 chronosCounter={chronosCounter}

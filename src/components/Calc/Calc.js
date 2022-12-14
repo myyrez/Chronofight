@@ -9,12 +9,15 @@ import { GiExtraTime, GiShardSword } from "react-icons/gi";
 import { GiHealthPotion } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
+import { chronosStats } from "../../shared/stats";
 
 export const Calc = ({
   chronos,
   setChronos,
   chronosAtivo,
   setChronosAtivo,
+  chronosTotal,
+  setChronosTotal,
   chronosCounter,
   setChronosCounter,
   chronosCooldown,
@@ -108,7 +111,8 @@ export const Calc = ({
   onkeydown = e => {
     if (e.key === 'a') return atacar();
     if (e.key === 'c') return curar();
-    if (e.key === ' ' && QTE !== 'disabled') return setHitTiming(true)
+    if (e.key === 'Shift') return atacarChronos();
+    if (e.key === ' ' && QTE !== 'disabled') return setHitTiming(true);
 
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
@@ -188,7 +192,13 @@ export const Calc = ({
     }, 1850);
 
     setTimeout(() => {
-      if (refAcertou.current === false) setErrou(true)
+      if (!refAcertou.current) setErrou(true)
+      
+      if (refTiming.current) {
+        setErrou(true)
+        setHitTiming(false)
+      }
+
       setAcertouQTE(false)
       setQTE('disabled')
     }, 2500);
@@ -213,6 +223,7 @@ export const Calc = ({
       setChronosAtivo(true)
       setChronosCounter(4)
       setChronosCooldown('disabled')
+      setChronosTotal(chronosStats.areiaChronosTotal)
     }
   }
 
@@ -302,6 +313,7 @@ export const Calc = ({
       setAcertou(true);
       setResposta('');
       trueResultado = 0
+      if (chronosCounter > 0) setChronosCounter(chronosCounter - 1)
 
       setTimeout(() => {
         setTurnoEnemy(true)
@@ -378,13 +390,14 @@ export const Calc = ({
       <Skillcheck 
         setCallSkillcheck={setCallSkillcheck}
         callSkillcheck={callSkillcheck}
-        chronosAtivo={chronosAtivo}
         hitTiming={hitTiming}
-        setHitTiming={setHitTiming}/>
+        enemyVidaAtual={enemyVidaAtual}/>
 
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            chronosTotal={chronosTotal}
+            setChronosTotal={setChronosTotal}
             turnoEnemy={turnoEnemy}
             setCharEnemyMorto={setCharEnemyMorto}
             charEnemyMorto={charEnemyMorto}

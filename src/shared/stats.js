@@ -13,5 +13,7 @@ export const enemyStats = {
 }
 
 export const chronosStats = {
-    areiaDano: 20
+    areiaDano: 20,
+    areiaChronosInicial: 3,
+    areiaChronosTotal: 4,
 }

@@ -7,18 +7,18 @@
     padding: .5rem;
 }
 .barra {
-    height: 1rem;
+    height: auto;
     width: 15vw;
-    background-color: #b0b0b0;
+    background-color: #515151;
     padding: 3px;
     position: relative;
 }
 .hit {
     float: left;
-    background-color: red;
+    background-color: rgb(255, 67, 67);
     margin: 0 auto;
     width: 15vw;
-    height: auto;
+    height: 1rem;
     position: relative;
     transition: width .5s linear;
 }
@@ -28,7 +28,29 @@
     right: 0;
     bottom: 0;
     width: 0px;
+    height: 1rem;
     transition: width 2s;
+    transition-delay: .75s;
+}
+.chronosBarContainer {
+    background-color: rgb(122, 207, 228);
+    top: 5;
+    right: 0;
+    bottom: 0;
+    width: 0px;
+    height: .35rem;
+    transition: width .5s;
+    transition-delay: .75s;
+}
+.chronosBar {
+    background-color: rgba(0, 0, 0, 0.749);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0px;
+    height: .35rem;
+    float: right;
+    transition: width .5s;
     transition-delay: .75s;
 }
 .total {

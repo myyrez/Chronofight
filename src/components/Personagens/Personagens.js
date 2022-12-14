@@ -7,7 +7,9 @@ import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
-export const Personagens = ({ 
+export const Personagens = ({
+  chronosTotal,
+  setChronosTotal,
   turnoEnemy,
   setModo,
   indicador,
@@ -218,7 +220,6 @@ export const Personagens = ({
         }, 1500);
 
       }
-      if (chronosCounter > 0) setChronosCounter(chronosCounter - 1)
     }, 3500);
   }
 
@@ -236,10 +237,11 @@ export const Personagens = ({
         <div className={styles.indicador} style={indicadorChar()}/>
         <div style={indicadorBordaChar()}>
           <BarraVida
-            indicador={indicador}
             vidaAtual={playerVidaAtual}
             setVidaAtual={setPlayerVidaAtual}
             vidaTotal={playerStats.vidaTotal}
+            chronosCounter={chronosCounter}
+            chronosTotal={chronosTotal}
           />
         </div>
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
@@ -266,10 +268,11 @@ export const Personagens = ({
         <div className={styles.indicador} style={indicadorEnem()} />
         <div style={indicadorBordaEnem()}>
           <BarraVida
-            indicador={indicador}
             vidaAtual={enemyVidaAtual}
             setVidaAtual={setEnemyVidaAtual}
             vidaTotal={enemyStats.vidaTotal}
+            chronosCounter={1}
+            chronosTotal={1}
           />
         </div>
         <img
