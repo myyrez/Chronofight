@@ -68,7 +68,9 @@ export const Personagens = ({
     { transform: 'translate(-75px)'},
     { transform: 'translate(0px)'},
   ]
+  const [desativarAreia, setDesativarAreia] = useState(0)
   var healImg = document.getElementById("healId");
+  
 
   useEffect(() => {
     if (acertou) {
@@ -177,7 +179,7 @@ export const Personagens = ({
     }
 
 
-    if (playerVidaAtual > 50) setPlayerVidaAtual(parseInt(50))
+    if (playerVidaAtual > playerStats.vidaTotal) setPlayerVidaAtual(playerStats.vidaTotal)
     if (playerVidaAtual <= 0) {
       setTimeout(() => {
         setModo('Ending')
@@ -205,7 +207,7 @@ export const Personagens = ({
     document.getElementById('enem').animate(prepare, { duration: 750 })
 
     setTimeout(() => {
-      if (chronosAtivo && chronosCounter > 1) {
+      if (chronosAtivo && desativarAreia < 3) {
         setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(chronosStats.areiaDano))
         document.getElementById('chronosDmg').hidden = false
 
@@ -219,7 +221,12 @@ export const Personagens = ({
           document.getElementById('chronosDmg').hidden = true
         }, 1500);
 
+        setDesativarAreia(desativarAreia + 1)
+      } else {
+        setChronosAtivo(false)
+        setDesativarAreia(0)
       }
+      console.log(desativarAreia)
     }, 3500);
   }
 

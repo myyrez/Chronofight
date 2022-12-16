@@ -37,7 +37,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border-radius: 6px;
     height: 100%;
 }
 .armaGroup {
@@ -56,10 +55,10 @@
     margin-inline: 1.5rem;
     height: 4rem;
     width: 4rem;
-    border: 1px solid #ff2e46;
-    border-radius: 3px;
+    border: 1px solid #3cc1ab;
+    border-radius: 50%;
     background-color: var(--corFundoArma, #313131);
-    color: var(--corArma, #ff2e46);
+    color: var(--corArma, #3cc1ab);
 }
 .invtrEmblemas {
     display: flex;

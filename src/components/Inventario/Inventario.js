@@ -13,15 +13,14 @@ import {
 
 export const Inventario = () => {
     var show = false
-    const [ArmaAtiva, setArmaAtiva] = useState(0)
+    const [ArmaAtiva, setArmaAtiva] = useState(1)
     const corFundo = 'transparent'
     const cor = '#f4f4f4'
     const corFundoInativo = '#313131'
-    const corInativo = '#ff2e46'
-    var armaAtiva1 = false
-    var armaAtiva2 = false
-    var armaAtiva3 = false
-    var emblemaAtivo = false
+    const corInativo = '#3cc1ab'
+    var chronosAtivo1 = false
+    var chronosAtivo2 = false
+    var chronosAtivo3 = false
 
     const showInventario = () => {
         getComputedStyle(document.documentElement).getPropertyValue('--visibilidade')
@@ -44,11 +43,11 @@ export const Inventario = () => {
     const ativarArma1 = () => {
         if (ArmaAtiva !== 0) {
             document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma1').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma1').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma2').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma2').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma3').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma3').style.setProperty('--corArma', '#3cc1ab')
         }
         if (ArmaAtiva !== 1) {
             document.getElementById('arma1').style.setProperty('--corFundoArma', 'transparent')
@@ -56,7 +55,7 @@ export const Inventario = () => {
             setArmaAtiva(1)
         } else {
             document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma1').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma1').style.setProperty('--corArma', '#3cc1ab')
             setArmaAtiva(0)
         }
 
@@ -64,11 +63,11 @@ export const Inventario = () => {
     const ativarArma2 = () => {
         if (ArmaAtiva !== 0) {
             document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma1').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma1').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma2').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma2').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma3').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma3').style.setProperty('--corArma', '#3cc1ab')
         }
         if (ArmaAtiva !== 2) {
             document.getElementById('arma2').style.setProperty('--corFundoArma', 'transparent')
@@ -76,7 +75,7 @@ export const Inventario = () => {
             setArmaAtiva(2)
         } else {
             document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma2').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma2').style.setProperty('--corArma', '#3cc1ab')
             setArmaAtiva(0)
         }
 
@@ -84,11 +83,11 @@ export const Inventario = () => {
     const ativarArma3 = () => {
         if (ArmaAtiva !== 0) {
             document.getElementById('arma1').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma1').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma1').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma2').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma2').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma2').style.setProperty('--corArma', '#3cc1ab')
             document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma3').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma3').style.setProperty('--corArma', '#3cc1ab')
         }
         if (ArmaAtiva !== 3) {
             document.getElementById('arma3').style.setProperty('--corFundoArma', 'transparent')
@@ -96,16 +95,13 @@ export const Inventario = () => {
             setArmaAtiva(3)
         } else {
             document.getElementById('arma3').style.setProperty('--corFundoArma', '#313131')
-            document.getElementById('arma3').style.setProperty('--corArma', '#ff2e46')
+            document.getElementById('arma3').style.setProperty('--corArma', '#3cc1ab')
             setArmaAtiva(0)
         }
     }
 
     getComputedStyle(document.documentElement).getPropertyValue('--corFundoEmblema')
     getComputedStyle(document.documentElement).getPropertyValue('--corEmblema')
-
-    const ativarEmblema = () => {
-    }
 
     return (
         <div className={styles.invtrContainer}>
@@ -130,7 +126,7 @@ export const Inventario = () => {
                         className={styles.invtrArmas}
                         onClick={ativarArma3}><GiReaperScythe className={styles.svgArma}/></button>
                 </div>
-                <div className={styles.emblemaGroup}>
+                {/* <div className={styles.emblemaGroup}>
                     <button 
                         id='emblema1'
                         value='1' 
@@ -146,7 +142,7 @@ export const Inventario = () => {
                         value='3' 
                         className={styles.invtrEmblemas}
                         onClick={ativarEmblema}><GiBatwingEmblem className={styles.svgEmblema}/></button>
-                </div>
+                </div> */}
             </div>
         </div>
     )

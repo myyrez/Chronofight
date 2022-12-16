@@ -221,7 +221,7 @@ export const Calc = ({
   const atacarChronos = () => {
     if (chronos === 'areia') {
       setChronosAtivo(true)
-      setChronosCounter(4)
+      setChronosCounter(chronosStats.areiaChronosTotal)
       setChronosCooldown('disabled')
       setChronosTotal(chronosStats.areiaChronosTotal)
     }

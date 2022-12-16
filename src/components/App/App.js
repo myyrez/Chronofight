@@ -5,7 +5,7 @@ import { Battle } from "../"
 import { Ending } from "../"
 
 export const App = () => {
-  const [modo, setModo] = useState('Intro')
+  const [modo, setModo] = useState('Battle')
   const [nome, setNome] = useState('')
   const [charEnemyMorto, setCharEnemyMorto] = useState('')
 

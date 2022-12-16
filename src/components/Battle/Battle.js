@@ -13,15 +13,22 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     const [enemyVidaAtual, setEnemyVidaAtual] = useState(enemyStats.vidaTotal)
     const [chronosAtivo, setChronosAtivo] = useState(false)
     const [chronosCooldown, setChronosCooldown] = useState('')
-    const [chronosCounter, setChronosCounter] = useState(3)
+    const [chronosCounter, setChronosCounter] = useState(chronosStats.areiaChronosInicial)
     const [chronosTotal, setChronosTotal] = useState(chronosStats.areiaChronosInicial)
 
     const [chronos, setChronos] = useState('areia')
-    // areia: ataque com a forma física volátil do próprio tempo. finos feixes de areia que
-    // parecem ter vida própria envolvem o inimigo. -- passivamente queima o inimigo por 2 rodadas
-    
 
     useEffect(() => {
+        // switch (chronos) {
+        //     case 'areia':
+        //         setChronosTotal(chronosStats.areiaChronosInicial)
+        //         break;
+        
+        //     case 'marca':
+        //         setChronosTotal(chronosStats.marcaChronosInicial)
+        //         break;
+        // }
+
         if (turnoEnemy && enemyVidaAtual !== 0) {
             setIndicador('enem')
             setCooldown('disabled')
