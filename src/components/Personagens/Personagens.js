@@ -8,18 +8,18 @@ import { BarraVida } from "../";
 import styles from "./styles.module.css";
 
 export const Personagens = ({
+  setCrit,
+  setEnemyCrit,
+  desviou,
+  setDesviou,
+  chronos,
   chronosTotal,
-  setChronosTotal,
-  turnoEnemy,
   setModo,
   indicador,
   callSkillcheck,
   chronosAtivo,
   setChronosAtivo,
   chronosCounter,
-  setChronosCounter,
-  chronosCooldown,
-  setChronosCooldown,
   dano,
   enemyDano,
   cura,
@@ -96,20 +96,61 @@ export const Personagens = ({
     }
 
 
-    if (errou) {
-      setPlayerVidaAtual(parseInt(playerVidaAtual) - parseInt(enemyDano))
+    if (desviou) {
+      document.getElementById('playerDmg').textContent = 'desvio'
+      document.getElementById('playerCrit').textContent = ''
       document.getElementById('playerDmg').hidden = false
+
+      document.getElementById('player').animate(dodge, { duration: 750 })
+      document.getElementById('enem').animate([
+        { transform: 'translate(0px)'},
+        { transform: 'translate(-70px)'},
+        { transform: 'translate(0px)'},
+      ], { duration: 350 })
+
+      setTimeout(() => {
+        document.getElementById('playerDmg').hidden = true
+        document.getElementById('enemyDmg').hidden = true
+      }, 1500);
+
+      setDesviou(false)
+    }
+
+    
+    if (errou) {
+      document.getElementById('playerDmg').textContent = Math.floor(enemyDano)
+      document.getElementById('enemyDmg').textContent = Math.floor(dano)
+      document.getElementById('enemyCrit').textContent = 'crit!'
+      document.getElementById('playerCrit').textContent = 'crit!'
+      let newEnemyDano = Math.floor(enemyDano / 2)
+
+      if (chronosAtivo && chronos === 'escudo') {
+        setPlayerVidaAtual(playerVidaAtual - newEnemyDano)
+        setEnemyVidaAtual(enemyVidaAtual - newEnemyDano)
+        document.getElementById('playerDmg').textContent = Math.floor(newEnemyDano)
+        document.getElementById('enemyDmg').textContent = Math.floor(newEnemyDano)
+        if (enemyCrit) {
+          document.getElementById('playerCrit').hidden = false
+          document.getElementById('enemyCrit').hidden = false
+        }
+
+        document.getElementById('playerDmg').hidden = false
+        document.getElementById('enemyDmg').hidden = false
+        if (playerVidaAtual < 1) setPlayerVidaAtual(1)
+        
+        setChronosAtivo(false)
+        console.log(enemyDano)
+      } else {
+        setPlayerVidaAtual(parseInt(playerVidaAtual) - parseInt(enemyDano))
+        document.getElementById('playerDmg').hidden = false
+      }
 
       document.getElementById('playerDmg').animate([
         { transform: 'translate(0px, 0px)'},
         { transform: 'translate(0px, 20px)'},
       ], { duration: 3000 })
 
-      if (enemyDano === 0) {
-        document.getElementById('player').animate(dodge, { duration: 750 })
-      } else {
-        document.getElementById('player').animate(hit, { duration: 750 })
-      }
+      document.getElementById('player').animate(hit, { duration: 750 })
 
       document.getElementById('enem').animate([
         { transform: 'translate(0px)'},
@@ -119,6 +160,10 @@ export const Personagens = ({
 
       setTimeout(() => {
         document.getElementById('playerDmg').hidden = true
+        document.getElementById('enemyDmg').hidden = true
+        document.getElementById('playerCrit').hidden = true
+        document.getElementById('enemyCrit').hidden = true
+
       }, 1500);
     }
 
@@ -162,6 +207,8 @@ export const Personagens = ({
       setTimeout(() => {
         document.getElementById('enemyCrit').hidden = true
       }, 1500);
+
+      setCrit(false)
     }
 
 
@@ -176,6 +223,8 @@ export const Personagens = ({
       setTimeout(() => {
         document.getElementById('playerCrit').hidden = true
       }, 1500);
+
+      setEnemyCrit(false)
     }
 
 
@@ -194,20 +243,12 @@ export const Personagens = ({
     }
   })
 
-  const indicadorEnem = () => {
-    if (indicador === 'enem') return {display: 'flex'}
-    else return {display: 'none'}
-  }
-  const indicadorChar = () => {
-    if (indicador === 'char') return {display: 'flex'}
-    else return {display: 'none'}
-  }
 
   if (callSkillcheck) {
     document.getElementById('enem').animate(prepare, { duration: 750 })
 
     setTimeout(() => {
-      if (chronosAtivo && desativarAreia < 3) {
+      if (chronosAtivo && chronos === 'areia' && desativarAreia < 3) {
         setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(chronosStats.areiaDano))
         document.getElementById('chronosDmg').hidden = false
 
@@ -222,14 +263,24 @@ export const Personagens = ({
         }, 1500);
 
         setDesativarAreia(desativarAreia + 1)
-      } else {
+      }
+      if (desativarAreia > 3) {
         setChronosAtivo(false)
         setDesativarAreia(0)
       }
-      console.log(desativarAreia)
     }, 3500);
   }
 
+
+  const indicadorEnem = () => {
+    if (indicador === 'enem') return {display: 'flex'}
+    else return {display: 'none'}
+  }
+  const indicadorChar = () => {
+    if (indicador === 'char') return {display: 'flex'}
+    else return {display: 'none'}
+  }
+  
   const indicadorBordaChar = () => {
     if (indicador === 'char') return {border: '1px solid white', borderRadius: '5px'}
   }
@@ -252,8 +303,8 @@ export const Personagens = ({
           />
         </div>
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
-        <h1 id="playerDmg" hidden className={styles.showDanoRight}>{enemyDano === 0 ? 'desvio' : Math.floor(enemyDano)}</h1>
-        <h1 id="playerCrit" hidden className={styles.showCritRight}>{enemyDano === 0 ? '' : 'crit!'}</h1>
+        <h1 id="playerDmg" hidden className={styles.showDanoRight}>{Math.floor(enemyDano)}</h1>
+        <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
         <img
           id="player"
           src={char} 

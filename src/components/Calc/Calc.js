@@ -57,15 +57,20 @@ export const Calc = ({
   const [acertou, setAcertou] = useState(false)
   const [errou, setErrou] = useState(false)
   const [curou, setCurou] = useState(false)
+  const [desviou, setDesviou] = useState(false)
   const [QTE, setQTE] = useState('disabled')
   const [acertouQTE, setAcertouQTE] = useState(false)
   const [hitTiming, setHitTiming] = useState(false) 
+
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
+
   const refTiming = useRef(hitTiming)
   refTiming.current = hitTiming
+
   const refAcertou = useRef(acertouQTE)
   refAcertou.current = acertouQTE
+
   var trueResultado;
 
   const criarDigitos = () => {
@@ -172,7 +177,11 @@ export const Calc = ({
 
   const startEnemyAttack = () => {
     setQTE('')
-    setEnemyDano(10)
+    setEnemyDano(Math.floor(Math.random() * 11) + 10)
+    if (enemyWillCrit) {
+      setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
+      setEnemyCrit(true)
+    }
 
     setTimeout(() => {
       if (refTiming.current) {
@@ -184,8 +193,7 @@ export const Calc = ({
 
     setTimeout(() => {
       if (refTiming.current) {
-        setEnemyDano(0)
-        setErrou(true)
+        setDesviou(true)
         setHitTiming(false)
         setAcertouQTE(true)
       }
@@ -219,11 +227,20 @@ export const Calc = ({
   }
 
   const atacarChronos = () => {
+    setChronosAtivo(true)
+    setChronosCooldown('disabled')
+
     if (chronos === 'areia') {
-      setChronosAtivo(true)
-      setChronosCounter(chronosStats.areiaChronosTotal)
-      setChronosCooldown('disabled')
       setChronosTotal(chronosStats.areiaChronosTotal)
+      setChronosCounter(chronosStats.areiaChronosTotal)
+    }
+    if (chronos === 'marca') {
+      setChronosTotal(chronosStats.marcaChronosTotal)
+      setChronosCounter(chronosStats.marcaChronosTotal)
+    }
+    if (chronos === 'escudo') {
+      setChronosTotal(chronosStats.escudoChronosTotal)
+      setChronosCounter(chronosStats.escudoChronosTotal)
     }
   }
 
@@ -264,17 +281,11 @@ export const Calc = ({
   var critDmg = 1.5;
   if (critDecider === 0) critDmg = 2;
 
-  var chanceMais10 = true;
-  var chanceMais20 = true;
-  var chanceBase = 0.1
-  if (chanceMais10) chanceBase += 0.1
-  if (chanceMais20) chanceBase += 0.2
+  var chanceBase = 1
   var willCrit = Math.random() < chanceBase;
 
   var enemyCritDmg = 2
-  var enemyChanceMais10 = false;
-  var enemyChanceMais20 = false;
-  var enemyChanceBase = 0.1
+  var enemyChanceBase = 1
   var enemyWillCrit = Math.random() < enemyChanceBase
 
   
@@ -313,7 +324,9 @@ export const Calc = ({
       setAcertou(true);
       setResposta('');
       trueResultado = 0
-      if (chronosCounter > 0) setChronosCounter(chronosCounter - 1)
+      if (chronosCounter > 0 && chronos === 'areia') setChronosCounter(chronosCounter - 1)
+      
+      if (chronosCounter > 0 && chronosAtivo === false && chronos === 'escudo') setChronosCounter(chronosCounter - 1)
 
       setTimeout(() => {
         setTurnoEnemy(true)
@@ -396,9 +409,11 @@ export const Calc = ({
       <div className={styles.containerRpg}>
         <div className={styles.characterSpace}>
           <Personagens
+            setCrit={setCrit}
+            desviou={desviou}
+            setDesviou={setDesviou}
+            chronos={chronos}
             chronosTotal={chronosTotal}
-            setChronosTotal={setChronosTotal}
-            turnoEnemy={turnoEnemy}
             setCharEnemyMorto={setCharEnemyMorto}
             charEnemyMorto={charEnemyMorto}
             setEnemyVidaAtual={setEnemyVidaAtual}
@@ -411,12 +426,10 @@ export const Calc = ({
             chronosAtivo={chronosAtivo}
             setChronosAtivo={setChronosAtivo}
             chronosCounter={chronosCounter}
-            setChronosCounter={setChronosCounter}
-            chronosCooldown={chronosCooldown}
-            setChronosCooldown={setChronosCooldown}
             dano={dano}
             enemyDano={enemyDano}
             enemyCrit={enemyCrit}
+            setEnemyCrit={setEnemyCrit}
             cura={cura}
             crit={crit}
             curou={curou}

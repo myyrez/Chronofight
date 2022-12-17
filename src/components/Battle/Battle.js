@@ -13,22 +13,12 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     const [enemyVidaAtual, setEnemyVidaAtual] = useState(enemyStats.vidaTotal)
     const [chronosAtivo, setChronosAtivo] = useState(false)
     const [chronosCooldown, setChronosCooldown] = useState('')
-    const [chronosCounter, setChronosCounter] = useState(chronosStats.areiaChronosInicial)
-    const [chronosTotal, setChronosTotal] = useState(chronosStats.areiaChronosInicial)
+    const [chronosCounter, setChronosCounter] = useState(chronosStats.escudoChronosInicial)
+    const [chronosTotal, setChronosTotal] = useState(chronosStats.escudoChronosInicial)
 
-    const [chronos, setChronos] = useState('areia')
+    const [chronos, setChronos] = useState('escudo')
 
     useEffect(() => {
-        // switch (chronos) {
-        //     case 'areia':
-        //         setChronosTotal(chronosStats.areiaChronosInicial)
-        //         break;
-        
-        //     case 'marca':
-        //         setChronosTotal(chronosStats.marcaChronosInicial)
-        //         break;
-        // }
-
         if (turnoEnemy && enemyVidaAtual !== 0) {
             setIndicador('enem')
             setCooldown('disabled')
