@@ -32,23 +32,35 @@
 }
 .invtrBody {
     visibility: var(--visibilidade, visible);
-    background-color: rgba(0, 0, 0, 0.543);
+    /* background-color: rgba(0, 0, 0, 0.543); */
     color: #fff;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 100%;
-    width: 34%;
+    height: 70%;
+    width: 100%;
     align-self: flex-start;
 }
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    width: 34%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.747);
+}
+.nameChronos {
+    color: #fff;
+    text-align: center;
+}
+
+
 .descricaoChronos {
     visibility: var(--visibilidade, visible);
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* gap: 1rem; */
     align-items: center;
     height: 100%;
     width: 34%;
@@ -59,52 +71,51 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* gap: 1rem; */
     align-items: center;
     height: 100%;
     width: 34%;
 }
 .chronosText {
+    display: flex;
+    align-self: center;
     font-size: 11px;
     text-align: center;
     line-height: 1.1rem;
     width: 90%;
-    margin: 0;
+    margin-inline: auto;
+    margin-block: 0;
 }
 
-
-.armaGroup {
-    display: flex;
+.buttonFlex {
+    transition: 150ms;
+    border-bottom: 1px solid #41d4bc;
 }
-.emblemaGroup {
-    display: flex;
-}
-
 
 .invtrArmas {
     display: flex;
     justify-content: center;
     align-content: center;
     padding: 0.5rem;
-    margin-inline: 1.5rem;
     height: 4rem;
     width: 4rem;
-    /* border: 2px solid #45dec4; */
-    border: var(--borderChronos, none);
+    border: none;
+    margin-bottom: var(--marginBottom, .5rem);
     border-radius: 50%;
     background-color: var(--corFundoArma, #267e6f);
-    color: var(--corArma, #f4f4f4);
+    color: #f4f4f4;
 }
-.invtrArmas:hover, 
-.invtrEmblemas:hover {
+.invtrArmas:hover {
     box-shadow: none;
     background-color: #33a592;
     cursor: pointer;
     transition: 250ms ease-in-out;
 }
-.invtrArmas:focus, 
-.invtrEmblemas:focus {
+.invtrArmas:focus {
     box-shadow: none;
+}
+.invtrArmas:disabled {
+    background-color: #313131;
+    background-image: linear-gradient(270deg, #313131, #313131);
 }
 
 .svgArma {

@@ -5,6 +5,7 @@ import { Personagens } from "../";
 import { BarraProgresso } from "../";
 import { SideInventario } from "../";
 import { BiMinus } from "react-icons/bi";
+import { FaChevronDown } from "react-icons/fa"
 import { 
   GiTimeTrap,
   GiSandstorm,
@@ -19,6 +20,8 @@ import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 import { chronosStats } from "../../shared/stats";
 
 export const Calc = ({
+  blockButton,
+  setBlockButton,
   chronos,
   setChronos,
   chronosAtivo,
@@ -131,9 +134,27 @@ export const Calc = ({
     return opcao
   }
 
+  getComputedStyle(document.documentElement).getPropertyValue('--rotarChevron');
+  getComputedStyle(document.documentElement).getPropertyValue('--subirInventario');
+  const [showing, setShowing] = useState(false)
+
   const updateResposta = e => {
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
     setResposta(resposta + e.target.value);
+  }
+
+  const chevronClick = () => {
+    
+
+    if (!showing) {
+      document.documentElement.style.setProperty('--rotarChevron', 'rotate(0deg)')
+      document.documentElement.style.setProperty('--subirInventario', 'translateY(-100%)')
+      setShowing(true)
+    } else {
+      document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
+      document.documentElement.style.setProperty('--subirInventario', 'translateY(0%)')
+      setShowing(false)
+    }
   }
 
   const apagarResposta = () => {
@@ -259,6 +280,7 @@ export const Calc = ({
     setCooldown('disabled')
     setCuraCooldown('disabled')
     setChronosCooldown('disabled')
+    setBlockButton('disabled')
 
     setTimeout(() => {
       setTurnoEnemy(true)
@@ -291,6 +313,7 @@ export const Calc = ({
     setCuraCooldown('disabled')
     if (chronos === 'marca') setChronosCooldown('')
     else setChronosCooldown('disabled')
+    setBlockButton('disabled')
 
     document.documentElement.style.setProperty('--abrir-pergunta', '0.6rem')
     document.documentElement.style.setProperty('--diminuir-square', '0rem')
@@ -323,7 +346,7 @@ export const Calc = ({
   var critDmg = 1.5;
   if (critDecider === 0) critDmg = 2;
 
-  var chanceBase = 0
+  var chanceBase = 0.1
   var willCrit = Math.random() < chanceBase;
 
   var enemyCritDmg = 2
@@ -365,7 +388,6 @@ export const Calc = ({
       if (trueResultado <= 10) setDano(10 * 2)
       if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * 2))
       setCrit(true)
-      setMarcaCrit(false)
       setChronosAtivo(false)
     }
     
@@ -375,8 +397,9 @@ export const Calc = ({
       setResposta('');
       trueResultado = 0
       if (chronosCounter > 0 && chronos === 'areia') setChronosCounter(chronosCounter - 1)
-      if (chronosCounter > 0 && chronos === 'marca') setChronosCounter(chronosCounter - 1)
+      if (chronosCounter > 0 && chronos === 'marca' && !marcaCrit) setChronosCounter(chronosCounter - 1)
       if (chronosCounter > 0 && chronosAtivo === false && chronos === 'escudo') setChronosCounter(chronosCounter - 1)
+      setMarcaCrit(false)
 
       setTimeout(() => {
         setTurnoEnemy(true)
@@ -386,6 +409,7 @@ export const Calc = ({
       setShowResultado('errado');
       setErrou(true);
       setResposta('');
+      setMarcaCrit(false)
       trueResultado = 0
 
       setTimeout(() => {
@@ -489,6 +513,10 @@ export const Calc = ({
             indicador={indicador}/>
         </div>
 
+        <div className={styles.chevronDiv} onClick={chevronClick}>
+          <FaChevronDown className={styles.chevronIcon}/>
+        </div>
+
         <div style={{display: ''}} className={styles.buttonSpace}>
 
           <div className={styles.buttonDivCalc}>
@@ -530,7 +558,16 @@ export const Calc = ({
 
       <div className={styles.side}>
         <SideInventario
-          chronos={chronos}/>
+          cooldown={cooldown}
+          blockButton={blockButton}
+          setBlockButton={setBlockButton}
+          chronos={chronos}
+          setChronos={setChronos}
+          chronosCounter={chronosCounter}
+          setChronosCounter={setChronosCounter}
+          chronosTotal={chronosTotal}
+          setChronosTotal={setChronosTotal}
+          chronosAtivo={chronosAtivo}/>
       </div>
     </div>
   );

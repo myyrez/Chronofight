@@ -69,27 +69,18 @@ export const Personagens = ({
     { transform: 'translate(0px)'},
   ]
   const [desativarAreia, setDesativarAreia] = useState(0)
+  const [DOT, setDOT] = useState(false)
   var healImg = document.getElementById("healId");
   
 
   useEffect(() => {
+    if (chronosAtivo && chronos === 'areia') {
+      setDOT(true)
+      setChronosAtivo(false)
+    }
+
     if (acertou) {
       document.getElementById('enemyDmg').style.color = '#fff'
-
-      // if (chronosAtivo && chronos === 'marca') {
-      //   setEnemyVidaAtual(enemyVidaAtual - (dano))
-
-      //   document.getElementById('enemyCrit').hidden = false
-
-      //   document.getElementById('enemyCrit').animate([
-      //     { transform: 'translate(0px, 0px)'},
-      //     { transform: 'translate(0px, 20px)'},
-      //   ], { duration: 3000 })
-
-      //   setTimeout(() => {
-      //     document.getElementById('enemyCrit').hidden = true
-      //   }, 1500);
-      // }
       setEnemyVidaAtual(enemyVidaAtual - dano)
 
       document.getElementById('enemyDmg').hidden = false
@@ -263,7 +254,7 @@ export const Personagens = ({
     document.getElementById('enem').animate(prepare, { duration: 750 })
 
     setTimeout(() => {
-      if (chronosAtivo && chronos === 'areia' && desativarAreia < 3) {
+      if (DOT && desativarAreia < 3) {
         setEnemyVidaAtual(enemyVidaAtual - chronosStats.areiaDano)
         document.getElementById('chronosDmg').hidden = false
 
@@ -279,8 +270,9 @@ export const Personagens = ({
 
         setDesativarAreia(desativarAreia + 1)
       }
-      if (desativarAreia > 3) {
+      if (desativarAreia === 3) {
         setChronosAtivo(false)
+        setDOT(false)
         setDesativarAreia(0)
       }
     }, 3500);

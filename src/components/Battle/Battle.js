@@ -4,6 +4,7 @@ import { Calc } from "../Calc";
 import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 
 export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
+    const [blockButton, setBlockButton] = useState('')
     const [turnoEnemy, setTurnoEnemy] = useState(false)
     const [indicador, setIndicador] = useState('char')
     const [cooldown, setCooldown] = useState('')
@@ -24,12 +25,14 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
             setCooldown('disabled')
             setCuraCooldown('disabled')
             setChronosCooldown('disabled')
+            setBlockButton('disabled')
             
             setTimeout(() => {
                 setIndicador('char')
                 setCooldown('')
                 if (curaCounter === 0) setCuraCooldown('') 
                 if (chronosCounter === 0 && chronos !== 'marca') setChronosCooldown('')
+                setBlockButton('')
             }, 4500);
         } 
     })
@@ -37,6 +40,8 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     return (
         <div className={styles.mainContainer}>
             <Calc
+                blockButton={blockButton}
+                setBlockButton={setBlockButton}
                 chronos={chronos}
                 setChronos={setChronos}
                 chronosTotal={chronosTotal}

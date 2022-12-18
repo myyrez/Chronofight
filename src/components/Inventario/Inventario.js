@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { 
-    GiSchoolBag,
     GiTimeTrap,
-    GiSandstorm,
     GiExtraTime,
     GiHeavyTimer,
     GiSandsOfTime,
@@ -11,16 +9,39 @@ import {
 import { chronosStats } from '../../shared/stats'
 
 
-export const Inventario = ({ chronos }) => {
-    var show = false
-    const [ArmaAtiva, setArmaAtiva] = useState(0)
-    const corFundo = 'transparent'
-    const cor = '#f4f4f4'
-    const corFundoInativo = '#313131'
-    const corInativo = '#3cc1ab'
-    var chronosAtivo1 = false
-    var chronosAtivo2 = false
-    var chronosAtivo3 = false
+export const Inventario = ({
+    cooldown,
+    blockButton,
+    setBlockButton,
+    chronos,
+    setChronos,
+    chronosCounter,
+    setChronosCounter,
+    chronosTotal,
+    setChronosTotal,
+    chronosAtivo,
+}) => {
+    const [ArmaAtiva, setArmaAtiva] = useState(1)
+    const [chronosAtivado, setChronosAtivado] = useState(false)
+
+    const escolherNomeChronos = () => {
+        const escolha = [];
+
+        switch (chronos) {
+            case 'areia':
+                escolha.push(chronosStats.areiaNome)
+                break;
+
+            case 'marca':
+                escolha.push(chronosStats.marcaNome)
+                break;
+
+            case 'escudo':
+                escolha.push(chronosStats.escudoNome)
+                break;
+        }
+        return escolha;
+    }
 
     const escolherDescricaoChronos = () => {
         const escolha = [];
@@ -60,108 +81,104 @@ export const Inventario = ({ chronos }) => {
         return escolha;
     }
 
-    const showInventario = () => {
-        getComputedStyle(document.documentElement).getPropertyValue('--visibilidade')
-        getComputedStyle(document.documentElement).getPropertyValue('--corFundo')
+    useEffect(() => {
+        if (chronosAtivo) setChronosAtivado(true)
+        if (chronosCounter !== chronosTotal || chronosAtivo) setBlockButton('disabled')
+        if (chronosCounter === chronosTotal && !chronosAtivo && cooldown === '') setBlockButton('')
 
-        if (!show) {
-            document.documentElement.style.setProperty('--visibilidade', 'visible')
-            document.documentElement.style.setProperty('--corFundo', 'rgba(90, 90, 90, 0.343)')
-            show = true
-        } else {
-            document.documentElement.style.setProperty('--visibilidade', 'hidden')
-            document.documentElement.style.setProperty('--corFundo', 'rgba(0, 0, 0, 0.543)')
-            show = false
+        if (ArmaAtiva == 1) {
+            document.getElementById('buttonFlex1').style.marginBottom = '2rem'
+            document.getElementById('buttonFlex1').style.borderWidth = '2px'
+            document.getElementById('buttonFlex2').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex2').style.borderWidth = '0px'
+            document.getElementById('buttonFlex3').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex3').style.borderWidth = '0px'
+            setChronos('areia')
+            if (chronosCounter === chronosTotal && !chronosAtivado) {
+                setChronosTotal(chronosStats.areiaChronosInicial)
+                setChronosCounter(chronosStats.areiaChronosInicial)
+            }
+            if (chronosCounter === chronosTotal && chronosAtivado) {
+                setChronosTotal(chronosStats.areiaChronosTotal)
+                setChronosCounter(chronosStats.areiaChronosTotal)
+            }
         }
-    }
-
-    getComputedStyle(document.documentElement).getPropertyValue('--corFundoArma')
-    getComputedStyle(document.documentElement).getPropertyValue('--corArma')
-    getComputedStyle(document.documentElement).getPropertyValue('--borderChronos')
+        if (ArmaAtiva == 2) {
+            document.getElementById('buttonFlex1').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex1').style.borderWidth = '0px'
+            document.getElementById('buttonFlex2').style.marginBottom = '2rem'
+            document.getElementById('buttonFlex2').style.borderWidth = '2px'
+            document.getElementById('buttonFlex3').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex3').style.borderWidth = '0px'
+            setChronos('marca')
+            if (chronosCounter === chronosTotal && !chronosAtivado) {
+                setChronosTotal(chronosStats.marcaChronosInicial)
+                setChronosCounter(chronosStats.marcaChronosInicial)
+            }
+            if (chronosCounter === chronosTotal && chronosAtivado) {
+                setChronosTotal(chronosStats.marcaChronosTotal)
+                setChronosCounter(chronosStats.marcaChronosTotal)
+            }
+        }
+        if (ArmaAtiva == 3) {
+            document.getElementById('buttonFlex1').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex1').style.borderWidth = '0px'
+            document.getElementById('buttonFlex2').style.marginBottom = '0rem'
+            document.getElementById('buttonFlex2').style.borderWidth = '0px'
+            document.getElementById('buttonFlex3').style.marginBottom = '2rem'
+            document.getElementById('buttonFlex3').style.borderWidth = '2px'
+            setChronos('escudo')
+            if (chronosCounter === chronosTotal && !chronosAtivado) {
+                setChronosTotal(chronosStats.escudoChronosInicial)
+                setChronosCounter(chronosStats.escudoChronosInicial)
+            }
+            if (chronosCounter === chronosTotal && chronosAtivado) {
+                setChronosTotal(chronosStats.escudoChronosTotal)
+                setChronosCounter(chronosStats.escudoChronosTotal)
+            }
+        }
+    })
 
     const ativarArma1 = () => {
-        if (ArmaAtiva !== 0) {
-            document.getElementById('arma1').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma2').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma3').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
-        }
-        if (ArmaAtiva !== 1) {
-            document.getElementById('arma1').style.setProperty('--corFundoArma', 'transparent')
-            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma1').style.setProperty('--borderChronos', '2px solid #45dec4')
-            setArmaAtiva(1)
-        } else {
-            document.getElementById('arma1').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
-            setArmaAtiva(0)
-        }
-
+        setArmaAtiva(1)
     }
     const ativarArma2 = () => {
-        if (ArmaAtiva !== 0) {
-            document.getElementById('arma1').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma2').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma3').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
-        }
-        if (ArmaAtiva !== 2) {
-            document.getElementById('arma2').style.setProperty('--corFundoArma', 'transparent')
-            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma1').style.setProperty('--borderChronos', '2px solid #45dec4')
-            setArmaAtiva(2)
-        } else {
-            document.getElementById('arma2').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
-            setArmaAtiva(0)
-        }
-
+        setArmaAtiva(2)
     }
     const ativarArma3 = () => {
-        if (ArmaAtiva !== 0) {
-            document.getElementById('arma1').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma1').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma2').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma2').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma3').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
-        }
-        if (ArmaAtiva !== 3) {
-            document.getElementById('arma3').style.setProperty('--corFundoArma', 'transparent')
-            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
-            document.getElementById('arma1').style.setProperty('--borderChronos', '2px solid #45dec4')
-            setArmaAtiva(3)
-        } else {
-            document.getElementById('arma3').style.setProperty('--corFundoArma', '#33a592')
-            document.getElementById('arma3').style.setProperty('--corArma', '#f4f4f4')
-            setArmaAtiva(0)
-        }
+        setArmaAtiva(3)
     }
 
     return (
         <div className={styles.invtrContainer}>
-            <div className={styles.invtrBody}>
-                <div className={styles.armaGroup}>
-                    <button
-                        id='arma1'
-                        value='1' 
-                        className={styles.invtrArmas}
-                        onClick={ativarArma1}><GiSandsOfTime className={styles.svgArma}/></button>
-                    <button
-                        id='arma2'
-                        value='2' 
-                        className={styles.invtrArmas}
-                        onClick={ativarArma2}><GiHeavyTimer className={styles.svgArma}/></button>
-                    <button 
-                        id='arma3'
-                        value='3' 
-                        className={styles.invtrArmas}
-                        onClick={ativarArma3}><GiTimeTrap className={styles.svgArma}/></button>
+            <div className={styles.nameContainer}>
+                <div className={styles.invtrBody}>
+                    <div id='buttonFlex1' className={styles.buttonFlex}>
+                        <button
+                            disabled={blockButton}
+                            id='arma1'
+                            value='1'
+                            className={styles.invtrArmas}
+                            onClick={ativarArma1}><GiSandsOfTime className={styles.svgArma}/></button>
+                    </div>
+                    <div id='buttonFlex2' className={styles.buttonFlex}>
+                        <button
+                            disabled={blockButton}
+                            id='arma2'
+                            value='2' 
+                            className={styles.invtrArmas}
+                            onClick={ativarArma2}><GiHeavyTimer className={styles.svgArma}/></button>
+                    </div>
+                    <div id='buttonFlex3' className={styles.buttonFlex}>
+                        <button
+                            disabled={blockButton}
+                            id='arma3'
+                            value='3' 
+                            className={styles.invtrArmas}
+                            onClick={ativarArma3}><GiTimeTrap className={styles.svgArma}/></button>
+                    </div>
                 </div>
+                <p className={styles.nameChronos}>{ escolherNomeChronos() }</p>
             </div>
             <div className={styles.descricaoChronos}>
                 <h4>habilidade:</h4>
