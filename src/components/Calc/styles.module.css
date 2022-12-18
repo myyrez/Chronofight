@@ -46,7 +46,7 @@
     height: 30%;
     width: 79%;
     transition: ease-in-out .5s;
-    /* transform: translateY(-100%); */
+    transform: translateY(-100%);
 }
 .headerCalc {
     background-color: #201f29;
@@ -228,7 +228,7 @@
 
 .buttonCalcUlt {
     background-color: #33a592;
-    border: none;
+    border: var(--borderChronos, none);
     color: #fdf9f3;
     font-weight: 500;
     width: 9.5rem;

@@ -1,11 +1,12 @@
 .invtrContainer {
     float: left;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     bottom: 1rem;
     height: 100%;
+    width: 100%;
     left: 27%;
     
 }
@@ -38,7 +39,40 @@
     justify-content: space-around;
     align-items: center;
     height: 100%;
+    width: 34%;
+    align-self: flex-start;
 }
+.descricaoChronos {
+    visibility: var(--visibilidade, visible);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* gap: 1rem; */
+    align-items: center;
+    height: 100%;
+    width: 34%;
+}
+.infoChronos {
+    visibility: var(--visibilidade, visible);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* gap: 1rem; */
+    align-items: center;
+    height: 100%;
+    width: 34%;
+}
+.chronosText {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.1rem;
+    width: 90%;
+    margin: 0;
+}
+
+
 .armaGroup {
     display: flex;
 }
@@ -55,31 +89,18 @@
     margin-inline: 1.5rem;
     height: 4rem;
     width: 4rem;
-    border: 1px solid #3cc1ab;
+    /* border: 2px solid #45dec4; */
+    border: var(--borderChronos, none);
     border-radius: 50%;
-    background-color: var(--corFundoArma, #313131);
-    color: var(--corArma, #3cc1ab);
-}
-.invtrEmblemas {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    padding: .5rem;
-    margin-inline: 1rem;
-    height: 4rem;
-    width: 4rem;
-    border-radius: 50%;
-    border: 1px solid #9065ff;
-    background-color: var(--corFundoEmblema, #313131);
-    color: var(--corEmblema, #9065ff);
+    background-color: var(--corFundoArma, #267e6f);
+    color: var(--corArma, #f4f4f4);
 }
 .invtrArmas:hover, 
 .invtrEmblemas:hover {
     box-shadow: none;
-    /* color: #f4f4f4; */
-    background-color: #515151;
+    background-color: #33a592;
     cursor: pointer;
+    transition: 250ms ease-in-out;
 }
 .invtrArmas:focus, 
 .invtrEmblemas:focus {

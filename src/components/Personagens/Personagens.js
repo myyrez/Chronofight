@@ -75,19 +75,34 @@ export const Personagens = ({
   useEffect(() => {
     if (acertou) {
       document.getElementById('enemyDmg').style.color = '#fff'
-      setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(dano))
-      document.getElementById('enemyDmg').hidden = false
 
+      // if (chronosAtivo && chronos === 'marca') {
+      //   setEnemyVidaAtual(enemyVidaAtual - (dano))
+
+      //   document.getElementById('enemyCrit').hidden = false
+
+      //   document.getElementById('enemyCrit').animate([
+      //     { transform: 'translate(0px, 0px)'},
+      //     { transform: 'translate(0px, 20px)'},
+      //   ], { duration: 3000 })
+
+      //   setTimeout(() => {
+      //     document.getElementById('enemyCrit').hidden = true
+      //   }, 1500);
+      // }
+      setEnemyVidaAtual(enemyVidaAtual - dano)
+
+      document.getElementById('enemyDmg').hidden = false
       document.getElementById('enemyDmg').animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, 20px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
       document.getElementById('enem').animate(hit, { duration: 750 })
 
       document.getElementById('player').animate([
-        { transform: 'translate(0px)'},
-        { transform: 'translate(70px)'},
-        { transform: 'translate(0px)'},
+        { transform: 'translate(0px)' },
+        { transform: 'translate(70px)' },
+        { transform: 'translate(0px)' },
       ], { duration: 350 })
       
       setTimeout(() => {
@@ -103,9 +118,9 @@ export const Personagens = ({
 
       document.getElementById('player').animate(dodge, { duration: 750 })
       document.getElementById('enem').animate([
-        { transform: 'translate(0px)'},
-        { transform: 'translate(-70px)'},
-        { transform: 'translate(0px)'},
+        { transform: 'translate(0px)' },
+        { transform: 'translate(-70px)' },
+        { transform: 'translate(0px)' },
       ], { duration: 350 })
 
       setTimeout(() => {
@@ -125,7 +140,8 @@ export const Personagens = ({
       let newEnemyDano = Math.floor(enemyDano / 2)
 
       if (chronosAtivo && chronos === 'escudo') {
-        setPlayerVidaAtual(playerVidaAtual - newEnemyDano)
+        if ((playerVidaAtual - newEnemyDano) < 1) setPlayerVidaAtual(1)
+        else setPlayerVidaAtual(playerVidaAtual - newEnemyDano)
         setEnemyVidaAtual(enemyVidaAtual - newEnemyDano)
         document.getElementById('playerDmg').textContent = Math.floor(newEnemyDano)
         document.getElementById('enemyDmg').textContent = Math.floor(newEnemyDano)
@@ -139,23 +155,22 @@ export const Personagens = ({
         if (playerVidaAtual < 1) setPlayerVidaAtual(1)
         
         setChronosAtivo(false)
-        console.log(enemyDano)
       } else {
-        setPlayerVidaAtual(parseInt(playerVidaAtual) - parseInt(enemyDano))
+        setPlayerVidaAtual(playerVidaAtual - enemyDano)
         document.getElementById('playerDmg').hidden = false
       }
 
       document.getElementById('playerDmg').animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, 20px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
 
       document.getElementById('player').animate(hit, { duration: 750 })
 
       document.getElementById('enem').animate([
-        { transform: 'translate(0px)'},
-        { transform: 'translate(-70px)'},
-        { transform: 'translate(0px)'},
+        { transform: 'translate(0px)' },
+        { transform: 'translate(-70px)' },
+        { transform: 'translate(0px)' },
       ], { duration: 350 })
 
       setTimeout(() => {
@@ -169,13 +184,13 @@ export const Personagens = ({
 
 
     if (curou) {
-      setPlayerVidaAtual(parseInt(playerVidaAtual) + parseInt(cura))
+      setPlayerVidaAtual(playerVidaAtual + cura)
       healImg.hidden = false
       document.getElementById('playerCura').hidden = false
 
       document.getElementById('playerCura').animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, 20px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
 
       healImg.animate([
@@ -185,8 +200,8 @@ export const Personagens = ({
       ], { duration: 2000 })
 
       healImg.animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, -50px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, -50px)' },
       ], { duration: 2000 })
 
       setTimeout(() => {
@@ -200,8 +215,8 @@ export const Personagens = ({
       document.getElementById('enemyCrit').hidden = false
 
       document.getElementById('enemyCrit').animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, 20px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
 
       setTimeout(() => {
@@ -216,8 +231,8 @@ export const Personagens = ({
       document.getElementById('playerCrit').hidden = false
 
       document.getElementById('playerCrit').animate([
-        { transform: 'translate(0px, 0px)'},
-        { transform: 'translate(0px, 20px)'},
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
 
       setTimeout(() => {
@@ -249,12 +264,12 @@ export const Personagens = ({
 
     setTimeout(() => {
       if (chronosAtivo && chronos === 'areia' && desativarAreia < 3) {
-        setEnemyVidaAtual(parseInt(enemyVidaAtual) - parseInt(chronosStats.areiaDano))
+        setEnemyVidaAtual(enemyVidaAtual - chronosStats.areiaDano)
         document.getElementById('chronosDmg').hidden = false
 
         document.getElementById('chronosDmg').animate([
-          { transform: 'translate(0px, 0px)'},
-          { transform: 'translate(0px, 20px)'},
+          { transform: 'translate(0px, 0px)' },
+          { transform: 'translate(0px, 20px)' },
         ], { duration: 3000 })
         document.getElementById('enem').animate(hit, { duration: 750 })
 
@@ -273,19 +288,19 @@ export const Personagens = ({
 
 
   const indicadorEnem = () => {
-    if (indicador === 'enem') return {display: 'flex'}
-    else return {display: 'none'}
+    if (indicador === 'enem') return { display: 'flex' }
+    else return { display: 'none' }
   }
   const indicadorChar = () => {
-    if (indicador === 'char') return {display: 'flex'}
-    else return {display: 'none'}
+    if (indicador === 'char') return { display: 'flex' }
+    else return { display: 'none' }
   }
   
   const indicadorBordaChar = () => {
-    if (indicador === 'char') return {border: '1px solid white', borderRadius: '5px'}
+    if (indicador === 'char') return { border: '1px solid white', borderRadius: '5px' }
   }
   const indicadorBordaEnem = () => {
-    if (indicador === 'enem') return {border: '1px solid white', borderRadius: '5px'}
+    if (indicador === 'enem') return { border: '1px solid white', borderRadius: '5px' }
   }
   
   return (
@@ -350,7 +365,6 @@ export const Personagens = ({
         />
       </div>
       
-
     </div>
   );
 };

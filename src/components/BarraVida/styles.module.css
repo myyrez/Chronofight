@@ -39,8 +39,6 @@
     bottom: 0;
     width: 0px;
     height: .35rem;
-    transition: width .5s;
-    transition-delay: .75s;
 }
 .chronosBar {
     background-color: rgba(0, 0, 0, 0.749);
@@ -51,7 +49,6 @@
     height: .35rem;
     float: right;
     transition: width .5s;
-    transition-delay: .75s;
 }
 .total {
     height: 1rem;

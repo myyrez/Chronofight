@@ -5,8 +5,15 @@ import { Personagens } from "../";
 import { BarraProgresso } from "../";
 import { SideInventario } from "../";
 import { BiMinus } from "react-icons/bi";
-import { GiExtraTime, GiShardSword } from "react-icons/gi";
-import { GiHealthPotion } from "react-icons/gi";
+import { 
+  GiTimeTrap,
+  GiSandstorm,
+  GiExtraTime,
+  GiHeavyTimer,
+  GiSandsOfTime,
+  GiShardSword,
+  GiHealthPotion, 
+  } from "react-icons/gi";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 import { chronosStats } from "../../shared/stats";
@@ -51,6 +58,7 @@ export const Calc = ({
   const [enemyCrit, setEnemyCrit] = useState(0)
   const [cura, setCura] = useState(0)
   const [crit, setCrit] = useState(false)
+  const [marcaCrit, setMarcaCrit] = useState(false)
   const [click, setClick] = useState(false)
   const [showCuraCounter, setShowCuraCounter] = useState('‎')
   const [travarConfirmar, setTravarConfirmar] = useState('disabled')
@@ -70,6 +78,9 @@ export const Calc = ({
 
   const refAcertou = useRef(acertouQTE)
   refAcertou.current = acertouQTE
+
+  const refMarcaCrit = useRef(marcaCrit)
+  refMarcaCrit.current = marcaCrit
 
   var trueResultado;
 
@@ -101,6 +112,25 @@ export const Calc = ({
     return digitos;
   }
 
+  const criarChronosIcon = () => {
+    const opcao = []
+
+    switch (chronos) {
+      case 'areia':
+        opcao.push(<GiSandsOfTime className={styles.chronoIcon}/>)
+        break;
+
+      case 'marca':
+        opcao.push(<GiHeavyTimer className={styles.chronoIcon}/>)
+        break;
+
+      case 'escudo':
+        opcao.push(<GiTimeTrap className={styles.chronoIcon}/>)
+        break;
+    }
+    return opcao
+  }
+
   const updateResposta = e => {
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
     setResposta(resposta + e.target.value);
@@ -114,9 +144,9 @@ export const Calc = ({
   }
 
   onkeydown = e => {
-    if (e.key === 'a') return atacar();
-    if (e.key === 'c') return curar();
-    if (e.key === 'Shift') return atacarChronos();
+    if (e.key === 'a' && cooldown === '') return atacar();
+    if (e.key === 'c' && curaCooldown === '') return curar();
+    if (e.key === 'Shift' && chronosCooldown === '') return atacarChronos();
     if (e.key === ' ' && QTE !== 'disabled') return setHitTiming(true);
 
     if (travarConfirmar === 'disabled') return;
@@ -124,7 +154,7 @@ export const Calc = ({
     if (e.key === 'Backspace') return setResposta('');
     if (e.key === 'Enter') return acerto();
 
-    if (isNaN(e.key)) return;
+    if (isNaN(e.key) || e.key === ' ') return;
     setResposta(resposta + e.key);
   }
   
@@ -135,6 +165,12 @@ export const Calc = ({
     setCurou(false)
     setCrit(false)
     setCallSkillcheck(false)
+
+    getComputedStyle(document.documentElement).getPropertyValue('--borderChronos');
+    if (chronosCounter === 0) document.documentElement.style.setProperty('--borderChronos', '2px solid #45dec4')
+    else document.documentElement.style.setProperty('--borderChronos', 'none')
+    
+    if (chronosAtivo && chronos === 'marca') setMarcaCrit(true)
     if (turnoEnemy) {
       setTurnoEnemy(false)
       setCallSkillcheck(true)
@@ -155,15 +191,18 @@ export const Calc = ({
       getComputedStyle(document.documentElement).getPropertyValue('--abrir-pergunta');
       getComputedStyle(document.documentElement).getPropertyValue('--diminuir-square');
       
+      
       setTimeout(() => {
         if (refResultado.current != 'certo' && refResultado.current != 'errado') {
           setShowResultado('errou')
           setErrou(true)
           setEnemyDano(Math.floor(Math.random() * 11) + 10)
+
           if (enemyWillCrit) {
             setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
             setEnemyCrit(true)
           }
+          if (chronos === 'marca') setChronosCooldown('disabled')
 
           setTimeout(() => {
             setTurnoEnemy(true)
@@ -250,7 +289,9 @@ export const Calc = ({
     setShowResultado('')
     setCooldown('disabled')
     setCuraCooldown('disabled')
-    setChronosCooldown('disabled')
+    if (chronos === 'marca') setChronosCooldown('')
+    else setChronosCooldown('disabled')
+
     document.documentElement.style.setProperty('--abrir-pergunta', '0.6rem')
     document.documentElement.style.setProperty('--diminuir-square', '0rem')
 
@@ -272,6 +313,7 @@ export const Calc = ({
     setTimeout(() => {
       setTravarConfirmar('disabled')
       setResposta('')
+      
       document.documentElement.style.setProperty('--abrir-pergunta', '-8rem')
       document.documentElement.style.setProperty('--diminuir-square', '8rem')
     }, 5000);
@@ -281,16 +323,17 @@ export const Calc = ({
   var critDmg = 1.5;
   if (critDecider === 0) critDmg = 2;
 
-  var chanceBase = 1
+  var chanceBase = 0
   var willCrit = Math.random() < chanceBase;
 
   var enemyCritDmg = 2
-  var enemyChanceBase = 1
+  var enemyChanceBase = 0.1
   var enemyWillCrit = Math.random() < enemyChanceBase
 
   
   const acerto = () => {
     setTravarConfirmar('disabled')
+    if (chronos === 'marca') setChronosCooldown('disabled')
 
     switch (operacao) {
       case 'soma':
@@ -318,6 +361,13 @@ export const Calc = ({
       if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * critDmg))
       setCrit(true)
     }
+    if (marcaCrit) {
+      if (trueResultado <= 10) setDano(10 * 2)
+      if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * 2))
+      setCrit(true)
+      setMarcaCrit(false)
+      setChronosAtivo(false)
+    }
     
     if (resposta == trueResultado) { 
       setShowResultado('certo')
@@ -325,11 +375,12 @@ export const Calc = ({
       setResposta('');
       trueResultado = 0
       if (chronosCounter > 0 && chronos === 'areia') setChronosCounter(chronosCounter - 1)
-      
+      if (chronosCounter > 0 && chronos === 'marca') setChronosCounter(chronosCounter - 1)
       if (chronosCounter > 0 && chronosAtivo === false && chronos === 'escudo') setChronosCounter(chronosCounter - 1)
 
       setTimeout(() => {
         setTurnoEnemy(true)
+        if (chronosAtivo && chronos === 'marca') setChronosAtivo(false)
       }, 1000);
     } else {
       setShowResultado('errado');
@@ -458,7 +509,7 @@ export const Calc = ({
                 disabled={chronosCooldown}
                 onClick={atacarChronos}>
                   <p className={styles.buttonCalcText}>chronos</p>
-                  <GiExtraTime className={styles.atkIcon}/>
+                  { criarChronosIcon() }
                   <p></p>
               </button>
             </div>
@@ -478,7 +529,8 @@ export const Calc = ({
       </div>
 
       <div className={styles.side}>
-        <SideInventario/>
+        <SideInventario
+          chronos={chronos}/>
       </div>
     </div>
   );
