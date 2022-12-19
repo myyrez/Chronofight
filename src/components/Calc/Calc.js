@@ -134,8 +134,10 @@ export const Calc = ({
     return opcao
   }
 
+  getComputedStyle(document.documentElement).getPropertyValue('--opacidade')
   getComputedStyle(document.documentElement).getPropertyValue('--rotarChevron');
   getComputedStyle(document.documentElement).getPropertyValue('--subirInventario');
+  const [opacidade, setOpacidade] = useState(document.documentElement.style.setProperty('--opacidade', '0'))
   const [showing, setShowing] = useState(false)
 
   const updateResposta = e => {
@@ -144,8 +146,6 @@ export const Calc = ({
   }
 
   const chevronClick = () => {
-    
-
     if (!showing) {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(0deg)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(-100%)')
@@ -212,7 +212,6 @@ export const Calc = ({
       getComputedStyle(document.documentElement).getPropertyValue('--abrir-pergunta');
       getComputedStyle(document.documentElement).getPropertyValue('--diminuir-square');
       
-      
       setTimeout(() => {
         if (refResultado.current != 'certo' && refResultado.current != 'errado') {
           setShowResultado('errou')
@@ -223,7 +222,12 @@ export const Calc = ({
             setEnemyDano((Math.floor(Math.random() * (11)) + 10) * enemyCritDmg)
             setEnemyCrit(true)
           }
+
           if (chronos === 'marca') setChronosCooldown('disabled')
+          if (refMarcaCrit.current && chronos === 'marca') {
+            setMarcaCrit(false)
+            setChronosAtivo(false)
+          }
 
           setTimeout(() => {
             setTurnoEnemy(true)
@@ -517,6 +521,12 @@ export const Calc = ({
           <FaChevronDown className={styles.chevronIcon}/>
         </div>
 
+        <div className={styles.conditionDiv}>
+          <p>Chronos podem ser trocados quando:</p>
+          <p>- Sua barra de poder estiver zerada.</p>
+          <p>- Chronos não estiverem ativos em você.</p>
+        </div>
+
         <div style={{display: ''}} className={styles.buttonSpace}>
 
           <div className={styles.buttonDivCalc}>
@@ -536,7 +546,7 @@ export const Calc = ({
                 className={styles.buttonCalcUlt}
                 disabled={chronosCooldown}
                 onClick={atacarChronos}>
-                  <p className={styles.buttonCalcText}>chronos</p>
+                  <p className={styles.buttonCalcText}>CHRONOS</p>
                   { criarChronosIcon() }
                   <p></p>
               </button>
@@ -558,6 +568,8 @@ export const Calc = ({
 
       <div className={styles.side}>
         <SideInventario
+          showing={showing}
+          setOpacidade={setOpacidade}
           cooldown={cooldown}
           blockButton={blockButton}
           setBlockButton={setBlockButton}

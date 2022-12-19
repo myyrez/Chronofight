@@ -3,6 +3,8 @@ import { Inventario } from "../Inventario";
 import styles from './styles.module.css'
 
 export const SideInventario = ({
+    showing,
+    setOpacidade,
     cooldown,
     blockButton,
     setBlockButton,
@@ -17,6 +19,8 @@ export const SideInventario = ({
     return (
         <div className={styles.sideBody}>
             <Inventario
+                showing={showing}
+                setOpacidade={setOpacidade}
                 cooldown={cooldown}
                 blockButton={blockButton}
                 setBlockButton={setBlockButton}

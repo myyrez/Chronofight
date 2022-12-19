@@ -14,10 +14,10 @@ export const Ending = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
 
     useEffect(() => {
         if (charEnemyMorto === 'char') {
-            setStatus('Voce morreu')
+            setStatus('Você morreu')
         }
         if (charEnemyMorto === 'enemy') {
-            setStatus('Voce conseguiu oba')
+            setStatus('Você venceu')
         }
     })
 

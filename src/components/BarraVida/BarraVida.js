@@ -1,7 +1,14 @@
 import { React, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
-export const BarraVida = ({ vidaTotal, vidaAtual, setVidaAtual, chronosCounter, chronosTotal, }) => {
+export const BarraVida = ({
+  chronos,
+  chronosAtivo,
+  vidaTotal,
+  vidaAtual,
+  setVidaAtual,
+  chronosCounter,
+  chronosTotal, }) => {
   const [bar, setBar] = useState((vidaAtual / vidaTotal) * 100)
   const [hit, setHit] = useState((vidaAtual / vidaTotal) * 100)
   const [chronosBar, setChronosBar] = useState((chronosCounter / chronosTotal) * 100)

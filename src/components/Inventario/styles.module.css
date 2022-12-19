@@ -8,7 +8,7 @@
     height: 100%;
     width: 100%;
     left: 27%;
-    
+    background-color: rgba(0, 0, 0, 0.543);
 }
 .invtrButton {
     border-radius: 50%;
@@ -32,7 +32,6 @@
 }
 .invtrBody {
     visibility: var(--visibilidade, visible);
-    /* background-color: rgba(0, 0, 0, 0.543); */
     color: #fff;
     display: flex;
     flex-direction: row;
@@ -52,6 +51,28 @@
 .nameChronos {
     color: #fff;
     text-align: center;
+}
+
+.conditionSignDiv {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 83%;
+    left: 34%;
+    background-color: rgba(74, 74, 74, 0.607);
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    transition: 150ms;
+}
+.conditionSign {
+    margin: 0;
+}
+
+.conditionSignDiv:hover {
+    cursor: pointer;
+    background-color: rgba(114, 114, 114, 0.607);
 }
 
 
@@ -78,9 +99,9 @@
 .chronosText {
     display: flex;
     align-self: center;
-    font-size: 11px;
+    font-size: 16px;
     text-align: center;
-    line-height: 1.1rem;
+    line-height: 1.3rem;
     width: 90%;
     margin-inline: auto;
     margin-block: 0;

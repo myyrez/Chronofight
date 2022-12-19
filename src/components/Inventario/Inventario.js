@@ -10,6 +10,8 @@ import { chronosStats } from '../../shared/stats'
 
 
 export const Inventario = ({
+    showing,
+    setOpacidade,
     cooldown,
     blockButton,
     setBlockButton,
@@ -22,6 +24,7 @@ export const Inventario = ({
     chronosAtivo,
 }) => {
     const [ArmaAtiva, setArmaAtiva] = useState(1)
+    const [showCondition, setShowCondition] = useState(false)
     const [chronosAtivado, setChronosAtivado] = useState(false)
 
     const escolherNomeChronos = () => {
@@ -82,6 +85,7 @@ export const Inventario = ({
     }
 
     useEffect(() => {
+        if (!showing) setShowCondition(false)
         if (chronosAtivo) setChronosAtivado(true)
         if (chronosCounter !== chronosTotal || chronosAtivo) setBlockButton('disabled')
         if (chronosCounter === chronosTotal && !chronosAtivo && cooldown === '') setBlockButton('')
@@ -148,6 +152,16 @@ export const Inventario = ({
     const ativarArma3 = () => {
         setArmaAtiva(3)
     }
+    
+    const showHideCondition = () => {
+        if (!showCondition) {
+            setOpacidade(document.documentElement.style.setProperty('--opacidade', '1'))
+            setShowCondition(true)
+        } else {
+            setOpacidade(document.documentElement.style.setProperty('--opacidade', '0'))
+            setShowCondition(false)
+        }
+    }
 
     return (
         <div className={styles.invtrContainer}>
@@ -177,15 +191,20 @@ export const Inventario = ({
                             className={styles.invtrArmas}
                             onClick={ativarArma3}><GiTimeTrap className={styles.svgArma}/></button>
                     </div>
+
+                    <div className={styles.conditionSignDiv} onClick={showHideCondition}>
+                        <p className={styles.conditionSign}>?</p>
+                    </div>
+
                 </div>
                 <p className={styles.nameChronos}>{ escolherNomeChronos() }</p>
             </div>
             <div className={styles.descricaoChronos}>
-                <h4>habilidade:</h4>
+                <h4 style={{fontSize: '20px', marginBlock: '1rem'}}>Habilidade:</h4>
                 <p className={styles.chronosText}>{ escolherDescricaoChronos() }</p>
             </div>
             <div className={styles.infoChronos}>
-                <h4>info:</h4>
+                <h4 style={{fontSize: '20px', marginBlock: '1rem'}}>Informação:</h4>
                 <p className={styles.chronosText}>{ escolherEfeitoChronos() }</p>
             </div>
         </div>

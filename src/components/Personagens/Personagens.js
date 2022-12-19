@@ -5,6 +5,15 @@ import healSmoke from "../../assets/image/curaImg.png";
 import dangerSign from "../../assets/image/dangerImg.png"
 import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 import { BarraVida } from "../";
+import { 
+  GiTimeTrap,
+  GiSandstorm,
+  GiExtraTime,
+  GiHeavyTimer,
+  GiSandsOfTime,
+  GiShardSword,
+  GiHealthPotion, 
+  } from "react-icons/gi";
 import styles from "./styles.module.css";
 
 export const Personagens = ({
@@ -69,15 +78,27 @@ export const Personagens = ({
     { transform: 'translate(0px)'},
   ]
   const [desativarAreia, setDesativarAreia] = useState(0)
+  const [areiaCounter, setAreiaCounter] = useState(3)
   const [DOT, setDOT] = useState(false)
   var healImg = document.getElementById("healId");
-  
+  getComputedStyle(document.documentElement).getPropertyValue('--playerChronos')
+  getComputedStyle(document.documentElement).getPropertyValue('--areia')
 
   useEffect(() => {
     if (chronosAtivo && chronos === 'areia') {
       setDOT(true)
       setChronosAtivo(false)
+      document.getElementById('enem').style.filter = 'sepia(60%)'
     }
+
+    if (chronosAtivo && chronos === 'marca') 
+    document.getElementById('player').style.filter = 'brightness(1.5)'
+
+    if (!chronosAtivo && chronos === 'marca') 
+    document.getElementById('player').style.filter = 'brightness(1)'
+
+    if (chronosAtivo && chronos === 'escudo') 
+    document.getElementById('player').style.filter = 'grayscale(60%)'
 
     if (acertou) {
       document.getElementById('enemyDmg').style.color = '#fff'
@@ -103,7 +124,7 @@ export const Personagens = ({
 
 
     if (desviou) {
-      document.getElementById('playerDmg').textContent = 'desvio'
+      document.getElementById('playerDmg').textContent = 'desviou'
       document.getElementById('playerCrit').textContent = ''
       document.getElementById('playerDmg').hidden = false
 
@@ -145,6 +166,7 @@ export const Personagens = ({
         document.getElementById('enemyDmg').hidden = false
         if (playerVidaAtual < 1) setPlayerVidaAtual(1)
         
+        document.getElementById('player').style.filter = 'grayscale(0%)'
         setChronosAtivo(false)
       } else {
         setPlayerVidaAtual(playerVidaAtual - enemyDano)
@@ -268,13 +290,16 @@ export const Personagens = ({
           document.getElementById('chronosDmg').hidden = true
         }, 1500);
 
+        setAreiaCounter(areiaCounter - 1)
         setDesativarAreia(desativarAreia + 1)
       }
       if (desativarAreia === 3) {
         setChronosAtivo(false)
         setDOT(false)
+        setAreiaCounter(3)
         setDesativarAreia(0)
       }
+      if (areiaCounter === 1) document.getElementById('enem').style.filter = 'sepia(0%)'
     }, 3500);
   }
 
@@ -299,9 +324,21 @@ export const Personagens = ({
     <div className={styles.divPersonagens}>
 
       <div className={styles.player}>
+        
+        {chronosAtivo && chronos === 'marca' ? [
+          <GiHeavyTimer className={styles.chronosHealthIcon}/>
+        ] : ''}
+
+        {chronosAtivo && chronos === 'escudo' ? [
+          <GiTimeTrap className={styles.chronosHealthIcon}/>
+        ] : ''}
+
+        
         <div className={styles.indicador} style={indicadorChar()}/>
         <div style={indicadorBordaChar()}>
           <BarraVida
+            chronos={chronos}
+            chronosAtivo={chronosAtivo}
             vidaAtual={playerVidaAtual}
             setVidaAtual={setPlayerVidaAtual}
             vidaTotal={playerStats.vidaTotal}
@@ -314,7 +351,7 @@ export const Personagens = ({
         <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
         <img
           id="player"
-          src={char} 
+          src={char}
           width={playerStats.spriteWidth}
           height={playerStats.spriteHeight}
         />
@@ -330,6 +367,14 @@ export const Personagens = ({
       />
 
       <div className={styles.enem}>
+
+      {DOT && areiaCounter !== 0 ? [
+          <div className={styles.chronosHealthIconEnem}>
+            <p className={styles.chronosHealthTextEnem}>{areiaCounter}</p>
+            <GiSandsOfTime className={styles.chronosHealthTextEnem}/>
+          </div>
+        ] : ''}
+
         <div className={styles.indicador} style={indicadorEnem()} />
         <div style={indicadorBordaEnem()}>
           <BarraVida

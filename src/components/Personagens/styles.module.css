@@ -30,6 +30,8 @@
     margin-top: 6%;
     margin-left: 5%;
     float: left;
+    filter: grayscale(0%);
+    transition: 250ms;
 }
 .enem {
     z-index: 7;
@@ -42,6 +44,8 @@
     margin-right: 5%;
     float: right;
     animation: flying 3s linear infinite;
+    filter: sepia(0%);
+    transition: 250ms;
 }
 
 .indicador {
@@ -119,4 +123,28 @@
     bottom: 40%;
     background-color: #fff;
     border-radius: .25rem
+}
+
+.chronosHealthIcon {
+    position: absolute;
+    top: 1%;
+    right: -115%;
+    color: #fff;
+    font-size: 20px;
+}
+.chronosHealthIconEnem {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 1%;
+    left: -125%;
+    color: #fff;
+    font-size: 20px;
+}
+.chronosHealthTextEnem {
+    top: 1%;
+    left: -115%;
+    color: #fff;
+    font-size: 18px;
 }

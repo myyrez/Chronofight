@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'ThisSucksRegular';
-    src: local('ThisSucksRegular'),
-    url('../../assets/fonts/ThisSucksRegular-Y9yo.ttf') format('truetype');
+    font-family: 'PixeloidSansBold';
+    src: local('PixeloidSansBold'),
+    url('../../assets/fonts/PixeloidSansBold-RpeJo.ttf') format('truetype');
 }
 * {
-    font-family: "ThisSucksRegular";
+    font-family: "PixeloidSansBold";
 }
 .mainContainer {
     overflow: hidden;
@@ -67,7 +67,7 @@
     width: 12.5rem;
     height: 1rem;
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 2rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -262,6 +262,7 @@
     margin: 0;
     padding-top: .5rem;
     padding-bottom: 1.2rem;
+    font-size: 20px;
     background-color: rgba(0%, 0%, 0%, 0.0001);
 }
 .buttonCalcAtk:hover {
@@ -306,21 +307,36 @@
 }
 .chevronDiv {
     position: absolute;
-    right: 50%;
     top: 64%;
-    bottom: 50%;
     left: 57.9%;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3rem;
     height: 1.5rem;
-    backdrop-filter: blur(3px);
-    background-color: #25252763;
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.461);
     border-radius: 5px;
 }
 .chevronDiv:hover {
     cursor: pointer;
+}
+
+.conditionDiv {
+    position: absolute;
+    bottom: 31%;
+    left: 22.5%;
+    width: 22%;
+    height: auto;
+    color: #fff;
+    padding-inline: 0.5rem;
+    z-index: 9;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.747);
+    backdrop-filter: blur(4px);
+    border-radius: 7px;
+    transition: 350ms;
+    opacity: var(--opacidade, 0);
 }
 
 

@@ -23,7 +23,7 @@ export const Intro = ({ setModo, setNome, nome }) => {
                     className={styles.inputIntro} 
                     onChange={handleInputChange}
                     value={nome}/>
-                <button className={styles.buttonIntro} onClick={start}>start</button>
+                <button className={styles.buttonIntro} onClick={start}>Começar</button>
             </div>
         </div>
     )
