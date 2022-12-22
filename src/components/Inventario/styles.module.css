@@ -8,7 +8,8 @@
     height: 100%;
     width: 100%;
     left: 27%;
-    background-color: rgba(0, 0, 0, 0.543);
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.733);
 }
 .invtrButton {
     border-radius: 50%;

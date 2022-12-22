@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
+import { Tutorial } from "../";
+import { Inventario } from "../";
 import { Skillcheck } from "../";
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
-import { SideInventario } from "../";
 import { BiMinus } from "react-icons/bi";
-import { FaChevronDown } from "react-icons/fa"
+import { FaChevronDown, FaHandsHelping } from "react-icons/fa"
 import { 
   GiTimeTrap,
   GiSandstorm,
@@ -71,7 +72,8 @@ export const Calc = ({
   const [desviou, setDesviou] = useState(false)
   const [QTE, setQTE] = useState('disabled')
   const [acertouQTE, setAcertouQTE] = useState(false)
-  const [hitTiming, setHitTiming] = useState(false) 
+  const [hitTiming, setHitTiming] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
@@ -145,6 +147,8 @@ export const Calc = ({
     setResposta(resposta + e.target.value);
   }
 
+  const tutorialClick = () => setModalOpen(true)
+
   const chevronClick = () => {
     if (!showing) {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(0deg)')
@@ -154,6 +158,11 @@ export const Calc = ({
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(0%)')
       setShowing(false)
+
+      document.getElementById('conditionDiv').style.opacity = '0'
+      setTimeout(() => {
+          setOpacidade(document.documentElement.style.setProperty('--display', 'none'))
+      }, 350);
     }
   }
 
@@ -424,6 +433,9 @@ export const Calc = ({
 
   return (
     <div className={styles.mainContainer}>
+
+      <Tutorial modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+
       <div className={styles.containerCalc}>
         <div className={styles.subContainerCalc}>
           <div className={styles.perguntaDiv}>
@@ -517,11 +529,15 @@ export const Calc = ({
             indicador={indicador}/>
         </div>
 
-        <div className={styles.chevronDiv} onClick={chevronClick}>
+        <div className={styles.buttonTutorialDiv} onClick={ tutorialClick }>
+          <FaHandsHelping className={styles.buttonTutorial}/>
+        </div>
+
+        <div className={styles.chevronDiv} onClick={ chevronClick }>
           <FaChevronDown className={styles.chevronIcon}/>
         </div>
 
-        <div className={styles.conditionDiv}>
+        <div className={styles.conditionDiv} id='conditionDiv'>
           <p>Chronos podem ser trocados quando:</p>
           <p>- Sua barra de poder estiver zerada.</p>
           <p>- Chronos não estiverem ativos em você.</p>
@@ -567,7 +583,7 @@ export const Calc = ({
       </div>
 
       <div className={styles.side}>
-        <SideInventario
+        <Inventario
           showing={showing}
           setOpacidade={setOpacidade}
           cooldown={cooldown}

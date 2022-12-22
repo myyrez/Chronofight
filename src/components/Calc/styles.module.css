@@ -9,6 +9,8 @@
 .mainContainer {
     overflow: hidden;
     display: flex;
+    height: 100%;
+    width: 100%;
 }
 .containerCalc {
     background-color: #201f29;
@@ -322,6 +324,29 @@
     cursor: pointer;
 }
 
+.buttonTutorial {
+    color: #fff;
+    transition: 150ms;
+}
+.buttonTutorialDiv {
+    position: absolute;
+    top: 2%;
+    left: 22%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.461);
+    border-radius: 50%;
+    transition: 150ms;
+}
+.buttonTutorialDiv:hover {
+    cursor: pointer;
+    transform: rotate(35deg);
+}
+
 .conditionDiv {
     position: absolute;
     bottom: 31%;
@@ -331,12 +356,14 @@
     color: #fff;
     padding-inline: 0.5rem;
     z-index: 9;
+    display: var(--display, none);
+    flex-direction: column;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.747);
     backdrop-filter: blur(4px);
     border-radius: 7px;
     transition: 350ms;
-    opacity: var(--opacidade, 0);
+    opacity: 0;
 }
 
 
@@ -419,7 +446,8 @@
     background-image: (linear-gradient(to right, #4f1e2d, #4800ff));
     cursor: pointer;
 }
-button:hover, button:focus {
+/* button:focus, */
+button:hover {
     box-shadow: 0 8px 12px rgba(0,0,0,0.1), inset 0 10px 30px rgba(255,255,255,0.3), inset 0 2px 2px rgba(255,255,255,0.2);
 }
 .buttonConfirmar:hover:before{

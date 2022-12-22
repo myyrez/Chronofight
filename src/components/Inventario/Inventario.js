@@ -155,11 +155,19 @@ export const Inventario = ({
     
     const showHideCondition = () => {
         if (!showCondition) {
-            setOpacidade(document.documentElement.style.setProperty('--opacidade', '1'))
+            setOpacidade(document.documentElement.style.setProperty('--display', 'flex'))
             setShowCondition(true)
+            
+            setTimeout(() => {
+                document.getElementById('conditionDiv').style.opacity = '1'
+            }, 1);
         } else {
-            setOpacidade(document.documentElement.style.setProperty('--opacidade', '0'))
-            setShowCondition(false)
+            document.getElementById('conditionDiv').style.opacity = '0'
+
+            setTimeout(() => {
+                setOpacidade(document.documentElement.style.setProperty('--display', 'none'))
+                setShowCondition(false)
+            }, 350);
         }
     }
 

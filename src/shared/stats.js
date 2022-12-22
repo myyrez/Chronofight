@@ -32,3 +32,7 @@ export const chronosStats = {
     escudoDescricao: "Uma barreira de infinitude surge ao seu redor para desacelerar quaisquer ataques e perigos. Se desfaz ao tomar um golpe.",
     escudoEfeito: "Recebe metade de dano do ataque seguinte. O inimigo recebe metade do dano que causou. Você não morre com a habilidade ativa.",
 }
+
+export const tutorialText = {
+    p1: "Bem-vindo ao Chronofight!"
+}
