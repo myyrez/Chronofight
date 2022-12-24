@@ -29,7 +29,7 @@
     height: 100vh;
     width: 80%;
     float: right;
-    background-image: url(../../assets/image/fundo1.gif);
+    background-image: url(../../assets/image/cemiterioCinco.png);
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -317,11 +317,13 @@
     width: 3rem;
     height: 1.5rem;
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.461);
+    background-color: rgba(65, 65, 65, 0.461);
     border-radius: 5px;
+    transition: 150ms;
 }
 .chevronDiv:hover {
     cursor: pointer;
+    background-color: rgba(101, 101, 101, 0.461);
 }
 
 .buttonTutorial {
@@ -340,11 +342,14 @@
     backdrop-filter: blur(4px);
     background-color: rgba(0, 0, 0, 0.461);
     border-radius: 50%;
+    border: 2px solid #fff;
     transition: 150ms;
 }
 .buttonTutorialDiv:hover {
     cursor: pointer;
     transform: rotate(35deg);
+    background-color: rgba(101, 101, 101, 0.461);
+
 }
 
 .conditionDiv {
@@ -462,8 +467,8 @@ button:hover {
     width: 100%;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(2px);
     background-color: hsla(0, 0%, 13%, 0.657);
-    /* visibility: hidden; */
 }
 .characterSpace {
     height: 70%;

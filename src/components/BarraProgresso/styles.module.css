@@ -5,6 +5,7 @@
     height: 100vh;
     width: 1vw;
     transition: 2s linear;
+    z-index: 7;
 }
 .tempo {
     background-color: #777777;

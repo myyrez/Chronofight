@@ -34,5 +34,15 @@ export const chronosStats = {
 }
 
 export const tutorialText = {
-    p1: "Bem-vindo ao Chronofight!"
+    p1: [
+        "Bem-vindo ao Chronofight!",
+        <br/>, <br/>,
+        "Atravesse áreas, defenda o Espaço-Tempo e use poderes para derrotar seres que querem o destruir."
+    ],
+
+    p2: [
+        "Opções de Combate",
+        <br/>, <br/>,
+        "Chronofight é um jogo de turnos. Quando seu turno começa, é possível atacar o oponente, se curar de ferimentos ou usar Chronos, poderosos fragmentos do Espaço-Tempo."
+    ]
 }

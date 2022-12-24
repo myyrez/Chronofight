@@ -24,8 +24,8 @@
 }
 
 .imgSpace {
-    width: 80%;
-    height: 40%;
+    width: 25rem;
+    height: 15rem;
     background-color: rgb(59, 59, 59);
 }
 .textSpace {
@@ -102,4 +102,10 @@
     cursor: pointer;
     transform: rotate(45deg);
     color: rgb(255, 91, 91);
+}
+
+.imagemIlustracao {
+    height: 100%;
+    width: 100%;
+    background-size: contain;
 }
