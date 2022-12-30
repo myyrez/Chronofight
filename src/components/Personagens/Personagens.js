@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import char from "../../assets/image/char3.png";
 import enem from "../../assets/image/enem2.png";
 import healSmoke from "../../assets/image/curaImg.png";
-import dangerSign from "../../assets/image/dangerImg.png"
 import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 import { BarraVida } from "../";
 import { 
@@ -385,12 +384,6 @@ export const Personagens = ({
             chronosTotal={1}
           />
         </div>
-        <img
-          id="dangerImg" 
-          src={dangerSign} 
-          className={styles.showDanger}
-          height='100px'
-          width='100px'/>
         <h1 id="enemyDmg" hidden className={styles.showDanoLeft}>{dano}</h1>
         <h1 id="chronosDmg" hidden className={styles.showAreiaDanoLeft}>{chronosStats.areiaDano}</h1>
         <h1 id="enemyCrit" hidden className={styles.showCritLeft}>crit!</h1>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
+import { Mapa } from "../";
 import { Tutorial } from "../";
 import { Inventario } from "../";
 import { Skillcheck } from "../";
@@ -16,7 +17,7 @@ import {
   GiShardSword,
   GiHealthPotion, 
   } from "react-icons/gi";
-import { RiDeleteBack2Line } from "react-icons/ri";
+import { RiDeleteBack2Line, RiTreasureMapLine, RiTreasureMapFill } from "react-icons/ri";
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 import { chronosStats } from "../../shared/stats";
 
@@ -136,11 +137,15 @@ export const Calc = ({
     return opcao
   }
 
-  getComputedStyle(document.documentElement).getPropertyValue('--opacidade')
+  getComputedStyle(document.documentElement).getPropertyValue('--opacidade');
   getComputedStyle(document.documentElement).getPropertyValue('--rotarChevron');
   getComputedStyle(document.documentElement).getPropertyValue('--subirInventario');
+  getComputedStyle(document.documentElement).getPropertyValue('--subirMapa');
+  getComputedStyle(document.documentElement).getPropertyValue('--rotarMapa');
+  
   const [opacidade, setOpacidade] = useState(document.documentElement.style.setProperty('--opacidade', '0'))
   const [showing, setShowing] = useState(false)
+  const [mapaShowing, setMapaShowing] = useState(false)
 
   const updateResposta = e => {
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
@@ -153,6 +158,11 @@ export const Calc = ({
     if (!showing) {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(0deg)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(-100%)')
+      document.documentElement.style.setProperty('--subirMapa', 'translateY(0%)')
+      setTimeout(() => {
+        document.documentElement.style.setProperty('--rotarMapa', 'rotate(0deg)')
+      }, 1);
+      setMapaShowing(false)
       setShowing(true)
     } else {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
@@ -163,6 +173,25 @@ export const Calc = ({
       setTimeout(() => {
           setOpacidade(document.documentElement.style.setProperty('--display', 'none'))
       }, 350);
+    }
+  }
+
+  const mapaClick = () => {
+    if (!mapaShowing) {
+      document.documentElement.style.setProperty('--subirMapa', 'translateY(-100%)')
+      document.documentElement.style.setProperty('--subirInventario', 'translateY(0%)')
+      document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
+      setTimeout(() => {
+        document.documentElement.style.setProperty('--rotarMapa', 'rotate(-22deg)')
+      }, 1);
+      setShowing(false)
+      setMapaShowing(true)
+    } else {
+      document.documentElement.style.setProperty('--subirMapa', 'translateY(0%)')
+      setTimeout(() => {
+        document.documentElement.style.setProperty('--rotarMapa', 'rotate(0deg)')
+      }, 1);
+      setMapaShowing(false)
     }
   }
 
@@ -537,6 +566,10 @@ export const Calc = ({
           <FaChevronDown className={styles.chevronIcon}/>
         </div>
 
+        <div className={styles.mapDiv} onClick={ mapaClick }>
+          {mapaShowing ? <RiTreasureMapFill className={styles.mapIcon}/> : <RiTreasureMapLine className={styles.mapIcon}/>}
+        </div>
+
         <div className={styles.conditionDiv} id='conditionDiv'>
           <p>Chronos podem ser trocados quando:</p>
           <p>- Sua barra de poder estiver zerada.</p>
@@ -582,7 +615,10 @@ export const Calc = ({
         </div>
       </div>
 
-      <div className={styles.side}>
+      <div className={styles.sideMapa}>
+        <Mapa/>
+      </div>
+      <div className={styles.sideInventario}>
         <Inventario
           showing={showing}
           setOpacidade={setOpacidade}

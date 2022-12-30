@@ -39,7 +39,7 @@
     height: 100vh;
     width: 1vw;
 }
-.side {
+.sideInventario {
     z-index: 3;
     flex: none;
     position: fixed;
@@ -49,6 +49,17 @@
     width: 79%;
     transition: ease-in-out .4s;
     transform: var(--subirInventario, translateY(0%));
+}
+.sideMapa {
+    z-index: 3;
+    flex: none;
+    position: fixed;
+    left: 21%;
+    top: 100%;
+    height: 30%;
+    width: 79%;
+    transition: ease-in-out .4s;
+    transform: var(--subirMapa, translateY(0%));
 }
 .headerCalc {
     background-color: #201f29;
@@ -310,18 +321,44 @@
 .chevronDiv {
     position: absolute;
     top: 64%;
-    left: 57.9%;
+    left: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3rem;
     height: 1.5rem;
     backdrop-filter: blur(4px);
-    background-color: rgba(65, 65, 65, 0.461);
+    background-color: rgba(0, 0, 0, 0.461);
     border-radius: 5px;
-    transition: 150ms;
+    border: 1.5px solid #fff;
+    transition: ease-in-out 150ms;
 }
 .chevronDiv:hover {
+    cursor: pointer;
+    background-color: rgba(101, 101, 101, 0.461);
+}
+
+.mapIcon {
+    transform: var(--rotarMapa, rotate(0deg));
+    color: #fff;
+    transition: ease-in-out 150ms;
+}
+.mapDiv {
+    position: absolute;
+    top: 64%;
+    left: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 1.5rem;
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.461);
+    border-radius: 5px;
+    border: 1.5px solid #fff;
+    transition: ease-in-out 150ms;
+}
+.mapDiv:hover {
     cursor: pointer;
     background-color: rgba(101, 101, 101, 0.461);
 }

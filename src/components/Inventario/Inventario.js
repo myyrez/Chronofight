@@ -21,8 +21,7 @@ export const Inventario = ({
     setChronosCounter,
     chronosTotal,
     setChronosTotal,
-    chronosAtivo,
-}) => {
+    chronosAtivo, }) => {
     const [ArmaAtiva, setArmaAtiva] = useState(1)
     const [showCondition, setShowCondition] = useState(false)
     const [chronosAtivado, setChronosAtivado] = useState(false)
