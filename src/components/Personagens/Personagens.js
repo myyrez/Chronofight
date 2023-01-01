@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import char from "../../assets/image/char3.png";
-import enem from "../../assets/image/enem2.png";
 import healSmoke from "../../assets/image/curaImg.png";
 import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
 import { BarraVida } from "../";
@@ -350,7 +348,7 @@ export const Personagens = ({
         <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
         <img
           id="player"
-          src={char}
+          src={playerStats.src}
           width={playerStats.spriteWidth}
           height={playerStats.spriteHeight}
         />
@@ -389,7 +387,7 @@ export const Personagens = ({
         <h1 id="enemyCrit" hidden className={styles.showCritLeft}>crit!</h1>
         <img
           id="enem"
-          src={enem} 
+          src={enemyStats.src} 
           width={enemyStats.spriteWidth}
           height={enemyStats.spriteHeight}
         />

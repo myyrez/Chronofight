@@ -328,7 +328,7 @@
     width: 3rem;
     height: 1.5rem;
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.461);
+    background-color: var(--chevronBack, rgba(0, 0, 0, 0.461));
     border-radius: 5px;
     border: 1.5px solid #fff;
     transition: ease-in-out 150ms;
@@ -353,7 +353,7 @@
     width: 3rem;
     height: 1.5rem;
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.461);
+    background-color: var(--mapBack, rgba(0, 0, 0, 0.461));
     border-radius: 5px;
     border: 1.5px solid #fff;
     transition: ease-in-out 150ms;

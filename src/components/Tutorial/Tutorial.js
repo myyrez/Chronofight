@@ -15,7 +15,7 @@ export const Tutorial = ({ modalOpen, setModalOpen}) => {
 
     const handlePaginaCounter = e => {
         if (e.target.value === '-' && paginaCounter === 1) return;
-        if (e.target.value === '+' && paginaCounter === 2) return;
+        if (e.target.value === '+' && paginaCounter === 5) return;
         if (e.target.value === '-') setPaginaCounter(paginaCounter - 1);
         if (e.target.value === '+') setPaginaCounter(paginaCounter + 1);
     }
@@ -44,6 +44,15 @@ export const Tutorial = ({ modalOpen, setModalOpen}) => {
                 break;
             case 2:
                 setPaginaText(tutorialText.p2)
+                break;
+            case 3:
+                setPaginaText(tutorialText.p3)
+                break;
+            case 4: 
+                setPaginaText(tutorialText.p4)
+                break;
+            case 5:
+                setPaginaText(tutorialText.p5)
                 break;
         }
     })

@@ -13,7 +13,47 @@
 }
 
 .mapa {
-    width: auto;
-    height: auto;
-    transform: rotate(90deg);
+    width: 60%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.location {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.locationIcon {
+    font-size: 2.5rem;
+    margin: 0;
+    color: rgb(25, 0, 57);
+}
+
+.indicador {
+    width: 2rem;
+    height: 1rem;
+    margin-bottom: 2.5rem;
+    align-self: var(--alignIndicador, flex-start);
+    margin-inline: 1rem;
+    transition: 500ms;
+    background: linear-gradient(250deg, #26ffd7, #7818b8 );
+    clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
 }

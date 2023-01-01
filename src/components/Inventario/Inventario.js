@@ -6,10 +6,11 @@ import {
     GiHeavyTimer,
     GiSandsOfTime,
 } from 'react-icons/gi';
-import { chronosStats } from '../../shared/stats'
-
+import { RiLockFill } from 'react-icons/ri';
+import { chronosStats, enemyStats, enemyStats2, enemyStats3 } from '../../shared/stats'
 
 export const Inventario = ({
+    chronosCooldown,
     showing,
     setOpacidade,
     cooldown,
@@ -180,23 +181,35 @@ export const Inventario = ({
                             id='arma1'
                             value='1'
                             className={styles.invtrArmas}
-                            onClick={ativarArma1}><GiSandsOfTime className={styles.svgArma}/></button>
+                            onClick={ativarArma1}>
+                                {blockButton === '' 
+                                    ? <GiSandsOfTime className={styles.svgArma}/> 
+                                    : <RiLockFill className={styles.svgArma}/>}
+                            </button>
                     </div>
                     <div id='buttonFlex2' className={styles.buttonFlex}>
                         <button
-                            disabled={blockButton}
+                            disabled={!enemyStats.alive ? blockButton : 'disabled'}
                             id='arma2'
                             value='2' 
                             className={styles.invtrArmas}
-                            onClick={ativarArma2}><GiHeavyTimer className={styles.svgArma}/></button>
+                            onClick={ativarArma2}>
+                                {blockButton === '' && !enemyStats.alive 
+                                    ? <GiHeavyTimer className={styles.svgArma}/> 
+                                    : <RiLockFill className={styles.svgArma}/>}
+                            </button>
                     </div>
                     <div id='buttonFlex3' className={styles.buttonFlex}>
                         <button
-                            disabled={blockButton}
+                            disabled={!enemyStats2.alive ? blockButton : 'disabled'}
                             id='arma3'
                             value='3' 
                             className={styles.invtrArmas}
-                            onClick={ativarArma3}><GiTimeTrap className={styles.svgArma}/></button>
+                            onClick={ativarArma3}>
+                                {blockButton === '' && !enemyStats2.alive 
+                                    ? <GiTimeTrap className={styles.svgArma}/> 
+                                    : <RiLockFill className={styles.svgArma}/>}
+                            </button>
                     </div>
 
                     <div className={styles.conditionSignDiv} onClick={showHideCondition}>

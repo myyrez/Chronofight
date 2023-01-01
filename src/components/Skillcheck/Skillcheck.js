@@ -47,7 +47,7 @@ export const Skillcheck = ({ callSkillcheck, setCallSkillcheck, hitTiming, enemy
                 </div>
             </div>
             <div className={styles.skillcheckTextArea}>
-                <h1 className={styles.dodgeText}>aperte espaco para desviar</h1>
+                <h1 className={styles.dodgeText}>aperte espaço para desviar</h1>
             </div>
         </div>
     )

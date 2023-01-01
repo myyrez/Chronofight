@@ -32,12 +32,12 @@
     width: 80%;
     height: 40%;
     text-align: center;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
+    line-height: 1.3rem;
 
     color: #fff;
-    contain: strict;
     overflow-y: scroll;
 }
 .textSpace::-webkit-scrollbar {

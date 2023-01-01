@@ -7,7 +7,7 @@ import { Skillcheck } from "../";
 import { Personagens } from "../";
 import { BarraProgresso } from "../";
 import { BiMinus } from "react-icons/bi";
-import { FaChevronDown, FaHandsHelping } from "react-icons/fa"
+import { FaHandsHelping } from "react-icons/fa"
 import { 
   GiTimeTrap,
   GiSandstorm,
@@ -17,7 +17,8 @@ import {
   GiShardSword,
   GiHealthPotion, 
   } from "react-icons/gi";
-import { RiDeleteBack2Line, RiTreasureMapLine, RiTreasureMapFill } from "react-icons/ri";
+import { RiDeleteBack2Line, RiTreasureMapLine, RiTreasureMapFill, RiLockFill } from "react-icons/ri";
+import { CgSandClock } from "react-icons/cg" 
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
 import { chronosStats } from "../../shared/stats";
 
@@ -142,6 +143,8 @@ export const Calc = ({
   getComputedStyle(document.documentElement).getPropertyValue('--subirInventario');
   getComputedStyle(document.documentElement).getPropertyValue('--subirMapa');
   getComputedStyle(document.documentElement).getPropertyValue('--rotarMapa');
+  getComputedStyle(document.documentElement).getPropertyValue('--mapBack');
+  getComputedStyle(document.documentElement).getPropertyValue('--chevronBack');
   
   const [opacidade, setOpacidade] = useState(document.documentElement.style.setProperty('--opacidade', '0'))
   const [showing, setShowing] = useState(false)
@@ -158,6 +161,8 @@ export const Calc = ({
     if (!showing) {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(0deg)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(-100%)')
+      document.documentElement.style.setProperty('--chevronBack', 'rgba(101, 101, 101, 0.461)')
+      document.documentElement.style.setProperty('--mapBack', 'rgba(0, 0, 0, 0.461)')
       document.documentElement.style.setProperty('--subirMapa', 'translateY(0%)')
       setTimeout(() => {
         document.documentElement.style.setProperty('--rotarMapa', 'rotate(0deg)')
@@ -167,6 +172,8 @@ export const Calc = ({
     } else {
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(0%)')
+      document.documentElement.style.setProperty('--chevronBack', 'rgba(0, 0, 0, 0.461)')
+
       setShowing(false)
 
       document.getElementById('conditionDiv').style.opacity = '0'
@@ -179,8 +186,15 @@ export const Calc = ({
   const mapaClick = () => {
     if (!mapaShowing) {
       document.documentElement.style.setProperty('--subirMapa', 'translateY(-100%)')
+      document.documentElement.style.setProperty('--chevronBack', 'rgba(0, 0, 0, 0.461)')
+      document.documentElement.style.setProperty('--mapBack', 'rgba(101, 101, 101, 0.461)')
       document.documentElement.style.setProperty('--subirInventario', 'translateY(0%)')
       document.documentElement.style.setProperty('--rotarChevron', 'rotate(180deg)')
+
+      document.getElementById('conditionDiv').style.opacity = '0'
+      setTimeout(() => {
+          setOpacidade(document.documentElement.style.setProperty('--display', 'none'))
+      }, 350);
       setTimeout(() => {
         document.documentElement.style.setProperty('--rotarMapa', 'rotate(-22deg)')
       }, 1);
@@ -188,6 +202,7 @@ export const Calc = ({
       setMapaShowing(true)
     } else {
       document.documentElement.style.setProperty('--subirMapa', 'translateY(0%)')
+      document.documentElement.style.setProperty('--mapBack', 'rgba(0, 0, 0, 0.461)')
       setTimeout(() => {
         document.documentElement.style.setProperty('--rotarMapa', 'rotate(0deg)')
       }, 1);
@@ -509,7 +524,7 @@ export const Calc = ({
               className={styles.buttonConfirmar}
               disabled={travarConfirmar}
               onClick={() => acerto()}>
-              CONFIRMAR 
+              ATACAR 
             </button>
           </div>
 
@@ -562,17 +577,17 @@ export const Calc = ({
           <FaHandsHelping className={styles.buttonTutorial}/>
         </div>
 
-        <div className={styles.chevronDiv} onClick={ chevronClick }>
-          <FaChevronDown className={styles.chevronIcon}/>
+        <div className={styles.chevronDiv} onClick={ chevronClick } id='chevronId'>
+          <CgSandClock className={styles.chevronIcon}/>
         </div>
 
-        <div className={styles.mapDiv} onClick={ mapaClick }>
+        <div className={styles.mapDiv} onClick={ mapaClick } id='mapId'>
           {mapaShowing ? <RiTreasureMapFill className={styles.mapIcon}/> : <RiTreasureMapLine className={styles.mapIcon}/>}
         </div>
 
         <div className={styles.conditionDiv} id='conditionDiv'>
           <p>Chronos podem ser trocados quando:</p>
-          <p>- Sua barra de poder estiver zerada.</p>
+          <p>- Sua barra de energia estiver zerada.</p>
           <p>- Chronos não estiverem ativos em você.</p>
         </div>
 
@@ -584,7 +599,7 @@ export const Calc = ({
                 className={styles.buttonCalcAtk}
                 disabled={cooldown}
                 onClick={atacar}>
-                  <p className={styles.buttonCalcText}>ATACAR</p>
+                  <p className={styles.buttonCalcText}>PREPARAR</p>
                   <GiShardSword className={styles.atkIcon}/>
                   <p></p>
               </button>
@@ -620,6 +635,7 @@ export const Calc = ({
       </div>
       <div className={styles.sideInventario}>
         <Inventario
+          chronosCooldown={chronosCooldown}
           showing={showing}
           setOpacidade={setOpacidade}
           cooldown={cooldown}
