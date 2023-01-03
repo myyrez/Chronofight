@@ -2,25 +2,37 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import { tutorialText } from "../../shared/stats";
 
-export const Tutorial = ({ modalOpen, setModalOpen}) => {
+export const Tutorial = ({ modalOpen, setModalOpen, rightArrow, leftArrow, setRightArrow, setLeftArrow}) => {
     const [paginaText, setPaginaText] = useState(tutorialText.p1)
     const [paginaCounter, setPaginaCounter] = useState(1)
-
-    const refPaginaCounter = useRef(paginaCounter)
-    refPaginaCounter.current = paginaCounter
-
     getComputedStyle(document.documentElement).getPropertyValue('--modal')
 
     const closeModal = () => setModalOpen(false)
 
     const handlePaginaCounter = e => {
-        if (e.target.value === '-' && paginaCounter === 1) return;
-        if (e.target.value === '+' && paginaCounter === 5) return;
-        if (e.target.value === '-') setPaginaCounter(paginaCounter - 1);
-        if (e.target.value === '+') setPaginaCounter(paginaCounter + 1);
+        if (e.target.value === 'leftArrow' && paginaCounter === 1) return;
+        if (e.target.value === 'rightArrow' && paginaCounter === 5) return;
+        if (e.target.value === 'leftArrow') setPaginaCounter(paginaCounter - 1);
+        if (e.target.value === 'rightArrow') setPaginaCounter(paginaCounter + 1);
+        document.getElementById('textSpace').scrollBy({ top: -9000 })
     }
 
     useEffect(() => {
+        if (rightArrow) {
+            setRightArrow(false);
+
+            if (paginaCounter === 5) return;
+            setPaginaCounter(paginaCounter + 1);
+            document.getElementById('textSpace').scrollBy({ top: -9000 })
+        }
+        if (leftArrow) {
+            setLeftArrow(false)
+
+            if (paginaCounter === 1) return;
+            setPaginaCounter(paginaCounter - 1);
+            document.getElementById('textSpace').scrollBy({ top: -9000 })
+        }
+
         if (!modalOpen) {
             document.getElementById('tutorial').style.opacity = 0
             setTimeout(() => {
@@ -31,6 +43,7 @@ export const Tutorial = ({ modalOpen, setModalOpen}) => {
         }
         if (modalOpen) {
             document.documentElement.style.setProperty('--modal', 'flex')
+            document.getElementById('textSpace').scrollBy({ top: -9000 })
             setTimeout(() => {
                 document.getElementById('tutorial').style.opacity = 1
             }, 1);
@@ -69,12 +82,12 @@ export const Tutorial = ({ modalOpen, setModalOpen}) => {
                 <div className={styles.imgSpace}>
                     <img 
                         src={require(`../../assets/image/gameplayPrint${paginaCounter}.png`)}
-                        alt="imagemIlustração" 
+                        alt="imagemIlustração"
                         className={styles.imagemIlustracao}
                     />
                 </div>
 
-                <div className={styles.textSpace}>
+                <div className={styles.textSpace} id='textSpace'>
                     <p>{paginaText}</p>
                 </div>
 
@@ -82,11 +95,13 @@ export const Tutorial = ({ modalOpen, setModalOpen}) => {
                     <button 
                         className={styles.changePageButton}
                         onClick={ handlePaginaCounter }
-                        value={'-'}>←-</button>
+                        id='leftArrowButton'
+                        value={'leftArrow'}>←-</button>
                     <button 
                         className={styles.changePageButton}
                         onClick={ handlePaginaCounter }
-                        value={'+'}>-→</button>
+                        id='rightArrowButton'
+                        value={'rightArrow'}>-→</button>
                 </div>
             </div>
         </div>

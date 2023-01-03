@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import healSmoke from "../../assets/image/curaImg.png";
-import { enemyStats, playerStats, chronosStats } from "../../shared/stats";
+import { enemyStats, playerStats, chronosStats, enemyStats2, enemyStats3 } from "../../shared/stats";
 import { BarraVida } from "../";
 import { 
   GiTimeTrap,
@@ -14,6 +14,7 @@ import {
 import styles from "./styles.module.css";
 
 export const Personagens = ({
+  setBackground,
   setCrit,
   setEnemyCrit,
   desviou,
@@ -77,6 +78,11 @@ export const Personagens = ({
   const [desativarAreia, setDesativarAreia] = useState(0)
   const [areiaCounter, setAreiaCounter] = useState(3)
   const [DOT, setDOT] = useState(false)
+  const [enemyAtualVidaTotal, setEnemyAtualVidaTotal] = useState(enemyStats.vidaTotal)
+  const [enemyAtualSpriteHeight, setEnemyAtualSpriteHeight] = useState(enemyStats.spriteHeight)
+  const [enemyAtualSpriteWidth, setEnemyAtualSpriteWidth] = useState(enemyStats.spriteWidth)
+  const [enemyAtualImg, setEnemyAtualImg] = useState(1)
+
   var healImg = document.getElementById("healId");
   getComputedStyle(document.documentElement).getPropertyValue('--playerChronos')
   getComputedStyle(document.documentElement).getPropertyValue('--areia')
@@ -254,17 +260,50 @@ export const Personagens = ({
 
 
     if (playerVidaAtual > playerStats.vidaTotal) setPlayerVidaAtual(playerStats.vidaTotal)
+
     if (playerVidaAtual <= 0) {
       setTimeout(() => {
         setModo('Ending')
         setCharEnemyMorto('char')
       }, 2000);
     }
-    if (enemyVidaAtual <= 0) {
+
+    if (enemyVidaAtual <= 0 && enemyStats.alive) {
       setTimeout(() => {
+        setEnemyAtualVidaTotal(enemyStats2.vidaTotal)
+        setEnemyAtualSpriteHeight(enemyStats2.spriteHeight)
+        setEnemyAtualSpriteWidth(enemyStats2.spriteWidth)
+        setEnemyAtualImg(2)
+      }, 3000);
+      
+      setTimeout(() => {
+        enemyStats.alive = false
+        setEnemyVidaAtual(enemyAtualVidaTotal)
+        setPlayerVidaAtual(playerStats.vidaTotal)
+        setBackground(2)
+      }, 5000);
+    }
+    if (enemyVidaAtual <= 0 && !enemyStats.alive && enemyStats2.alive) {
+      setTimeout(() => {
+        setEnemyAtualVidaTotal(enemyStats3.vidaTotal)
+        setEnemyAtualSpriteHeight(enemyStats3.spriteHeight)
+        setEnemyAtualSpriteWidth(enemyStats3.spriteWidth)
+        setEnemyAtualImg(3)
+      }, 3000);
+      
+      setTimeout(() => {
+        enemyStats2.alive = false
+        setEnemyVidaAtual(enemyAtualVidaTotal)
+        setPlayerVidaAtual(playerStats.vidaTotal)
+        setBackground(3)
+      }, 5000);
+    }
+    if (enemyVidaAtual <= 0 && !enemyStats.alive && !enemyStats2.alive) {
+      setTimeout(() => {
+        enemyStats3.alive = false
         setModo('Ending')
         setCharEnemyMorto('enemy')
-      }, 2000);
+      }, 3000);
     }
   })
 
@@ -377,7 +416,7 @@ export const Personagens = ({
           <BarraVida
             vidaAtual={enemyVidaAtual}
             setVidaAtual={setEnemyVidaAtual}
-            vidaTotal={enemyStats.vidaTotal}
+            vidaTotal={enemyAtualVidaTotal}
             chronosCounter={1}
             chronosTotal={1}
           />
@@ -387,9 +426,9 @@ export const Personagens = ({
         <h1 id="enemyCrit" hidden className={styles.showCritLeft}>crit!</h1>
         <img
           id="enem"
-          src={enemyStats.src} 
-          width={enemyStats.spriteWidth}
-          height={enemyStats.spriteHeight}
+          src={require(`../../assets/image/enem${enemyAtualImg}.png`)} 
+          width={enemyAtualSpriteWidth}
+          height={enemyAtualSpriteHeight}
         />
       </div>
       

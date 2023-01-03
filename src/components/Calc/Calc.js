@@ -76,6 +76,7 @@ export const Calc = ({
   const [acertouQTE, setAcertouQTE] = useState(false)
   const [hitTiming, setHitTiming] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
+  const [background, setBackground] = useState(1)
 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
@@ -149,6 +150,9 @@ export const Calc = ({
   const [opacidade, setOpacidade] = useState(document.documentElement.style.setProperty('--opacidade', '0'))
   const [showing, setShowing] = useState(false)
   const [mapaShowing, setMapaShowing] = useState(false)
+  const [leftArrow, setLeftArrow] = useState(false)
+  const [rightArrow, setRightArrow] = useState(false)
+  // const textSpace = document.getElementById('textSpace')
 
   const updateResposta = e => {
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
@@ -222,6 +226,14 @@ export const Calc = ({
     if (e.key === 'c' && curaCooldown === '') return curar();
     if (e.key === 'Shift' && chronosCooldown === '') return atacarChronos();
     if (e.key === ' ' && QTE !== 'disabled') return setHitTiming(true);
+    if (e.key === 'i') return chevronClick();
+    if (e.key === 'm') return mapaClick();
+    if (e.key === 'Escape' || e.key === 't' && modalOpen) return setModalOpen(false);
+    if (e.key === 't') return tutorialClick();
+    if (e.key === 'ArrowLeft' && modalOpen) return setLeftArrow(true);
+    if (e.key === 'ArrowRight' && modalOpen) return setRightArrow(true);
+    if (e.key === 'ArrowUp' && modalOpen) return document.getElementById('textSpace').scrollBy({ top: -100, behavior: 'smooth' });
+    if (e.key === 'ArrowDown' && modalOpen) return document.getElementById('textSpace').scrollBy({ top: 100, behavior: 'smooth' });
 
     if (travarConfirmar === 'disabled') return;
     if (e.key === '-' && resposta === '') return setResposta('-');
@@ -230,6 +242,10 @@ export const Calc = ({
 
     if (isNaN(e.key) || e.key === ' ') return;
     setResposta(resposta + e.key);
+  }
+
+  const triggerArrowButton = () => {
+
   }
   
   useEffect(() => {
@@ -245,11 +261,17 @@ export const Calc = ({
     else document.documentElement.style.setProperty('--borderChronos', 'none')
     
     if (chronosAtivo && chronos === 'marca') setMarcaCrit(true)
-    if (turnoEnemy) {
-      setTurnoEnemy(false)
+    if (turnoEnemy && enemyVidaAtual !== 0) {
       setCallSkillcheck(true)
       startEnemyAttack()
     }
+    if (turnoEnemy && enemyVidaAtual === 0) {
+      setCooldown('')
+      setCuraCooldown('')
+      setCuraCounter(0)
+      setBlockButton('')
+    }
+    setTurnoEnemy(false)
     if (chronosCounter !== 0) setChronosCooldown('disabled')
     if (operacao === 'soma') setPergunta(`${n1} + ${n2}`)
     if (operacao === 'subtracao') setPergunta(`${n1} – ${n2}`)
@@ -478,7 +500,13 @@ export const Calc = ({
   return (
     <div className={styles.mainContainer}>
 
-      <Tutorial modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+      <Tutorial 
+        modalOpen={modalOpen} 
+        setModalOpen={setModalOpen}
+        leftArrow={leftArrow}
+        setLeftArrow={setLeftArrow}
+        rightArrow={rightArrow}
+        setRightArrow={setRightArrow}/>
 
       <div className={styles.containerCalc}>
         <div className={styles.subContainerCalc}>
@@ -541,9 +569,10 @@ export const Calc = ({
         hitTiming={hitTiming}
         enemyVidaAtual={enemyVidaAtual}/>
 
-      <div className={styles.containerRpg}>
+      <div className={styles.containerRpg} style={{backgroundImage: `url(/img/background${background}.png)`}}>
         <div className={styles.characterSpace}>
           <Personagens
+            setBackground={setBackground}
             setCrit={setCrit}
             desviou={desviou}
             setDesviou={setDesviou}

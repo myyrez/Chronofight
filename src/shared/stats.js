@@ -10,7 +10,6 @@ export const enemyStats = {
     vidaTotal: 300,
     spriteHeight: '230px',
     spriteWidth: '230px',
-    src: require("../assets/image/enem2.png"),
     alive: true,
 }
 
@@ -18,7 +17,6 @@ export const enemyStats2 = {
     vidaTotal: 350,
     spriteHeight: '230px',
     spriteWidth: '230px',
-    src: require("../assets/image/enem2.png"),
     alive: true
 }
 
@@ -26,7 +24,6 @@ export const enemyStats3 = {
     vidaTotal: 500,
     spriteHeight: '230px',
     spriteWidth: '230px',
-    src: require("../assets/image/enem2.png"),
     alive: true
 }
 
@@ -97,10 +94,12 @@ export const tutorialText = {
     p5: [
         "Escolhendo Chronos",
         <br/>, <br/>,
-        "Você irá liberar outros Chronos ao progredir. Enquanto sua energia estiver zerada e efeitos não estiverem ativos em você, é possível trocá-los no meio do combate.",
+        "No inventário, você pode escolher Chronos que serão liberados ao progredir. Enquanto sua energia estiver zerada e efeitos não estiverem ativos em você, é possível trocá-los no meio do combate.",
         <br/>, <br/>,
         "Geralmente, o primeiro chronos a ser usado na batalha carrega mais rápido. Tente identificar quais e monte uma sequência para derrotar seus oponentes com mais eficácia.",
         <br/>, <br/>,
-        "Para ver essa aba, clique na ampulheta acima das opções de combate."
+        "Para ver essa aba, clique na ampulheta acima das opções de combate.",
+        <br/>, <br/>,
+        "'I': abrir inventário"
     ]
 }
