@@ -62,6 +62,8 @@ export const tutorialText = {
         <br/>, <br/>,
         "Também é possível jogar no teclado.",
         <br/>, <br/>,
+        "'T': abre a janela de tutorial",
+        <br/>,
         "'A': ativa o botão 'Preparar'",
         <br/>,
         "'C': ativa o botão 'Curar'",

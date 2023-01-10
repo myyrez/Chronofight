@@ -274,14 +274,14 @@ export const Personagens = ({
         setEnemyAtualSpriteHeight(enemyStats2.spriteHeight)
         setEnemyAtualSpriteWidth(enemyStats2.spriteWidth)
         setEnemyAtualImg(2)
-      }, 3000);
+      }, 3500);
       
       setTimeout(() => {
         enemyStats.alive = false
         setEnemyVidaAtual(enemyAtualVidaTotal)
         setPlayerVidaAtual(playerStats.vidaTotal)
         setBackground(2)
-      }, 5000);
+      }, 3600);
     }
     if (enemyVidaAtual <= 0 && !enemyStats.alive && enemyStats2.alive) {
       setTimeout(() => {
@@ -289,21 +289,21 @@ export const Personagens = ({
         setEnemyAtualSpriteHeight(enemyStats3.spriteHeight)
         setEnemyAtualSpriteWidth(enemyStats3.spriteWidth)
         setEnemyAtualImg(3)
-      }, 3000);
+      }, 3500);
       
       setTimeout(() => {
         enemyStats2.alive = false
         setEnemyVidaAtual(enemyAtualVidaTotal)
         setPlayerVidaAtual(playerStats.vidaTotal)
         setBackground(3)
-      }, 5000);
+      }, 3600);
     }
     if (enemyVidaAtual <= 0 && !enemyStats.alive && !enemyStats2.alive) {
       setTimeout(() => {
         enemyStats3.alive = false
         setModo('Ending')
         setCharEnemyMorto('enemy')
-      }, 3000);
+      }, 3500);
     }
   })
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import { Mapa } from "../";
 import { Tutorial } from "../";
+import { Transition } from "../";
 import { Inventario } from "../";
 import { Skillcheck } from "../";
 import { Personagens } from "../";
@@ -152,7 +153,6 @@ export const Calc = ({
   const [mapaShowing, setMapaShowing] = useState(false)
   const [leftArrow, setLeftArrow] = useState(false)
   const [rightArrow, setRightArrow] = useState(false)
-  // const textSpace = document.getElementById('textSpace')
 
   const updateResposta = e => {
     if (resposta == '-' && e.target.value == 0) return setResposta(0)
@@ -242,10 +242,6 @@ export const Calc = ({
 
     if (isNaN(e.key) || e.key === ' ') return;
     setResposta(resposta + e.key);
-  }
-
-  const triggerArrowButton = () => {
-
   }
   
   useEffect(() => {
@@ -500,13 +496,25 @@ export const Calc = ({
   return (
     <div className={styles.mainContainer}>
 
+      <Transition 
+        enemyVidaAtual={enemyVidaAtual}
+        setCooldown={setCooldown}
+        setCuraCooldown={setCuraCooldown}
+        setCuraCounter={setCuraCounter}
+        chronos={chronos}
+        setChronosCooldown={setChronosCooldown}
+        setChronosCounter={setChronosCounter}
+        setBlockButton={setBlockButton}
+      />
+
       <Tutorial 
         modalOpen={modalOpen} 
         setModalOpen={setModalOpen}
         leftArrow={leftArrow}
         setLeftArrow={setLeftArrow}
         rightArrow={rightArrow}
-        setRightArrow={setRightArrow}/>
+        setRightArrow={setRightArrow}
+      />
 
       <div className={styles.containerCalc}>
         <div className={styles.subContainerCalc}>
