@@ -7,21 +7,21 @@ export const playerStats = {
 }
 
 export const enemyStats = {
-    vidaTotal: 1,
+    vidaTotal: 300,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true,
 }
 
 export const enemyStats2 = {
-    vidaTotal: 1,
+    vidaTotal: 350,
     spriteHeight: '230px',
     spriteWidth: '230px',
     alive: true
 }
 
 export const enemyStats3 = {
-    vidaTotal: 1,
+    vidaTotal: 500,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true
