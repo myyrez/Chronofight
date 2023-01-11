@@ -1,10 +1,13 @@
 .healthBox {
-    background-color: rgba(0, 0, 0, 0.543);
+    background-color: rgba(0, 0, 0, 0.811);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    /* position: absolute; */
+    left: 0%;
     align-items: center;
     padding: .5rem;
+    z-index: 888;
 }
 .barra {
     height: auto;

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { enemyStats, enemyStats2, chronosStats } from '../../shared/stats';
+import { enemyStats, enemyStats2, chronosStats, transitionText } from '../../shared/stats';
 
 export const Transition = ({
     enemyVidaAtual,
@@ -18,6 +18,11 @@ export const Transition = ({
     var paragrafo3 = document.getElementById('paragrafo3')
     var paragrafo4 = document.getElementById('paragrafo4')
     var skipButton = document.getElementById('skipButton')
+    const [transitionP1, setTransitionP1] = useState(transitionText.t11)
+    const [transitionP2, setTransitionP2] = useState(transitionText.t12)
+    const [transitionP3, setTransitionP3] = useState(transitionText.t13)
+    const [transitionP4, setTransitionP4] = useState(transitionText.t14)
+    const [skipDisabled, setSkipDisabled] = useState('')
 
     useEffect(() => {
         if (enemyVidaAtual <= 0) {
@@ -25,43 +30,56 @@ export const Transition = ({
             setCuraCooldown('disabled')
             setChronosCooldown('disabled')
             setBlockButton('disabled')
+            paragrafo1.style.opacity = 0
+            paragrafo2.style.opacity = 0
+            paragrafo3.style.opacity = 0
+            paragrafo4.style.opacity = 0
 
             setTimeout(() => {
                 background.style.display = 'flex'
-                setTimeout(() => { background.style.opacity = 1 }, 10);
-            
-                if (enemyStats.alive) {
-                    paragrafo1.style.display = 'flex'
-                    setTimeout(() => { paragrafo1.style.opacity = 1 }, 2500);
-                    
-                    paragrafo2.style.display = 'flex'
-                    setTimeout(() => { paragrafo2.style.opacity = 1 }, 4500);
+                setTimeout(() => { background.style.opacity = 1 }, 1);
 
-                    setTimeout(() => {
-                        skipButton.style.display = 'flex'
-                        setTimeout(() => { skipButton.style.opacity = 1 }, 10);
-                    }, 5100);
+                setTimeout(() => { paragrafo1.style.opacity = 1 }, 2500);
+                
+                setTimeout(() => { paragrafo2.style.opacity = 1 }, 4500);
 
-                    paragrafo3.style.display = 'flex'
-                    setTimeout(() => { paragrafo3.style.opacity = 1 }, 6500);
+                setTimeout(() => {
+                    skipButton.style.display = 'flex'
+                    setTimeout(() => { skipButton.style.opacity = 1 }, 10);
+                }, 5100);
 
-                    paragrafo4.style.display = 'flex'
-                    setTimeout(() => { paragrafo4.style.opacity = 1 }, 8500);
-                }
+                setTimeout(() => { paragrafo3.style.opacity = 1 }, 6500);
 
-                if (!enemyStats.alive && enemyStats2.alive) {}
-
-                if (!enemyStats.alive && !enemyStats2.alive) {}
+                setTimeout(() => { paragrafo4.style.opacity = 1 }, 8500);
             }, 2000);
         }
     })
 
     const closeTransition = () => {
+        setSkipDisabled('disabled')
         setCooldown('')
         setCuraCooldown('')
         setCuraCounter(0)
         setChronosCooldown('')
         setBlockButton('')
+
+        setTimeout(() => {
+            if (!enemyStats.alive && enemyStats2.alive) {
+                setTransitionP1(transitionText.t21)
+                setTransitionP2(transitionText.t22)
+                setTransitionP3(transitionText.t23)
+                setTransitionP4(transitionText.t24)
+            }
+    
+            if (!enemyStats.alive && !enemyStats2.alive) {
+                setTransitionP1(transitionText.t31)
+                setTransitionP2(transitionText.t32)
+                setTransitionP3(transitionText.t33)
+                setTransitionP4(transitionText.t34)
+            }
+
+            setSkipDisabled('')
+        }, 2100);
 
         if (chronos === 'areia') {
             setChronosCounter(chronosStats.areiaChronosInicial)
@@ -73,21 +91,24 @@ export const Transition = ({
             setChronosCounter(chronosStats.escudoChronosInicial)
         }
 
+        skipButton.style.opacity = 0
         background.style.opacity = 0
         setTimeout(() => { background.style.display = 'none' }, 1500); 
+        setTimeout(() => { skipButton.style.display = 'none' }, 1500); 
     }
 
     return (
         <div className={styles.background} id='transitionBackground'>
-            <p className={styles.text} style={{display: 'none', opacity: 0}} id='paragrafo1'>Você derrota o seu inimigo, mas sente um chamado em algum lugar.</p>
-            <p className={styles.text} style={{display: 'none', opacity: 0}} id='paragrafo2'>Seguindo o caminho, há uma caverna na base da montanha. Uma construção se revela lá dentro, parecendo uma base desgastada.</p>
-            <p className={styles.text} style={{display: 'none', opacity: 0}} id='paragrafo3'>O lugar é escuro e tem um silêncio terrível, entrecortado pelo chiar de ratos. O único caminho é um corredor que parece não ter fim.</p>
-            <p className={styles.text} style={{display: 'none', opacity: 0}} id='paragrafo4'>Finalmente, uma porta pode ser avistada no fim do caminho. Mas alguém, ou alguma coisa, está parada na frente dela.</p>
+            <p className={styles.text} style={{opacity: 0}} id='paragrafo1'>{transitionP1}</p>
+            <p className={styles.text} style={{opacity: 0}} id='paragrafo2'>{transitionP2}</p>
+            <p className={styles.text} style={{opacity: 0}} id='paragrafo3'>{transitionP3}</p>
+            <p className={styles.text} style={{opacity: 0}} id='paragrafo4'>{transitionP4}</p>
             <div className={styles.buttonDiv}>
                 <button
                     style={{display: 'none', opacity: 0}}
                     className={styles.skipButton}
                     onClick={ closeTransition }
+                    disabled={skipDisabled}
                     id='skipButton'>Continuar -→</button>
             </div>
         </div>

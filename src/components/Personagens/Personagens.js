@@ -9,7 +9,8 @@ import {
   GiHeavyTimer,
   GiSandsOfTime,
   GiShardSword,
-  GiHealthPotion, 
+  GiHealthPotion,
+  GiSawClaw, 
   } from "react-icons/gi";
 import styles from "./styles.module.css";
 
@@ -85,6 +86,7 @@ export const Personagens = ({
 
   var healImg = document.getElementById("healId");
   getComputedStyle(document.documentElement).getPropertyValue('--playerChronos')
+  getComputedStyle(document.documentElement).getPropertyValue('--animationType')
   getComputedStyle(document.documentElement).getPropertyValue('--areia')
 
   useEffect(() => {
@@ -268,6 +270,8 @@ export const Personagens = ({
       }, 2000);
     }
 
+    getComputedStyle(document.documentElement).getPropertyValue('--animationType')
+
     if (enemyVidaAtual <= 0 && enemyStats.alive) {
       setTimeout(() => {
         setEnemyAtualVidaTotal(enemyStats2.vidaTotal)
@@ -281,6 +285,14 @@ export const Personagens = ({
         setEnemyVidaAtual(enemyAtualVidaTotal)
         setPlayerVidaAtual(playerStats.vidaTotal)
         setBackground(2)
+        document.getElementById('enem').animate([
+          { transform: 'translate(0, 0px)' },
+          { transform: 'translate(0px, 10px)' },
+          { transform: 'translate(0px, 0px)' },
+          { transform: 'translate(0px, -10px)' },
+          { transform: 'translate(0, 0px)' }
+        ], { duration: 4000, iterations: 'Infinity' })
+        // document.documentElement.style.setProperty('--animationType', 'flying 4s linear infinite')
       }, 3600);
     }
     if (enemyVidaAtual <= 0 && !enemyStats.alive && enemyStats2.alive) {
@@ -301,8 +313,8 @@ export const Personagens = ({
     if (enemyVidaAtual <= 0 && !enemyStats.alive && !enemyStats2.alive) {
       setTimeout(() => {
         enemyStats3.alive = false
-        setModo('Ending')
-        setCharEnemyMorto('enemy')
+        // setModo('Ending')
+        // setCharEnemyMorto('enemy')
       }, 3500);
     }
   })
@@ -339,6 +351,7 @@ export const Personagens = ({
     }, 3500);
   }
 
+  
 
   const indicadorEnem = () => {
     if (indicador === 'enem') return { display: 'flex' }
