@@ -7,21 +7,21 @@ export const playerStats = {
 }
 
 export const enemyStats = {
-    vidaTotal: 300,
+    vidaTotal: 1,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true,
 }
 
 export const enemyStats2 = {
-    vidaTotal: 350,
+    vidaTotal: 1,
     spriteHeight: '230px',
     spriteWidth: '230px',
     alive: true
 }
 
 export const enemyStats3 = {
-    vidaTotal: 500,
+    vidaTotal: 1,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true
@@ -49,13 +49,13 @@ export const chronosStats = {
 }
 
 export const transitionText = {
-    t11: "Você acaba com o seu desafiante, mas sente um chamado em algum lugar. Existem outros tentando te derrotar.",
+    t11: "Você acaba com a criatura, mas sente um chamado em algum lugar. Existem outros tentando te derrotar.",
     t12: "Seguindo o caminho, há uma caverna na base da montanha. Uma construção se revela lá dentro, parecendo uma base desgastada.",
     t13: "O lugar é escuro e tem um silêncio terrível, entrecortado pelo chiar de ratos. O único caminho é um corredor que parece não ter fim.",
     t14: "Finalmente, uma porta pode ser avistada no fim do caminho. Mas alguém, ou alguma coisa, está parada na frente dela.",
 
-    t21: "O corpo agora imóvel da criatura começa a se desmanchar em areia. Os grãos espalhados pelo corredor parecem ser atraídos para a porta no fim do caminho.",
-    t22: "Entrando, há uma sala de laboratório com apenas uma complexa máquina. Essa engenhosidade está projetando um portal instável.",
+    t21: "Os restos da entidade começam a se desmanchar em areia. Os grãos espalhados pelo corredor parecem ser atraídos para a porta no fim do caminho.",
+    t22: "Entrando, há uma sala de laboratório apenas com uma complexa máquina. Essa engenhosidade está projetando um portal instável.",
     t23: ["Do outro lado do portal, você vê", <p style={{color: 'rgb(247, 0, 91)', margin: 0, marginLeft: '10px'}}> estrelas e galáxias</p>, "."],
     t24: "Você sabe o que deve fazer. Atravessar e acabar com isso para sempre.",
 

@@ -29,11 +29,11 @@
     height: 100vh;
     width: 80%;
     float: right;
-    /* background-image: url(/public/img/cemiterioCinco.png); */
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     flex: none;
+    /* filter: brightness(80%); */
 }
 .barraEspaco {
     height: 100vh;

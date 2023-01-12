@@ -52,7 +52,6 @@
     margin-top: 3%;
     margin-right: 5%;
     float: right;
-    /* animation: var(--animationType, flying 4s linear infinite); */
     filter: sepia(0%);
     transition: 250ms;
 }
