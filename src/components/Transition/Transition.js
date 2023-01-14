@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { enemyStats, enemyStats2, chronosStats, transitionText } from '../../shared/stats';
+import { enemyStats, enemyStats2, chronosStats, transitionText, enemyStats3 } from '../../shared/stats';
 
 export const Transition = ({
     enemyVidaAtual,
@@ -18,6 +18,7 @@ export const Transition = ({
     var paragrafo3 = document.getElementById('paragrafo3')
     var paragrafo4 = document.getElementById('paragrafo4')
     var skipButton = document.getElementById('skipButton')
+    var info = document.getElementById('infoUpgrades')
     const [transitionP1, setTransitionP1] = useState(transitionText.t11)
     const [transitionP2, setTransitionP2] = useState(transitionText.t12)
     const [transitionP3, setTransitionP3] = useState(transitionText.t13)
@@ -25,7 +26,7 @@ export const Transition = ({
     const [skipDisabled, setSkipDisabled] = useState('')
 
     useEffect(() => {
-        if (enemyVidaAtual <= 0) {
+        if (enemyVidaAtual <= 0 && enemyStats3.alive) {
             setCooldown('disabled')
             setCuraCooldown('disabled')
             setChronosCooldown('disabled')
@@ -34,10 +35,11 @@ export const Transition = ({
             paragrafo2.style.opacity = 0
             paragrafo3.style.opacity = 0
             paragrafo4.style.opacity = 0
+            info.style.opacity = 0
 
             setTimeout(() => {
                 background.style.display = 'flex'
-                setTimeout(() => { background.style.opacity = 1 }, 1);
+                setTimeout(() => { background.style.opacity = 1 }, 100);
 
                 setTimeout(() => { paragrafo1.style.opacity = 1 }, 2500);
                 
@@ -51,6 +53,8 @@ export const Transition = ({
                 setTimeout(() => { paragrafo3.style.opacity = 1 }, 6500);
 
                 setTimeout(() => { paragrafo4.style.opacity = 1 }, 8500);
+
+                if (enemyStats2.alive) setTimeout(() => { info.style.opacity = 1 }, 8600);
             }, 2000);
         }
     })
@@ -71,7 +75,7 @@ export const Transition = ({
                 setTransitionP4(transitionText.t24)
             }
     
-            if (!enemyStats.alive && !enemyStats2.alive) {
+            if (!enemyStats.alive && !enemyStats2.alive && enemyStats3.alive) {
                 setTransitionP1(transitionText.t31)
                 setTransitionP2(transitionText.t32)
                 setTransitionP3(transitionText.t33)
@@ -91,10 +95,18 @@ export const Transition = ({
             setChronosCounter(chronosStats.escudoChronosInicial)
         }
 
-        skipButton.style.opacity = 0
-        background.style.opacity = 0
-        setTimeout(() => { background.style.display = 'none' }, 1500); 
-        setTimeout(() => { skipButton.style.display = 'none' }, 1500); 
+        if (!enemyStats3.alive) {
+            skipButton.style.opacity = 0
+            setTimeout(() => { paragrafo4.style.opacity = 0 }, 500);
+            setTimeout(() => { paragrafo3.style.opacity = 0 }, 1000);
+            setTimeout(() => { paragrafo2.style.opacity = 0 }, 1500);
+            setTimeout(() => { skipButton.style.display = 'none' }, 1500); 
+        } else {
+            skipButton.style.opacity = 0
+            background.style.opacity = 0
+            setTimeout(() => { background.style.display = 'none' }, 1500); 
+            setTimeout(() => { skipButton.style.display = 'none' }, 1500); 
+        }
     }
 
     return (
@@ -104,6 +116,10 @@ export const Transition = ({
             <p className={styles.text} style={{opacity: 0}} id='paragrafo3'>{transitionP3}</p>
             <p className={styles.text} style={{opacity: 0}} id='paragrafo4'>{transitionP4}</p>
             <div className={styles.buttonDiv}>
+                <div id='infoUpgrades' className={styles.infoUpgradesDiv} style={{ opacity: 0 }}>
+                    <p className={styles.infoUpgradeText}>+Vida</p>
+                    <p className={styles.infoUpgradeText}>+Chronos</p>
+                </div>
                 <button
                     style={{display: 'none', opacity: 0}}
                     className={styles.skipButton}

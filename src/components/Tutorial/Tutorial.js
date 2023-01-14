@@ -11,7 +11,7 @@ export const Tutorial = ({ modalOpen, setModalOpen, rightArrow, leftArrow, setRi
 
     const handlePaginaCounter = e => {
         if (e.target.value === 'leftArrow' && paginaCounter === 1) return;
-        if (e.target.value === 'rightArrow' && paginaCounter === 5) return;
+        if (e.target.value === 'rightArrow' && paginaCounter === 6) return;
         if (e.target.value === 'leftArrow') setPaginaCounter(paginaCounter - 1);
         if (e.target.value === 'rightArrow') setPaginaCounter(paginaCounter + 1);
         document.getElementById('textSpace').scrollBy({ top: -9000 })
@@ -21,7 +21,7 @@ export const Tutorial = ({ modalOpen, setModalOpen, rightArrow, leftArrow, setRi
         if (rightArrow) {
             setRightArrow(false);
 
-            if (paginaCounter === 5) return;
+            if (paginaCounter === 6) return;
             setPaginaCounter(paginaCounter + 1);
             document.getElementById('textSpace').scrollBy({ top: -9000 })
         }
@@ -66,6 +66,9 @@ export const Tutorial = ({ modalOpen, setModalOpen, rightArrow, leftArrow, setRi
                 break;
             case 5:
                 setPaginaText(tutorialText.p5)
+                break;
+            case 6:
+                setPaginaText(tutorialText.p6)
                 break;
         }
     })

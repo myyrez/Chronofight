@@ -7,21 +7,21 @@ export const playerStats = {
 }
 
 export const enemyStats = {
-    vidaTotal: 300,
+    vidaTotal: 450,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true,
 }
 
 export const enemyStats2 = {
-    vidaTotal: 350,
+    vidaTotal: 400,
     spriteHeight: '230px',
     spriteWidth: '230px',
     alive: true
 }
 
 export const enemyStats3 = {
-    vidaTotal: 500,
+    vidaTotal: 600,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true
@@ -37,31 +37,31 @@ export const chronosStats = {
 
     marcaNome: 'Olhar da Passagem',
     marcaChronosInicial: 2,
-    marcaChronosTotal: 3,
+    marcaChronosTotal: 4,
     marcaDescricao: "Vislumbre a vida do oponente no Fluxo Temporal e entenda suas fraquezas por uma fração de segundo.",
     marcaEfeito: "Pode apenas ser usado enquanto prepara um ataque. Se acertar, o golpe será crítico.",
 
     escudoNome: 'Vazio Infinito',
-    escudoChronosInicial: 4,
-    escudoChronosTotal: 4,
+    escudoChronosInicial: 5,
+    escudoChronosTotal: 3,
     escudoDescricao: "Uma barreira de infinitude surge ao seu redor para desacelerar quaisquer ataques e perigos. Se desfaz ao tomar um golpe.",
-    escudoEfeito: "Recebe metade de dano do ataque seguinte. O inimigo recebe metade do dano que causou. Você não morre com a habilidade ativa.",
+    escudoEfeito: "Recebe 1/4 de dano do ataque seguinte. O inimigo recebe 3/4 do dano que causou. Você não morre com a habilidade ativa.",
 }
 
 export const transitionText = {
-    t11: "Você acaba com a criatura, mas sente um chamado em algum lugar. Existem outros tentando te derrotar.",
-    t12: "Seguindo o caminho, há uma caverna na base da montanha. Uma construção se revela lá dentro, parecendo uma base desgastada.",
+    t11: "Você acaba com a criatura, mas se sente atraído pelo caminho a frente. Chronos deve estar em ameaça.",
+    t12: "Seguindo a estrada no pé da montanha, há uma caverna. Uma construção se revela lá dentro, parecendo uma base desgastada.",
     t13: "O lugar é escuro e tem um silêncio terrível, entrecortado pelo chiar de ratos. O único caminho é um corredor que parece não ter fim.",
-    t14: "Finalmente, uma porta pode ser avistada no fim do caminho. Mas alguém, ou alguma coisa, está parada na frente dela.",
+    t14: "Finalmente, uma porta pode ser avistada no fim do caminho. Mas uma figura encapuzada lentamente surge das sombras e bloqueia seu caminho.",
 
     t21: "Os restos da entidade começam a se desmanchar em areia. Os grãos espalhados pelo corredor parecem ser atraídos para a porta no fim do caminho.",
-    t22: "Entrando, há uma sala de laboratório apenas com uma complexa máquina. Essa engenhosidade está projetando um portal instável.",
+    t22: "Você entra e vê uma sala de laboratório apenas com uma complexa máquina. Essa engenhosidade está projetando um portal instável.",
     t23: ["Do outro lado do portal, você vê", <p style={{color: 'rgb(247, 0, 91)', margin: 0, marginLeft: '10px'}}> estrelas e galáxias</p>, "."],
-    t24: "Você sabe o que deve fazer. Atravessar e acabar com isso para sempre.",
+    t24: "Através do portal está o último defensor de Chronos.",
 
     t31: "Você conseguiu.",
-    t32: "Nessa imensidão, todos os momentos existem e não existem simultâneamente.",
-    t33: "O poder do Tempo está em suas mãos agora, para criar eu destruir tudo. ISSO foi o que você sempre quis.",
+    t32: "Chronos não é alguém, e sim este lugar infinito. O lugar que detém o poder do Tempo",
+    t33: "Ele está em suas mãos agora, para criar eu destruir tudo. ISSO foi o que você sempre quis.",
     t34: ["Ninguém pode impedir", <p style={{color: 'rgb(0, 254, 207)', margin: 0, marginInline: '10px'}}>Chronos</p>, "agora."]
 }
 
@@ -69,17 +69,17 @@ export const tutorialText = {
     p1: [
         "Bem-vindo ao Chronofight!",
         <br/>, <br/>,
-        "Atravesse áreas, defenda o Espaço-Tempo e use poderes para derrotar seres que querem o destruir."
+        "Atravesse áreas, encare ameaças e use poderes para derrotá-las enquanto busca por deus Chronos."
     ],
 
     p2: [
         "Opções de Combate",
         <br/>, <br/>,
-        "Chronofight é um jogo de turnos. Quando seu turno começa, é possível preparar um ataque, se curar de ferimentos ou usar Chronos, poderosos fragmentos do Espaço-Tempo que precisam de energia para serem usados.",
+        "Chronofight é um jogo de turnos. Quando seu turno começa, é possível preparar um ataque, se curar de ferimentos ou usar Chronos, poderes do deus do Tempo. Estes precisam de energia para serem usados.",
         <br/>, <br/>,
         "Também é possível jogar no teclado.",
         <br/>, <br/>,
-        "'T': abre a janela de tutorial",
+        "'T': abre e fecha a janela de tutorial",
         <br/>,
         "'A': ativa o botão 'Preparar'",
         <br/>,
@@ -113,12 +113,22 @@ export const tutorialText = {
     p5: [
         "Escolhendo Chronos",
         <br/>, <br/>,
-        "No inventário, você pode escolher Chronos que serão liberados ao progredir. Enquanto sua energia estiver zerada e efeitos não estiverem ativos em você, é possível trocá-los no meio do combate.",
+        "No inventário, você pode escolher Chronos que serão liberados ao progredir.",
         <br/>, <br/>,
-        "Geralmente, o primeiro chronos a ser usado na batalha carrega mais rápido. Tente identificar quais e monte uma sequência para derrotar seus oponentes com mais eficácia.",
+        "O primeiro Chronos a ser usado na batalha carrega mais rápido ou devagar, dependendo do poder.",
         <br/>, <br/>,
         "Para ver essa aba, clique na ampulheta acima das opções de combate.",
         <br/>, <br/>,
         "'I': abrir inventário"
+    ],
+
+    p6: [
+        "Verificando o Mapa",
+        <br/>, <br/>,
+        "Você pode checar em qual área está aqui. Com isso, você já sabe de tudo para aproveitar o jogo!",
+        <br/>, <br/>,
+        "Para ver essa aba, clique no mapa acima das opções de combate.",
+        <br/>, <br/>,
+        "'M': abrir mapa"
     ]
 }

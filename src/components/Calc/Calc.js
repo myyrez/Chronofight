@@ -21,7 +21,7 @@ import {
 import { RiDeleteBack2Line, RiTreasureMapLine, RiTreasureMapFill, RiLockFill } from "react-icons/ri";
 import { CgSandClock } from "react-icons/cg" 
 import '../../assets/fonts/ThisSucksRegular-Y9yo.ttf';
-import { chronosStats } from "../../shared/stats";
+import { chronosStats, enemyStats, enemyStats2 } from "../../shared/stats";
 
 export const Calc = ({
   blockButton,
@@ -71,8 +71,10 @@ export const Calc = ({
   const [travarConfirmar, setTravarConfirmar] = useState('disabled')
   const [acertou, setAcertou] = useState(false)
   const [errou, setErrou] = useState(false)
+  const [secondErrou, setSecondErrou] = useState(false)
   const [curou, setCurou] = useState(false)
   const [desviou, setDesviou] = useState(false)
+  const [enemyDesviou, setEnemyDesviou] = useState(false)
   const [QTE, setQTE] = useState('disabled')
   const [acertouQTE, setAcertouQTE] = useState(false)
   const [hitTiming, setHitTiming] = useState(false)
@@ -248,9 +250,11 @@ export const Calc = ({
     setClick(false)
     setAcertou(false)
     setErrou(false)
+    setSecondErrou(false)
     setCurou(false)
     setCrit(false)
     setCallSkillcheck(false)
+    setEnemyDesviou(false)
 
     getComputedStyle(document.documentElement).getPropertyValue('--borderChronos');
     if (chronosCounter === 0) document.documentElement.style.setProperty('--borderChronos', '2px solid #45dec4')
@@ -287,6 +291,9 @@ export const Calc = ({
         if (refResultado.current != 'certo' && refResultado.current != 'errado') {
           setShowResultado('errou')
           setErrou(true)
+          if (!enemyStats.alive && !enemyStats2.alive) {
+            setTimeout(() => { setSecondErrou(true) }, 1000);
+          }
           setEnemyDano(Math.floor(Math.random() * 11) + 10)
 
           if (enemyWillCrit) {
@@ -321,6 +328,9 @@ export const Calc = ({
     setTimeout(() => {
       if (refTiming.current) {
         setErrou(true)
+        if (!enemyStats.alive && !enemyStats2.alive) {
+          setTimeout(() => { setSecondErrou(true) }, 1000);
+        }
         setHitTiming(false)
         setAcertouQTE(true)
       }
@@ -335,10 +345,18 @@ export const Calc = ({
     }, 1850);
 
     setTimeout(() => {
-      if (!refAcertou.current) setErrou(true)
+      if (!refAcertou.current) {
+        setErrou(true)
+        if (!enemyStats.alive && !enemyStats2.alive) {
+          setTimeout(() => { setSecondErrou(true) }, 1000);
+        }
+      }
       
       if (refTiming.current) {
         setErrou(true)
+        if (!enemyStats.alive && !enemyStats2.alive) {
+          setTimeout(() => { setSecondErrou(true) }, 1000);
+        }
         setHitTiming(false)
       }
 
@@ -381,6 +399,7 @@ export const Calc = ({
   }
 
   const atacar = () => {
+    console.log(Math.floor(Math.random() * 10) + 1)
     setClick(true)
     setTravarConfirmar('')
     setShowResultado('')
@@ -417,17 +436,17 @@ export const Calc = ({
     }, 5000);
   }
 
-  var critDecider = Math.floor(Math.random() * 2);
   var critDmg = 1.5;
-  if (critDecider === 0) critDmg = 2;
 
-  var chanceBase = 0.1
-  var willCrit = Math.random() < chanceBase;
+  var chanceBase = 1
+  var willCrit = Math.floor(Math.random() * 10) + 1 <= chanceBase;
 
   var enemyCritDmg = 2
-  var enemyChanceBase = 0.1
-  var enemyWillCrit = Math.random() < enemyChanceBase
+  var enemyChanceBase = 1
+  var enemyWillCrit = Math.floor(Math.random() * 10) + 1 <= enemyChanceBase
 
+  var enemyDesviouBase = 3
+  var enemyDesviouCheck = Math.floor(Math.random() * 10) + 1 <= enemyDesviouBase
   
   const acerto = () => {
     setTravarConfirmar('disabled')
@@ -451,24 +470,25 @@ export const Calc = ({
       setEnemyCrit(true)
     }
 
-    if (trueResultado <= 10) setDano(10)
-    if (trueResultado > 10) setDano(Math.abs(trueResultado))
+    if (trueResultado <= 50) setDano(50)
+    if (trueResultado > 50) setDano(Math.abs(trueResultado))
 
     if (willCrit) {
-      if (trueResultado <= 10) setDano(10 * critDmg)
-      if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * critDmg))
+      if (trueResultado <= 50) setDano(50 * critDmg)
+      if (trueResultado > 50) setDano(Math.floor(Math.abs(trueResultado) * critDmg))
       setCrit(true)
     }
     if (marcaCrit) {
-      if (trueResultado <= 10) setDano(10 * 2)
-      if (trueResultado > 10) setDano(Math.floor(Math.abs(trueResultado) * 2))
+      if (trueResultado <= 50) setDano(50 * 2)
+      if (trueResultado > 50) setDano(Math.floor(Math.abs(trueResultado) * 2))
       setCrit(true)
       setChronosAtivo(false)
     }
     
     if (resposta == trueResultado) { 
       setShowResultado('certo')
-      setAcertou(true);
+      if (enemyDesviouCheck && !enemyStats.alive && enemyStats2.alive) setEnemyDesviou(true)
+      else setAcertou(true);
       setResposta('');
       trueResultado = 0
       if (chronosCounter > 0 && chronos === 'areia') setChronosCounter(chronosCounter - 1)
@@ -483,6 +503,9 @@ export const Calc = ({
     } else {
       setShowResultado('errado');
       setErrou(true);
+      if (!enemyStats.alive && !enemyStats2.alive) {
+        setTimeout(() => { setSecondErrou(true) }, 1000);
+      }
       setResposta('');
       setMarcaCrit(false)
       trueResultado = 0
@@ -577,13 +600,17 @@ export const Calc = ({
         hitTiming={hitTiming}
         enemyVidaAtual={enemyVidaAtual}/>
 
-      <div className={styles.containerRpg} style={{backgroundImage: `url(/img/background${background}.png)`}}>
+      <div
+      className={styles.containerRpg} 
+      style={{backgroundImage: `url(/img/background${background}.png)`}}>
+
         <div className={styles.characterSpace}>
           <Personagens
             setBackground={setBackground}
             setCrit={setCrit}
             desviou={desviou}
             setDesviou={setDesviou}
+            enemyDesviou={enemyDesviou}
             chronos={chronos}
             chronosTotal={chronosTotal}
             setCharEnemyMorto={setCharEnemyMorto}
@@ -607,6 +634,7 @@ export const Calc = ({
             curou={curou}
             acertou={acertou}
             errou={errou}
+            secondErrou={secondErrou}
             indicador={indicador}/>
         </div>
 

@@ -15,6 +15,8 @@ import {
 import styles from "./styles.module.css";
 
 export const Personagens = ({
+  enemyDesviou,
+  setEnemyDesviou,
   setBackground,
   setCrit,
   setEnemyCrit,
@@ -36,6 +38,7 @@ export const Personagens = ({
   curou,
   acertou,
   errou,
+  secondErrou,
   playerVidaAtual,
   setPlayerVidaAtual,
   enemyVidaAtual,
@@ -76,6 +79,17 @@ export const Personagens = ({
     { transform: 'translate(-75px)'},
     { transform: 'translate(0px)'},
   ]
+
+  const enemyDodge = [
+    { transform: 'translate(0px)'},
+    { transform: 'translate(75px)'},
+    { transform: 'translate(75px)'},
+    { transform: 'translate(75px)'},
+    { transform: 'translate(75px)'},
+    { transform: 'translate(75px)'},
+    { transform: 'translate(0px)'},
+  ]
+
   const [desativarAreia, setDesativarAreia] = useState(0)
   const [areiaCounter, setAreiaCounter] = useState(3)
   const [DOT, setDOT] = useState(false)
@@ -83,6 +97,11 @@ export const Personagens = ({
   const [enemyAtualSpriteHeight, setEnemyAtualSpriteHeight] = useState(enemyStats.spriteHeight)
   const [enemyAtualSpriteWidth, setEnemyAtualSpriteWidth] = useState(enemyStats.spriteWidth)
   const [enemyAtualImg, setEnemyAtualImg] = useState(1)
+  const [enemySecondDano, setEnemySecondDano] = useState(Math.floor(Math.random() * 11) + 10)
+
+  var enemyCritDmg = 2
+  var enemyChanceBase = 1
+  var enemyWillCrit = Math.floor(Math.random() * 10) + 1 <= enemyChanceBase
 
   var healImg = document.getElementById("healId");
   getComputedStyle(document.documentElement).getPropertyValue('--playerChronos')
@@ -106,6 +125,8 @@ export const Personagens = ({
     document.getElementById('player').style.filter = 'grayscale(60%)'
 
     if (acertou) {
+      document.getElementById('enemyDmg').textContent = Math.floor(dano)
+      document.getElementById('enemyCrit').textContent = 'crit!'
       document.getElementById('enemyDmg').style.color = '#fff'
       setEnemyVidaAtual(enemyVidaAtual - dano)
 
@@ -148,20 +169,38 @@ export const Personagens = ({
       setDesviou(false)
     }
 
+    if (enemyDesviou) {
+      document.getElementById('enemyDmg').textContent = 'desviou'
+      document.getElementById('enemyCrit').textContent = ''
+      document.getElementById('enemyDmg').hidden = false
+
+      document.getElementById('enem').animate(enemyDodge, { duration: 750 })
+      document.getElementById('player').animate([
+        { transform: 'translate(0px)' },
+        { transform: 'translate(70px)' },
+        { transform: 'translate(0px)' },
+      ], { duration: 350 })
+
+      setTimeout(() => {
+        document.getElementById('playerDmg').hidden = true
+        document.getElementById('enemyDmg').hidden = true
+      }, 1500);
+    }
+
     
     if (errou) {
       document.getElementById('playerDmg').textContent = Math.floor(enemyDano)
       document.getElementById('enemyDmg').textContent = Math.floor(dano)
       document.getElementById('enemyCrit').textContent = 'crit!'
       document.getElementById('playerCrit').textContent = 'crit!'
-      let newEnemyDano = Math.floor(enemyDano / 2)
+      let newEnemyDano = Math.floor(enemyDano / 4)
 
       if (chronosAtivo && chronos === 'escudo') {
         if ((playerVidaAtual - newEnemyDano) < 1) setPlayerVidaAtual(1)
         else setPlayerVidaAtual(playerVidaAtual - newEnemyDano)
-        setEnemyVidaAtual(enemyVidaAtual - newEnemyDano)
+        setEnemyVidaAtual(enemyVidaAtual - (newEnemyDano * 3))
         document.getElementById('playerDmg').textContent = Math.floor(newEnemyDano)
-        document.getElementById('enemyDmg').textContent = Math.floor(newEnemyDano)
+        document.getElementById('enemyDmg').textContent = Math.floor(newEnemyDano * 3)
         if (enemyCrit) {
           document.getElementById('playerCrit').hidden = false
           document.getElementById('enemyCrit').hidden = false
@@ -197,6 +236,41 @@ export const Personagens = ({
         document.getElementById('playerCrit').hidden = true
         document.getElementById('enemyCrit').hidden = true
 
+      }, 1500);
+    }
+
+
+    if (secondErrou) {
+      if (enemyWillCrit) {
+        setPlayerVidaAtual(playerVidaAtual - enemySecondDano * enemyCritDmg)
+        document.getElementById('playerSecondCrit').hidden = false
+      } else {
+        setPlayerVidaAtual(playerVidaAtual - enemySecondDano)
+        document.getElementById('playerSecondDmg').hidden = false
+      }
+
+      document.getElementById('playerSecondDmg').animate([
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
+      ], { duration: 3000 })
+
+      document.getElementById('playerSecondCrit').animate([
+        { transform: 'translate(0px, 0px)' },
+        { transform: 'translate(0px, 20px)' },
+      ], { duration: 3000 })
+
+      document.getElementById('player').animate(hit, { duration: 750 })
+
+      document.getElementById('enem').animate([
+        { transform: 'translate(0px)' },
+        { transform: 'translate(-70px)' },
+        { transform: 'translate(0px)' },
+      ], { duration: 350 })
+
+      setTimeout(() => {
+        document.getElementById('playerSecondDmg').hidden = true
+        document.getElementById('playerSecondCrit').hidden = true
+        setEnemySecondDano(Math.floor(Math.random() * 11) + 10)
       }, 1500);
     }
 
@@ -274,6 +348,8 @@ export const Personagens = ({
 
     if (enemyVidaAtual <= 0 && enemyStats.alive) {
       setTimeout(() => {
+        playerStats.vidaTotal = 65
+
         setEnemyAtualVidaTotal(enemyStats2.vidaTotal)
         setEnemyAtualSpriteHeight(enemyStats2.spriteHeight)
         setEnemyAtualSpriteWidth(enemyStats2.spriteWidth)
@@ -292,11 +368,12 @@ export const Personagens = ({
           { transform: 'translate(0px, -10px)' },
           { transform: 'translate(0, 0px)' }
         ], { duration: 4000, iterations: 'Infinity' })
-        // document.documentElement.style.setProperty('--animationType', 'flying 4s linear infinite')
       }, 3600);
     }
     if (enemyVidaAtual <= 0 && !enemyStats.alive && enemyStats2.alive) {
       setTimeout(() => {
+        playerStats.vidaTotal = 80
+
         setEnemyAtualVidaTotal(enemyStats3.vidaTotal)
         setEnemyAtualSpriteHeight(enemyStats3.spriteHeight)
         setEnemyAtualSpriteWidth(enemyStats3.spriteWidth)
@@ -351,7 +428,6 @@ export const Personagens = ({
     }, 3500);
   }
 
-  
 
   const indicadorEnem = () => {
     if (indicador === 'enem') return { display: 'flex' }
@@ -398,6 +474,8 @@ export const Personagens = ({
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
         <h1 id="playerDmg" hidden className={styles.showDanoRight}>{Math.floor(enemyDano)}</h1>
         <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
+        <h1 id="playerSecondDmg" hidden className={styles.showSecondDanoRight}>{Math.floor(enemySecondDano)}</h1>
+        <h1 id="playerSecondCrit" hidden className={styles.showSecondCritRight}>crit!</h1>
         <img
           id="player"
           src={playerStats.src}

@@ -83,6 +83,15 @@
     left: 10rem;
     z-index: 7;
 }
+.showSecondDanoRight {
+    color: #fff;
+    position: absolute;
+    font-size: 25px;
+    top: 6rem;
+    left: 10rem;
+    z-index: 7;
+    overflow: none;
+}
 .showDanoLeft {
     color: #fff;
     position: absolute;
@@ -110,10 +119,19 @@
 .showCritRight {
     color: rgb(255, 57, 57);
     position: absolute;
-    top: 5.5rem;
+    top: 4.5rem;
     left: 9.2rem;
     font-size: 20px;
     z-index: 7;
+}
+.showSecondCritRight {
+    color: rgb(255, 57, 57);
+    position: absolute;
+    top: 8rem;
+    left: 9.2rem;
+    font-size: 20px;
+    z-index: 7;
+    overflow: none;
 }
 .showCura {
     color: rgb(64, 255, 191);
@@ -136,7 +154,7 @@
 .chronosHealthIcon {
     position: absolute;
     top: 1%;
-    right: -115%;
+    right: -33%;
     color: #fff;
     font-size: 20px;
 }
@@ -146,7 +164,7 @@
     align-items: center;
     justify-content: center;
     top: 1%;
-    left: -125%;
+    left: -36%;
     color: #fff;
     font-size: 20px;
 }

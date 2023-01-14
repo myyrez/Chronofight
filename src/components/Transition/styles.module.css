@@ -29,8 +29,23 @@
     height: 20%;
     width: auto;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-self: flex-end;
+}
+
+.infoUpgradesDiv {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 30%;
+    transition: 1000ms;
+}
+
+.infoUpgradeText {
+    color: rgb(0, 254, 207);
+    margin: 0;
+    margin-block: .5rem;
+    transition: 1000ms;
 }
 
 .skipButton {
