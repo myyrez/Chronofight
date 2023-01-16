@@ -5,6 +5,7 @@
 }
 * {
     font-family: "PixeloidSansBold";
+    user-select: none;
 }
 .mainContainer {
     overflow: hidden;

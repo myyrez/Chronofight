@@ -24,7 +24,6 @@ export const Personagens = ({
   setDesviou,
   chronos,
   chronosTotal,
-  setModo,
   indicador,
   callSkillcheck,
   chronosAtivo,
@@ -99,6 +98,7 @@ export const Personagens = ({
   const [enemyAtualImg, setEnemyAtualImg] = useState(1)
   const [enemySecondDano, setEnemySecondDano] = useState(Math.floor(Math.random() * 11) + 10)
 
+  var playerVidaTotal = playerStats.vidaTotal
   var enemyCritDmg = 2
   var enemyChanceBase = 1
   var enemyWillCrit = Math.floor(Math.random() * 10) + 1 <= enemyChanceBase
@@ -241,20 +241,25 @@ export const Personagens = ({
 
 
     if (secondErrou) {
+      setEnemySecondDano(Math.floor(Math.random() * 11) + 10)
+
       if (enemyWillCrit) {
+        document.getElementById('playerSecondDmg').textContent = Math.floor(enemySecondDano * enemyCritDmg)
         setPlayerVidaAtual(playerVidaAtual - enemySecondDano * enemyCritDmg)
         document.getElementById('playerSecondCrit').hidden = false
+        document.getElementById('playerSecondDmg').hidden = false
+
+        document.getElementById('playerSecondCrit').animate([
+          { transform: 'translate(0px, 0px)' },
+          { transform: 'translate(0px, 20px)' },
+        ], { duration: 3000 })
       } else {
+        document.getElementById('playerSecondDmg').textContent = Math.floor(enemySecondDano)
         setPlayerVidaAtual(playerVidaAtual - enemySecondDano)
         document.getElementById('playerSecondDmg').hidden = false
       }
 
       document.getElementById('playerSecondDmg').animate([
-        { transform: 'translate(0px, 0px)' },
-        { transform: 'translate(0px, 20px)' },
-      ], { duration: 3000 })
-
-      document.getElementById('playerSecondCrit').animate([
         { transform: 'translate(0px, 0px)' },
         { transform: 'translate(0px, 20px)' },
       ], { duration: 3000 })
@@ -270,7 +275,6 @@ export const Personagens = ({
       setTimeout(() => {
         document.getElementById('playerSecondDmg').hidden = true
         document.getElementById('playerSecondCrit').hidden = true
-        setEnemySecondDano(Math.floor(Math.random() * 11) + 10)
       }, 1500);
     }
 
@@ -320,6 +324,7 @@ export const Personagens = ({
 
 
     if (errou && enemyCrit) {
+      document.getElementById('playerCrit').textContent = 'crit!'
       document.getElementById('playerCrit').hidden = false
 
       document.getElementById('playerCrit').animate([
@@ -339,7 +344,6 @@ export const Personagens = ({
 
     if (playerVidaAtual <= 0) {
       setTimeout(() => {
-        setModo('Ending')
         setCharEnemyMorto('char')
       }, 2000);
     }
@@ -348,7 +352,7 @@ export const Personagens = ({
 
     if (enemyVidaAtual <= 0 && enemyStats.alive) {
       setTimeout(() => {
-        playerStats.vidaTotal = 65
+        playerVidaTotal += 15
 
         setEnemyAtualVidaTotal(enemyStats2.vidaTotal)
         setEnemyAtualSpriteHeight(enemyStats2.spriteHeight)
@@ -358,6 +362,7 @@ export const Personagens = ({
       
       setTimeout(() => {
         enemyStats.alive = false
+        playerStats.vidaTotal = playerVidaTotal
         setEnemyVidaAtual(enemyAtualVidaTotal)
         setPlayerVidaAtual(playerStats.vidaTotal)
         setBackground(2)
@@ -372,7 +377,7 @@ export const Personagens = ({
     }
     if (enemyVidaAtual <= 0 && !enemyStats.alive && enemyStats2.alive) {
       setTimeout(() => {
-        playerStats.vidaTotal = 80
+        playerVidaTotal += 15
 
         setEnemyAtualVidaTotal(enemyStats3.vidaTotal)
         setEnemyAtualSpriteHeight(enemyStats3.spriteHeight)
@@ -382,6 +387,7 @@ export const Personagens = ({
       
       setTimeout(() => {
         enemyStats2.alive = false
+        playerStats.vidaTotal = playerVidaTotal
         setEnemyVidaAtual(enemyAtualVidaTotal)
         setPlayerVidaAtual(playerStats.vidaTotal)
         setBackground(3)
@@ -390,8 +396,6 @@ export const Personagens = ({
     if (enemyVidaAtual <= 0 && !enemyStats.alive && !enemyStats2.alive) {
       setTimeout(() => {
         enemyStats3.alive = false
-        // setModo('Ending')
-        // setCharEnemyMorto('enemy')
       }, 3500);
     }
   })
@@ -474,7 +478,7 @@ export const Personagens = ({
         <h1 id="playerCura" hidden className={styles.showCura}>+{cura}</h1>
         <h1 id="playerDmg" hidden className={styles.showDanoRight}>{Math.floor(enemyDano)}</h1>
         <h1 id="playerCrit" hidden className={styles.showCritRight}>crit!</h1>
-        <h1 id="playerSecondDmg" hidden className={styles.showSecondDanoRight}>{Math.floor(enemySecondDano)}</h1>
+        <h1 id="playerSecondDmg" hidden className={styles.showSecondDanoRight}></h1>
         <h1 id="playerSecondCrit" hidden className={styles.showSecondCritRight}>crit!</h1>
         <img
           id="player"

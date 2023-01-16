@@ -20,7 +20,7 @@ export const Battle = ({ setModo, setCharEnemyMorto, charEnemyMorto }) => {
     const [chronos, setChronos] = useState('areia')
 
     useEffect(() => {
-        if (turnoEnemy && enemyVidaAtual !== 0) {
+        if (turnoEnemy && enemyVidaAtual !== 0 && playerVidaAtual !== 0) {
             setIndicador('enem')
             setCooldown('disabled')
             setCuraCooldown('disabled')

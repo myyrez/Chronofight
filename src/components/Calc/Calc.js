@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import { Mapa } from "../";
+import { Morte } from "../";
 import { Tutorial } from "../";
 import { Transition } from "../";
 import { Inventario } from "../";
@@ -36,7 +37,6 @@ export const Calc = ({
   setChronosCounter,
   chronosCooldown,
   setChronosCooldown,
-  setModo,
   curaCooldown,
   setCuraCooldown,
   curaCounter,
@@ -80,6 +80,7 @@ export const Calc = ({
   const [hitTiming, setHitTiming] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
   const [background, setBackground] = useState(1)
+  const [respawn, setRespawn] = useState(false)
 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
@@ -92,6 +93,9 @@ export const Calc = ({
 
   const refMarcaCrit = useRef(marcaCrit)
   refMarcaCrit.current = marcaCrit
+
+  const refPlayerVidaAtual = useRef(playerVidaAtual)
+  refPlayerVidaAtual.current = playerVidaAtual
 
   var trueResultado;
 
@@ -308,7 +312,7 @@ export const Calc = ({
           }
 
           setTimeout(() => {
-            setTurnoEnemy(true)
+            if (refPlayerVidaAtual.current > 0) setTurnoEnemy(true)
           }, 2000);
         }
       }, 5000);
@@ -497,7 +501,7 @@ export const Calc = ({
       setMarcaCrit(false)
 
       setTimeout(() => {
-        setTurnoEnemy(true)
+        if (refPlayerVidaAtual.current > 0) setTurnoEnemy(true)
         if (chronosAtivo && chronos === 'marca') setChronosAtivo(false)
       }, 1000);
     } else {
@@ -511,7 +515,7 @@ export const Calc = ({
       trueResultado = 0
 
       setTimeout(() => {
-        setTurnoEnemy(true)
+        if (refPlayerVidaAtual.current > 0) setTurnoEnemy(true)
       }, 2000);
     }
   }
@@ -520,10 +524,16 @@ export const Calc = ({
     <div className={styles.mainContainer}>
 
       <Transition 
+        playerVidaAtual={playerVidaAtual}
         enemyVidaAtual={enemyVidaAtual}
+        setPlayerVidaAtual={setPlayerVidaAtual}
+        setEnemyVidaAtual={setEnemyVidaAtual}
+        respawn={respawn}
+        setRespawn={setRespawn}
         setCooldown={setCooldown}
         setCuraCooldown={setCuraCooldown}
         setCuraCounter={setCuraCounter}
+        setShowCuraCounter={setShowCuraCounter}
         chronos={chronos}
         setChronosCooldown={setChronosCooldown}
         setChronosCounter={setChronosCounter}
@@ -537,6 +547,16 @@ export const Calc = ({
         setLeftArrow={setLeftArrow}
         rightArrow={rightArrow}
         setRightArrow={setRightArrow}
+      />
+
+      <Morte
+        playerVidaAtual={playerVidaAtual}
+        respawn={respawn}
+        setRespawn={setRespawn}
+        setCooldown={setCooldown}
+        setCuraCooldown={setCuraCooldown}
+        setChronosCooldown={setChronosCooldown}
+        setBlockButton={setBlockButton}
       />
 
       <div className={styles.containerCalc}>
@@ -619,7 +639,6 @@ export const Calc = ({
             enemyVidaAtual={enemyVidaAtual}
             setPlayerVidaAtual={setPlayerVidaAtual}
             playerVidaAtual={playerVidaAtual}
-            setModo={setModo}
             callSkillcheck={callSkillcheck}
             setCallSkillcheck={setCallSkillcheck}
             chronosAtivo={chronosAtivo}

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { enemyStats, enemyStats2, chronosStats, transitionText, enemyStats3 } from '../../shared/stats';
+import { enemyStats, enemyStats2, chronosStats, transitionText, enemyStats3, playerStats } from '../../shared/stats';
 
 export const Transition = ({
+    playerVidaAtual,
     enemyVidaAtual,
+    setPlayerVidaAtual,
+    setEnemyVidaAtual,
+    respawn,
+    setRespawn,
     setCooldown,
     setCuraCooldown,
     setCuraCounter,
+    setShowCuraCounter,
     chronos,
     setChronosCooldown,
     setChronosCounter,
@@ -26,6 +32,47 @@ export const Transition = ({
     const [skipDisabled, setSkipDisabled] = useState('')
 
     useEffect(() => {
+        if (respawn) {
+            paragrafo1.style.opacity = 0
+            paragrafo2.style.opacity = 0
+            paragrafo3.style.opacity = 0
+            paragrafo4.style.opacity = 0
+            info.style.opacity = 0
+
+            background.style.display = 'flex'
+            setTimeout(() => { background.style.opacity = 1 }, 100);
+
+            setTimeout(() => {
+                setRespawn(false)
+                setCooldown('')
+                setCuraCooldown('')
+                setCuraCounter(0)
+                setShowCuraCounter('‎')
+                setChronosCooldown('')
+                setBlockButton('')
+                setPlayerVidaAtual(playerStats.vidaTotal)
+
+                if (chronos === 'areia') {
+                    setChronosCounter(chronosStats.areiaChronosInicial)
+                }
+                if (chronos === 'marca') {
+                    setChronosCounter(chronosStats.marcaChronosInicial)
+                }
+                if (chronos === 'escudo') {
+                    setChronosCounter(chronosStats.escudoChronosInicial)
+                }
+
+                if (enemyStats.alive) setEnemyVidaAtual(enemyStats.vidaTotal)
+                if (!enemyStats.alive && enemyStats2.alive) setEnemyVidaAtual(enemyStats2.vidaTotal)
+                if (!enemyStats.alive && !enemyStats2.alive) setEnemyVidaAtual(enemyStats3.vidaTotal)
+            }, 1600);
+
+            setTimeout(() => {
+                background.style.opacity = 0
+                setTimeout(() => { background.style.display = 'none' }, 1600);
+            }, 2500);
+        }
+
         if (enemyVidaAtual <= 0 && enemyStats3.alive) {
             setCooldown('disabled')
             setCuraCooldown('disabled')
@@ -64,6 +111,7 @@ export const Transition = ({
         setCooldown('')
         setCuraCooldown('')
         setCuraCounter(0)
+        setShowCuraCounter('‎')
         setChronosCooldown('')
         setBlockButton('')
 

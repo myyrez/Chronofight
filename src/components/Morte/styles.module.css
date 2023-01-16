@@ -1,0 +1,49 @@
+.morteFundo {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    opacity: 0;
+    transition: 1500ms;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    user-select: none;
+}
+
+.morteBanner {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-block: 2px solid rgba(196, 196, 196, 0.621);
+}
+
+.youDied {
+    color: rgb(150, 0, 0);
+}
+
+.tryAgain {
+    height: 2rem;
+    padding: 1rem;
+    display: none;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(31, 31, 31, 0.71);
+    border: none;
+    color: #fff;
+    transition: 250ms;
+    border-radius: 5px;
+}
+
+.tryAgain:hover {
+    cursor: pointer;
+    background-color: rgba(57, 57, 57, 0.71);
+    box-shadow: none;
+}
