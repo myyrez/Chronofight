@@ -409,6 +409,39 @@
     opacity: 0;
 }
 
+.tipDiv {
+    position: absolute;
+    top: 20%;
+    right: 1%;
+    width: 22%;
+    height: auto;
+    color: #fff;
+    padding-left: 0.5rem;
+    z-index: 9;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.747);
+    backdrop-filter: blur(4px);
+    border-radius: 7px;
+    transition: 350ms;
+}
+
+.tipDivButton {
+    background-color: transparent;
+    border: none;
+    /* border-radius: 7px; */
+    border-radius: 0px 7px 7px 0px;
+    color: rgb(255, 91, 91);
+    transition: 350ms;
+}
+
+.tipDivButton:hover {
+    cursor: pointer;
+    box-shadow: none;
+    background-color: rgba(46, 46, 46, 0.509);
+}
+
 
 .atkIcon {
     font-size: 50px;

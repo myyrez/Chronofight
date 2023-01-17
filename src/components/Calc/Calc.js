@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import { Mapa } from "../";
 import { Morte } from "../";
+import { Intro } from "../";
 import { Tutorial } from "../";
 import { Transition } from "../";
 import { Inventario } from "../";
@@ -191,6 +192,13 @@ export const Calc = ({
           setOpacidade(document.documentElement.style.setProperty('--display', 'none'))
       }, 350);
     }
+  }
+
+  var tipDiv = document.getElementById('tipDiv')
+
+  const closeTipDiv = () => {
+    tipDiv.style.opacity = 0
+    setTimeout(() => { tipDiv.style.display = 'none' }, 400);
   }
 
   const mapaClick = () => {
@@ -523,6 +531,8 @@ export const Calc = ({
   return (
     <div className={styles.mainContainer}>
 
+      <Intro/>
+
       <Transition 
         playerVidaAtual={playerVidaAtual}
         enemyVidaAtual={enemyVidaAtual}
@@ -673,6 +683,11 @@ export const Calc = ({
           <p>Chronos podem ser trocados quando:</p>
           <p>- Sua barra de energia estiver zerada.</p>
           <p>- Chronos não estiverem ativos em você.</p>
+        </div>
+
+        <div className={styles.tipDiv} id='tipDiv'>
+          <p style={{paddingRight: '.5rem'}}>Todo o progresso será perdido ao recarregar a página. É possível terminar o jogo sem recarregá-la.</p>
+          <button className={styles.tipDivButton} onClick={ closeTipDiv }>X</button>
         </div>
 
         <div style={{display: ''}} className={styles.buttonSpace}>
