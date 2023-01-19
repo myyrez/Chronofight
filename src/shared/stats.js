@@ -7,21 +7,21 @@ export const playerStats = {
 }
 
 export const enemyStats = {
-    vidaTotal: 450,
+    vidaTotal: 550,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true,
 }
 
 export const enemyStats2 = {
-    vidaTotal: 400,
+    vidaTotal: 500,
     spriteHeight: '230px',
     spriteWidth: '230px',
     alive: true
 }
 
 export const enemyStats3 = {
-    vidaTotal: 600,
+    vidaTotal: 700,
     spriteHeight: '300px',
     spriteWidth: '350px',
     alive: true
@@ -60,9 +60,9 @@ export const transitionText = {
     t24: "Através do portal está o último defensor de Chronos.",
 
     t31: "Você conseguiu.",
-    t32: "Chronos não é alguém, e sim este lugar infinito. O lugar que detém o poder do Tempo",
-    t33: "Ele está em suas mãos agora, para criar eu destruir tudo. ISSO foi o que você sempre quis.",
-    t34: ["Ninguém pode impedir", <p style={{color: 'rgb(0, 254, 207)', margin: 0, marginInline: '10px'}}>Chronos</p>, "agora."]
+    t32: "Chronos não é mais alguém, e sim este lugar infinito. O lugar que se tornou o próprio Tempo devido às engenharias dos mortais.",
+    t33: "Ele está em suas mãos agora. Seus poderes reunidos podem criar e destruir tudo. Assim se inicia...",
+    t34: ["O novo mundo de", <p style={{color: 'rgb(0, 254, 207)', margin: 0, marginLeft: '10px'}}>Chronos</p>, "."]
 }
 
 export const tutorialText = {

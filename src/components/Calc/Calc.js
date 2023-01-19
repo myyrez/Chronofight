@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import { Mapa } from "../";
 import { Morte } from "../";
 import { Intro } from "../";
+import { Creditos } from "../";
 import { Tutorial } from "../";
 import { Transition } from "../";
 import { Inventario } from "../";
@@ -82,6 +83,7 @@ export const Calc = ({
   const [modalOpen, setModalOpen] = useState(false)
   const [background, setBackground] = useState(1)
   const [respawn, setRespawn] = useState(false)
+  const [callCreditos, setCallCreditos] = useState(false)
 
   const refResultado = useRef(showResultado)
   refResultado.current = showResultado
@@ -533,7 +535,8 @@ export const Calc = ({
 
       <Intro/>
 
-      <Transition 
+      <Transition
+        setCallCreditos={setCallCreditos}
         playerVidaAtual={playerVidaAtual}
         enemyVidaAtual={enemyVidaAtual}
         setPlayerVidaAtual={setPlayerVidaAtual}
@@ -748,6 +751,8 @@ export const Calc = ({
           setChronosTotal={setChronosTotal}
           chronosAtivo={chronosAtivo}/>
       </div>
+
+      <Creditos callCreditos={callCreditos}/>
     </div>
   );
 }

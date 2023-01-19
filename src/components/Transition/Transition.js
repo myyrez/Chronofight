@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { enemyStats, enemyStats2, chronosStats, transitionText, enemyStats3, playerStats } from '../../shared/stats';
+import { enemyStats, enemyStats2, chronosStats, transitionText, enemyStats3, playerStats, } from '../../shared/stats';
 
 export const Transition = ({
+    setCallCreditos,
     playerVidaAtual,
     enemyVidaAtual,
     setPlayerVidaAtual,
@@ -92,10 +93,17 @@ export const Transition = ({
                 
                 setTimeout(() => { paragrafo2.style.opacity = 1 }, 4500);
 
-                setTimeout(() => {
-                    skipButton.style.display = 'flex'
-                    setTimeout(() => { skipButton.style.opacity = 1 }, 10);
-                }, 5100);
+                if (enemyStats2.alive) {
+                    setTimeout(() => {
+                        skipButton.style.display = 'flex'
+                        setTimeout(() => { skipButton.style.opacity = 1 }, 100);
+                    }, 5100);
+                } else {
+                    setTimeout(() => {
+                        skipButton.style.display = 'flex'
+                        setTimeout(() => { skipButton.style.opacity = 1 }, 100);
+                    }, 10500);
+                }
 
                 setTimeout(() => { paragrafo3.style.opacity = 1 }, 6500);
 
@@ -147,8 +155,10 @@ export const Transition = ({
             skipButton.style.opacity = 0
             setTimeout(() => { paragrafo4.style.opacity = 0 }, 500);
             setTimeout(() => { paragrafo3.style.opacity = 0 }, 1000);
-            setTimeout(() => { paragrafo2.style.opacity = 0 }, 1500);
             setTimeout(() => { skipButton.style.display = 'none' }, 1500); 
+            setTimeout(() => { paragrafo2.style.opacity = 0 }, 1500);
+            setTimeout(() => { paragrafo1.style.opacity = 0 }, 3500);
+            setTimeout(() => { setCallCreditos(true) }, 4500);
         } else {
             skipButton.style.opacity = 0
             background.style.opacity = 0
