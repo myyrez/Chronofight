@@ -32,7 +32,7 @@ export const Creditos = ({ callCreditos }) => {
                 </div>
                 <div className={styles.blocoVoce} id='bloco3'>
                     <div className={styles.funcaoVoce}>Agradecimentos Especiais</div>
-                    <div className={styles.voce}>Paty Franco<br/>Giovanna<br/>Iurin<br/>Kaio<br/>Rafael Lindemann</div>
+                    <div className={styles.voce}>Patrícia Franco<br/>Giovanna Andrade<br/>Iurin Queiroz<br/>Kaio (jose)<br/>Rafael Lindemann</div>
                 </div>
                 <div className={styles.blocoVoce} id='bloco4'>
                     <div className={styles.voce}>e você!<br/>Obrigado por jogar! ♥</div>

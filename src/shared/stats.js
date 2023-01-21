@@ -69,7 +69,7 @@ export const tutorialText = {
     p1: [
         "Bem-vindo ao Chronofight!",
         <br/>, <br/>,
-        "Atravesse áreas, encare ameaças e use poderes para derrotá-las enquanto busca por deus Chronos."
+        "Atravesse áreas, encare ameaças e use poderes para derrotá-las enquanto busca por Chronos."
     ],
 
     p2: [
