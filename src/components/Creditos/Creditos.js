@@ -23,16 +23,16 @@ export const Creditos = ({ callCreditos }) => {
         <div className={styles.creditosBackground} id='creditosBackground'>
             <div className={styles.creditosContainer} id='creditosContainer'>
                 <div className={styles.bloco} id='bloco1'>
-                    <div className={styles.funcao}>Desenvolvimento<br/>Programação<br/>Design</div>
+                    <div className={styles.funcao}>Criado por</div>
                     <div className={styles.nome}>Matheus Franco</div>
                 </div>
                 <div className={styles.bloco} id='bloco2'>
-                    <div className={styles.funcao}>Ícones<br/>Artes</div>
+                    <div className={styles.funcao}>Artes & Ícones</div>
                     <div className={styles.nome}>Ansimuz<br/>CodeManuPro<br/>DavitMasia<br/>Deep_Fold<br/>LuizGdeMelo<br/>React Icons</div>
                 </div>
                 <div className={styles.blocoVoce} id='bloco3'>
-                    <div className={styles.funcaoVoce}>Agradecimentos Especiais</div>
-                    <div className={styles.voce}>Patrícia Franco<br/>Giovanna Andrade<br/>Iurin Queiroz<br/>Kaio (jose)<br/>Rafael Lindemann</div>
+                    <div className={styles.funcaoVoce}>Agradecimentos</div>
+                    <div className={styles.voce}>Patrícia Franco<br/>Giovanna Andrade<br/>Iurin Queiroz<br/>Kaio Ignacio<br/>Rafael Lindemann</div>
                 </div>
                 <div className={styles.blocoVoce} id='bloco4'>
                     <div className={styles.voce}>e você!<br/>Obrigado por jogar! ♥</div>
