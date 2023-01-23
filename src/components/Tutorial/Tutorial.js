@@ -79,7 +79,7 @@ export const Tutorial = ({ modalOpen, setModalOpen, rightArrow, leftArrow, setRi
                 <button
                     id="xButton"
                     className={styles.closeButton}
-                    onClick={ closeModal }>X
+                    onClick={ closeModal }><p className={styles.xText}>x</p>
                 </button>
 
                 <div className={styles.imgSpace}>

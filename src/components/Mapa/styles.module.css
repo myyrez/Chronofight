@@ -1,3 +1,7 @@
+.location svg path {
+    cursor: url('../../assets/image/newRedCursor.png'), auto;
+}
+
 .mapaContainer {
     float: left;
     display: flex;

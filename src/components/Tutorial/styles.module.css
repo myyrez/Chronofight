@@ -73,12 +73,17 @@
     transition: 100ms;
 }
 .changePageButton:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .changePageButton:active {
     margin-top: .5rem;
 }
 
+.xText {
+    margin: 0;
+    margin-bottom: 4px;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
+}
 .closeButton {
     padding: 1rem;
     height: 1rem;
@@ -99,8 +104,8 @@
 }
 .closeButton:hover {
     box-shadow: none;
-    cursor: pointer;
-    transform: rotate(45deg);
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
+    transform: rotate(46deg);
     color: rgb(255, 91, 91);
 }
 

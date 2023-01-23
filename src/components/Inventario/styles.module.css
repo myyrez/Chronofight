@@ -26,7 +26,7 @@
 .invtrButton:hover {
     box-shadow: none;
     background-color: rgba(90, 90, 90, 0.343);
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .invtrButton:focus {
     box-shadow: none;
@@ -69,10 +69,12 @@
 }
 .conditionSign {
     margin: 0;
+    margin-left: 2px;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 
 .conditionSignDiv:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     background-color: rgba(114, 114, 114, 0.607);
 }
 
@@ -129,7 +131,7 @@
 .invtrArmas:hover {
     box-shadow: none;
     background-color: #33a592;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     transition: 250ms ease-in-out;
 }
 .invtrArmas:focus {
@@ -144,6 +146,7 @@
     font-size: 2rem;
     margin: auto;
     background-color: transparent;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .svgEmblema {
     font-size: 2rem;

@@ -6,6 +6,7 @@
 * {
     font-family: "PixeloidSansBold";
     user-select: none;
+    cursor: url('../../assets/image/newRedCursor.png'), auto;
 }
 .mainContainer {
     overflow: hidden;
@@ -145,7 +146,7 @@
 }
 .buttonApagar:hover {
     background-color: #a90000;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -171,7 +172,7 @@
 }
 .buttonMenos:hover {
     background-color: #4800ff;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -213,7 +214,7 @@
 }
 .buttonPad:hover {
     background-color: #717171;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -238,6 +239,7 @@
     transition: ease-out 150ms;
     margin-top: .25rem;
     margin-bottom: .25rem;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 
 .buttonCalcUlt {
@@ -278,10 +280,11 @@
     padding-bottom: 1.2rem;
     font-size: 20px;
     background-color: rgba(0%, 0%, 0%, 0.0001);
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .buttonCalcAtk:hover {
     background-color: #a3333a;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     height: 9.5rem;
     font-size: 1.05rem;
     margin-top: 0;
@@ -289,7 +292,7 @@
 }
 .buttonCalcUlt:hover {
     background-color: #267e6f;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     height: 9.5rem;
     font-size: 1.05rem;
     margin-top: 0;
@@ -297,7 +300,7 @@
 }
 .buttonCalcCurar:hover {
     background-color: #6433a3;
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     height: 9.5rem;
     font-size: 17px;
     margin-top: 0;
@@ -318,6 +321,7 @@
     transform: var(--rotarChevron, rotate(180deg));
     color: #fff;
     transition: 150ms;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .chevronDiv {
     position: absolute;
@@ -335,7 +339,7 @@
     transition: ease-in-out 150ms;
 }
 .chevronDiv:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     background-color: rgba(101, 101, 101, 0.461);
 }
 
@@ -343,6 +347,7 @@
     transform: var(--rotarMapa, rotate(0deg));
     color: #fff;
     transition: ease-in-out 150ms;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .mapDiv {
     position: absolute;
@@ -360,14 +365,21 @@
     transition: ease-in-out 150ms;
 }
 .mapDiv:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     background-color: rgba(101, 101, 101, 0.461);
 }
 
 .buttonTutorial {
     color: #fff;
     transition: 150ms;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
+
+svg path {
+    /* d: path("M 488 192 H 336 v 56 c 0 39.7 -32.3 72 -72 72 s -72 -32.3 -72 -72 V 126.4 l -64.9 39 C 107.8 176.9 96 197.8 96 220.2 v 47.3 l -80 46.2 C 0.7 322.5 -4.6 342.1 4.3 357.4 l 80 138.6 c 8.8 15.3 28.4 20.5 43.7 11.7 L 231.4 448 H 368 c 35.3 0 64 -28.7 64 -64 h 16 c 17.7 0 32 -14.3 32 -32 v -64 h 8 c 13.3 0 24 -10.7 24 -24 v -48 c 0 -13.3 -10.7 -24 -24 -24 Z m 147.7 -37.4 L 555.7 16 C 546.9 0.7 527.3 -4.5 512 4.3 L 408.6 64 H 306.4 c -12 0 -23.7 3.4 -33.9 9.7 L 239 94.6 c -9.4 5.8 -15 16.1 -15 27.1 V 248 c 0 22.1 17.9 40 40 40 s 40 -17.9 40 -40 v -88 h 184 c 30.9 0 56 25.1 56 56 v 28.5 l 80 -46.2 c 15.3 -8.9 20.5 -28.4 11.7 -43.7 Z"); */
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
+}
+
 .buttonTutorialDiv {
     position: absolute;
     top: 2%;
@@ -384,7 +396,7 @@
     transition: 150ms;
 }
 .buttonTutorialDiv:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     transform: rotate(35deg);
     background-color: rgba(101, 101, 101, 0.461);
 
@@ -437,7 +449,7 @@
 }
 
 .tipDivButton:hover {
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
     box-shadow: none;
     background-color: rgba(46, 46, 46, 0.509);
 }
@@ -447,19 +459,23 @@
     font-size: 50px;
     margin-left: 5px;
     background-color: transparent;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .chronoIcon {
     font-size: 50px;
     /* margin-left: 5px; */
     background-color: transparent;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .healIcon {
     font-size: 50px;
     background-color: transparent;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .deleteIcon {
     font-size: 25px;
     background-color: transparent;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
 .buttonDivCalc {
     display: flex;
@@ -471,7 +487,9 @@
     vertical-align: middle;
     justify-content: center;
     margin-inline: .75rem;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
+
 
 @keyframes TransitioningBackground {
     0% {
@@ -520,9 +538,8 @@
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     background-image: (linear-gradient(to right, #4f1e2d, #4800ff));
-    cursor: pointer;
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;
 }
-/* button:focus, */
 button:hover {
     box-shadow: 0 8px 12px rgba(0,0,0,0.1), inset 0 10px 30px rgba(255,255,255,0.3), inset 0 2px 2px rgba(255,255,255,0.2);
 }

@@ -49,5 +49,4 @@
 }
 
 .introButton:hover {
-    cursor: pointer;
-}
+    cursor: url('../../assets/image/newPointerCursor.png'), auto;}
